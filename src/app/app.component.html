@@ -1,11 +1,39 @@
 <ion-app>
     <ion-header *ngIf="this.router.url != LOGIN_PATH">
         <header>
-            <!-- TODO: le header -->
+            <div class="previous">
+                <!--<button><img src="../assets/previous.svg" alt="Icone précédent"></button>-->
+            </div>
+            <img src="../assets/logo.svg" class="logo">
+            <div class="logout">
+                <button (click)="logout()">
+                    <img src="../assets/logout.svg" alt="Icone de déconnexion">
+                    Déconnexion
+                </button>
+            </div>
         </header>
     </ion-header>
 
     <ion-content>
         <ion-router-outlet></ion-router-outlet>
     </ion-content>
+
+    <footer *ngIf="this.router.url != LOGIN_PATH">
+        <button>
+            <img src="../assets/navigation/active/preparation.svg" alt="Icone de préparation">
+            Préparations
+        </button>
+        <button>
+            <img src="../assets/navigation/active/delivery.svg" alt="Icone de livraison">
+            Livraisons
+        </button>
+        <button>
+            <img src="../assets/navigation/active/reception.svg" alt="Icone de réception">
+            Réceptions
+        </button>
+        <button>
+            <img src="../assets/navigation/active/collect.svg" alt="Icone de collecte">
+            Collectes
+        </button>
+    </footer>
 </ion-app>

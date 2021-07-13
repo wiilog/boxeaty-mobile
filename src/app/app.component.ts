@@ -10,6 +10,10 @@ import {NavService} from "./services/nav.service";
 export class AppComponent {
     readonly LOGIN_PATH = NavService.path(NavService.LOGIN);
 
-    constructor(public router: Router) {
+    constructor(public router: Router, public navService: NavService) {
+    }
+
+    logout() {
+        this.navService.setRoot(NavService.LOGIN);
     }
 }
