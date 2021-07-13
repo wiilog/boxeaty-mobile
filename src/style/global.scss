@@ -15,7 +15,32 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @import "variables";
+@import "fonts";
+@import "forms";
+
+@for $i from 1 through 5 {
+    .mt-#{$i} {
+        margin-top: #{$i * 0.5}rem !important;
+    }
+}
 
 body {
-  font-size: 5vw;
+    font-size: 5vw;
+}
+
+h1 {
+    font-family: "Autumn Collection", serif;
+    font-size: 2rem;
+}
+
+a {
+    color: $orange;
+    text-decoration: underline;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }

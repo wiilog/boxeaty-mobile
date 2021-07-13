@@ -1,0 +1,73 @@
+@import "variables";
+
+@mixin button($type: primary) {
+    display: inline-block;
+    border-radius: 4px;
+    border: 1px solid $orange;
+    height: 37px;
+    line-height: 37px;
+    font-size: 1.1rem;
+    font-weight: bold;
+    padding: 0 20px;
+    text-decoration: none;
+    text-align: center;
+    transition: all 200ms;
+    white-space: nowrap;
+
+    &:not(:disabled), &:not(:disabled:hover) {
+        cursor: pointer;
+    }
+
+    &.big {
+        height: 55px;
+        line-height: 55px;
+        padding: 0 35px;
+        font-size: 1.2rem;
+    }
+
+    &:not(.icon) {
+        min-width: 150px;
+    }
+
+    @if $type == primary {
+        background: $orange;
+        border-color: $orange;
+        color: white;
+
+        &:hover {
+            background: $orange-light;
+            border-color: $orange-light;
+        }
+
+        &:disabled, &:disabled:hover {
+            background: lighten($orange, 15);
+            border-color: lighten($orange, 15);
+        }
+    } @else if $type == secondary {
+        background: $orange-lightest;
+        border-color: $orange-lightest;
+        color: $orange;
+
+        &:hover {
+            border-color: $orange-light;
+            color: $orange-light;
+        }
+    } @else if $type == outline {
+        background: white;
+        border-color: $orange;
+        color: $orange;
+
+        &:hover {
+            border-color: $orange-light;
+            color: $orange-light;
+        }
+    } @else if $type == silent {
+        background: transparent;
+        border-color: transparent;
+        color: $blue-light;
+
+        &:hover {
+            color: $blue;
+        }
+    }
+}

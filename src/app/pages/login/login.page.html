@@ -1,0 +1,16 @@
+<main>
+    <img src="../../../assets/logo.svg" alt="Logo BoxEaty">
+    <h1 class="mt-5">Connexion</h1>
+
+    <form class="mt-4" (ngSubmit)="submit()">
+        <bx-field [form]="form" name="email" label="Identifiant" placeholder="adresse@example.com" required></bx-field>
+        <bx-field [form]="form" name="password" label="Mot de passe" required></bx-field>
+        <bx-field [form]="form" name="rememberMe" class="inline right" label="Se souvenir de moi"></bx-field>
+
+        <div class="center mt-3">
+            <button class="primary" type="submit">Se connecter</button>
+        </div>
+    </form>
+
+    <a class="mt-2">Mot de passe oublié</a>
+</main>

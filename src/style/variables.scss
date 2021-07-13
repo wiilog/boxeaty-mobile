@@ -1,15 +1,21 @@
 $font-family: 'Retroyal';
 $font-size: 1vh;
 
-$orange-lightest: #FDEFE8;
-$orange-light: #ec6e2e;
 $orange: #EB611B;
-
-$blue-lighter: #363869;
+$green: #76B39D;
 $blue: #1E1F44;
+$lightgreen: #F9F9EC;
+$red: #890620;
+$yellow: #FFBF00;
 
-$grey: #F8F8F8;
-$grey-dark: #E5E5E5;
+$orange-light: #EC6E2E;
+$orange-lightest: #FDEFE8;
+$blue-light: #363869;
+
+$grey-lighter: #BDBDBD;
+$grey-light: #E5E5E5;
+$grey: #BDBDBD;
+$grey-dark: #6C757D;
 
 $invalid-lighter: #fff0f0;
 $invalid: #ff4a4a;
@@ -21,24 +27,21 @@ $black: #000000;
 $primary: $orange;
 
 $base-colors: (
-  "primary": $primary,
+    "primary": $primary,
 );
 
 @function toRGBParams ($color) {
-  @return red($color) + ", " + green($color) + ", " + blue($color);
+    @return red($color) + ", " + green($color) + ", " + blue($color);
 }
 
 :root {
-  --ion-font-family: 'Retroyal';
-  --ion-font-size: 1vh;
-
-  @each $name, $value in $base-colors {
-    $contrast-color: $white;
-    --ion-color-#{$name}: #{$value};
-    --ion-color-#{$name}-rgb: #{toRGBParams($value)};
-    --ion-color-#{$name}-contrast: #{$contrast-color};
-    --ion-color-#{$name}-contrast-rgb: #{toRGBParams($contrast-color)};
-    --ion-color-#{$name}-shade: #{adjust-color($value, $lightness: -10%)};
-    --ion-color-#{$name}-tint: #{adjust-color($value, $lightness: 10%)};
-  }
+    @each $name, $value in $base-colors {
+        $contrast-color: $white;
+        --ion-color-#{$name}: #{$value};
+        --ion-color-#{$name}-rgb: #{toRGBParams($value)};
+        --ion-color-#{$name}-contrast: #{$contrast-color};
+        --ion-color-#{$name}-contrast-rgb: #{toRGBParams($contrast-color)};
+        --ion-color-#{$name}-shade: #{adjust-color($value, $lightness: -10%)};
+        --ion-color-#{$name}-tint: #{adjust-color($value, $lightness: 10%)};
+    }
 }

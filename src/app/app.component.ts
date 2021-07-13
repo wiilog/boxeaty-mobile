@@ -1,11 +1,15 @@
-import { Component } from '@angular/core';
-import { Plugins } from '@capacitor/core';
+import {Component} from '@angular/core';
+import {Router} from '@angular/router';
+import {NavService} from "./services/nav.service";
 
 @Component({
-  selector: 'app-root',
-  templateUrl: 'app.component.html',
-  styleUrls: ['app.component.scss'],
+    selector: 'app-root',
+    templateUrl: 'app.component.html',
+    styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor() {}
+    readonly LOGIN_PATH = NavService.path(NavService.LOGIN);
+
+    constructor(public router: Router) {
+    }
 }

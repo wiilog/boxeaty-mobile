@@ -1,3 +1,11 @@
 <ion-app>
-  <ion-router-outlet></ion-router-outlet>
+    <ion-header *ngIf="this.router.url != LOGIN_PATH">
+        <header>
+            <!-- TODO: le header -->
+        </header>
+    </ion-header>
+
+    <ion-content>
+        <ion-router-outlet></ion-router-outlet>
+    </ion-content>
 </ion-app>
