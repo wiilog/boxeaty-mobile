@@ -1,0 +1,43 @@
+@import "../../../style/variables";
+@import "../../../style/mixins";
+
+h1 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    overflow-y: scroll;
+
+    font-family: "Autumn Collection", serif;
+    font-size: 2rem;
+    margin: 0;
+    padding: 12px;
+
+    span {
+        width: 100%;
+        text-align: center;
+        color: $blue;
+    }
+
+    &.border {
+        border-bottom: 1px solid $grey-light;
+    }
+
+    &.shadow {
+        box-shadow: 0 1px 5px rgba(#000000, 10%);
+    }
+}
+
+button {
+    @include button(outline-blue);
+
+    min-width: auto;
+    font-weight: 400;
+
+    &:not(:first-child) {
+        margin-left: 8px;
+    }
+
+    &.active {
+        background: $grey-light;
+    }
+}

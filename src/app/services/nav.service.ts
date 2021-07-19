@@ -11,10 +11,12 @@ export class NavService {
 
     public static readonly LOGIN = 'login';
     public static readonly HOME = 'home';
+    public static readonly LOADING = 'loading';
 
     private static readonly ROUTES = {
         login: '/login',
         home: '/home',
+        loading: '/loading',
     };
 
     public constructor(private navController: NavController, private route: ActivatedRoute) {

@@ -29,7 +29,8 @@ npm-debug.log*
 /platforms
 /plugins
 /www
-/src/config/*.ts
+/src/config/*
 
 /android/app/src/main/assets/capacitor.config.json
 /capacitor.config.json
+/credentials.json

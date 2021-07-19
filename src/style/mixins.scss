@@ -13,6 +13,7 @@
     text-align: center;
     transition: all 200ms;
     white-space: nowrap;
+    font-family: Retroyal, sans-serif;
 
     &:not(:disabled), &:not(:disabled:hover) {
         cursor: pointer;
@@ -52,7 +53,7 @@
             border-color: $orange-light;
             color: $orange-light;
         }
-    } @else if $type == outline {
+    } @else if $type == outline-orange {
         background: white;
         border-color: $orange;
         color: $orange;
@@ -61,6 +62,10 @@
             border-color: $orange-light;
             color: $orange-light;
         }
+    } @else if $type == outline-blue {
+        background: white;
+        border-color: $blue;
+        color: $blue;
     } @else if $type == silent {
         background: transparent;
         border-color: transparent;
