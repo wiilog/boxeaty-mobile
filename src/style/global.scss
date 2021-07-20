@@ -112,3 +112,10 @@ a {
     align-items: center;
     width: 100%;
 }
+
+.section .silent {
+    text-transform: lowercase;
+    font-weight: normal;
+    font-size: 1rem;
+    margin: 0 5px;
+}

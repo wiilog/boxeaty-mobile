@@ -2,7 +2,7 @@ import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef} f
 import {Form} from '@app/utils/form';
 
 @Component({
-    selector: 'bxi-header',
+    selector: 'bx-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
 })
