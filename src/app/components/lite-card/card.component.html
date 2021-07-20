@@ -1,5 +1,6 @@
-<main>
-    <app-bx-card-wrapper [title]="client">
+<div class="card">
+    <div class="client-informations">{{ client }}</div>
+    <div class="order-informations">
         <div class="amount">
             <div class="crate">
                 <img src="assets/crate.svg">
@@ -12,5 +13,5 @@
         <div class="number">
             Commande N°{{ orderNumber }}
         </div>
-    </app-bx-card-wrapper>
-</main>
+    </div>
+</div>

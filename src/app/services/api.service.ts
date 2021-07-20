@@ -14,9 +14,9 @@ export class ApiService {
 
     public static readonly URL: string = `${API_HOST}/api/mobile`;
 
-    public static readonly CONFIG = {
-        method: 'POST',
-        endpoint: '/config',
+    public static readonly PING = {
+        method: 'GET',
+        endpoint: '/ping',
     };
 
     public static readonly LOGIN = {
@@ -24,9 +24,9 @@ export class ApiService {
         endpoint: '/login',
     };
 
-    public static readonly PING = {
+    public static readonly DEPOSITORIES = {
         method: 'GET',
-        endpoint: '/ping',
+        endpoint: '/depositories',
     };
 
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
