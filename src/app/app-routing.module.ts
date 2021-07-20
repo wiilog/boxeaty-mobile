@@ -19,6 +19,11 @@ const routes: Routes = [
         path: 'loading',
         loadChildren: () => import('./pages/loading/loading.module').then(m => m.LoadingPageModule)
     },
+    {
+        path: 'delivery-rounds',
+        loadChildren: () => import('./pages/delivery/delivery-rounds/delivery-rounds.module').then(m => m.DeliveryRoundsPageModule)
+    },
+
 ];
 
 @NgModule({

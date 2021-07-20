@@ -11,11 +11,16 @@ export class NavService {
 
     public static readonly LOGIN = 'login';
     public static readonly HOME = 'home';
+    public static readonly PREPARATIONS = 'preparations';
+    public static readonly DELIVERY_ROUNDS = 'delivery_rounds';
+    public static readonly COLLECTS = 'collects';
+    public static readonly RECEPTIONS = 'receptions';
     public static readonly LOADING = 'loading';
 
     private static readonly ROUTES = {
         login: '/login',
         home: '/home',
+        delivery_rounds: '/delivery-rounds',
         loading: '/loading',
     };
 

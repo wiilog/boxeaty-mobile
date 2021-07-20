@@ -29,6 +29,11 @@ export class ApiService {
         endpoint: '/depositories',
     };
 
+    public static readonly AVAILABLE_DELIVERY_ROUNDS = {
+        method: 'GET',
+        endpoint: '/delivery-rounds',
+    };
+
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
 
     constructor(private nav: NavService, private client: HttpClient, private toastService: ToastService) {

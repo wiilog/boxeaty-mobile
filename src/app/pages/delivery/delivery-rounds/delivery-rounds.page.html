@@ -1,0 +1,14 @@
+<main *ngIf="deliveryRounds">
+    <div *ngFor="let rounds of deliveryRounds | keyvalue">
+        <bx-section><span [innerHTML]="formatSection(rounds.key)"></span></bx-section>
+        <bx-card-order-detail *ngFor="let round of rounds.value"
+                              [title]="round.orders.join(', ')"
+                              [status]="round.status"
+                              [label]="'Dépôt ' + round.depository"
+                              [round]="round.number"
+                              [crateAmount]="round.crate_amount"
+                              [tokenAmount]="round.token_amount">
+
+        </bx-card-order-detail>
+    </div>
+</main>
