@@ -36,6 +36,8 @@ export class ApiService {
 
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
 
+    private token: string;
+
     constructor(private nav: NavService, private client: HttpClient, private toastService: ToastService) {
     }
 
@@ -49,8 +51,15 @@ export class ApiService {
     public request({method, endpoint}: { method: string, endpoint: string }, params = null): Observable<any> {
         const options = {
             body: params ? JSON.stringify(params) : null,
+            headers: undefined,
             withCredentials: false,
         };
+
+        if(this.token) {
+            options.headers = {
+                Authorization: `Bearer ${this.token}`,
+            };
+        }
 
         if(params) {
             endpoint = endpoint.replace(/{(\w+)}/g, (match, name) => {

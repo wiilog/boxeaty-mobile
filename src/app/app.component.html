@@ -19,26 +19,26 @@
     </ion-content>
 
     <footer *ngIf="this.router.url != LOGIN_PATH">
-        <button (click)="navigatePreparations()" [class.active]="this.router.url == PREPARATION_PATH">
+        <button (click)="navigatePreparations()" [class.active]="current === PREPARATIONS">
             <img
-                [src]="'../assets/navigation/' + (this.router.url == PREPARATION_PATH ? 'active' : 'off') + '/preparation.svg'"
+                [src]="'../assets/navigation/' + (current === PREPARATIONS ? 'active' : 'off') + '/preparation.svg'"
                 alt="Icone de préparation">
             Préparations
         </button>
-        <button (click)="navigateDeliveries()" [class.active]="this.router.url == DELIVERY_PATH">
+        <button (click)="navigateDeliveries()" [class.active]="current === DELIVERIES">
             <img
-                [src]="'../assets/navigation/' + (this.router.url == DELIVERY_PATH ? 'active' : 'off') + '/delivery.svg'"
+                [src]="'../assets/navigation/' + (current === DELIVERIES ? 'active' : 'off') + '/delivery.svg'"
                 alt="Icone de livraison">
             Livraisons
         </button>
-        <button (click)="navigateCollects()" [class.active]="this.router.url == COLLECT_PATH">
-            <img [src]="'../assets/navigation/' + (this.router.url == COLLECT_PATH ? 'active' : 'off') + '/collect.svg'"
+        <button (click)="navigateReceptions()" [class.active]="current === RECEPTIONS">
+            <img [src]="'../assets/navigation/' + (current === RECEPTIONS ? 'active' : 'off') + '/reception.svg'"
                  alt="Icone de réception">
             Réceptions
         </button>
-        <button (click)="navigateReceptions()" [class.active]="this.router.url == RECEPTION_PATH">
+        <button (click)="navigateCollects()" [class.active]="current === COLLECTS">
             <img
-                [src]="'../assets/navigation/' + (this.router.url == RECEPTION_PATH ? 'active' : 'off') + '/reception.svg'"
+                [src]="'../assets/navigation/' + (current === COLLECTS ? 'active' : 'off') + '/collect.svg'"
                 alt="Icone de collecte">
             Collectes
         </button>

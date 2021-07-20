@@ -12,10 +12,13 @@ import {ApiService} from '@app/services/api.service';
 })
 export class AppComponent {
     readonly LOGIN_PATH = NavService.path(NavService.LOGIN);
-    readonly PREPARATION_PATH = NavService.path(NavService.PREPARATIONS);
-    readonly DELIVERY_PATH = NavService.path(NavService.DELIVERY_ROUNDS);
-    readonly COLLECT_PATH = NavService.path(NavService.COLLECTS);
-    readonly RECEPTION_PATH = NavService.path(NavService.RECEPTIONS);
+
+    readonly PREPARATIONS = `preparations`;
+    readonly DELIVERIES = `deliveries`;
+    readonly COLLECTS = `collects`;
+    readonly RECEPTIONS = `receptions`;
+
+    public current: string;
 
     constructor(private platform: Platform, private storage: StorageService,
                 private api: ApiService, public router: Router,
@@ -27,10 +30,22 @@ export class AppComponent {
 
     navigatePreparations() {
         this.navService.push(NavService.HOME);
+        this.current = this.PREPARATIONS;
     }
 
     navigateDeliveries() {
         this.navService.push(NavService.DELIVERY_ROUNDS);
+        this.current = this.DELIVERIES;
+    }
+
+    navigateReceptions() {
+        this.navService.push(NavService.HOME);
+        this.current = this.RECEPTIONS;
+    }
+
+    navigateCollects() {
+        this.navService.push(NavService.HOME);
+        this.current = this.COLLECTS;
     }
 
     logout() {
