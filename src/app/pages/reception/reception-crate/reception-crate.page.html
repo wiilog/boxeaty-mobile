@@ -1,7 +1,7 @@
 <ion-header>
   <ion-toolbar>
     <ion-title class="ion-text-center">
-        <bx-header [options]="depositories" (change)="depositoryChanged($event)" shadow><h1>SELECTION CAISSE</h1></bx-header>
+        <bx-header [options]="depositories" (change)="depositoryChanged($event)" shadow>Sélection caisse</bx-header>
     </ion-title>
   </ion-toolbar>
 </ion-header>
@@ -11,7 +11,7 @@
         <bx-section>CAISSE</bx-section>
         <div class="crates" *ngIf="crates">
             <bx-card-wrapper *ngFor="let crate of crates" [rightTitle]="crate.crateNumber" [leftTitle]="crate.crateLocation">
-                <bx-item [label]="crate.crateType" [border]="false" [icon]="'reception/terminer.svg'" (action)="goToCrate(crate.crateId)"></bx-item>
+                <bx-item [label]="crate.crateType" [border]="false" [icon]="'reception/terminer.svg'" (action)="goToCrate(crate.crateNumber)"></bx-item>
             </bx-card-wrapper>
         </div>
     </div>
