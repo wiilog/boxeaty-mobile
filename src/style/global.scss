@@ -15,7 +15,100 @@
 @import "~@ionic/angular/css/flex-utils.css";
 
 @import "variables";
+@import "fonts";
+@import "forms";
+
+@for $i from 1 through 5 {
+    .mt-#{$i} {
+        margin-top: #{$i * 0.5}rem !important;
+    }
+}
 
 body {
-  font-size: 5vw;
+    font-size: 5vw;
+}
+
+header {
+    height: 80px;
+    background: $blue;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+
+    .previous, .logout {
+        width: 25%;
+    }
+
+    .logout {
+        display: flex;
+        justify-content: flex-end;
+
+        button {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background: none;
+            color: white;
+            font-weight: bold;
+
+            img {
+                height: 20px;
+                margin-bottom: 5px;
+            }
+        }
+    }
+
+    .previous button {
+        background: none;
+
+        img {
+            height: 20px;
+        }
+    }
+
+    .logo {
+        height: 45px;
+    }
+}
+
+footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    width: 100%;
+    box-shadow: 0 3px 10px rgba(#000000, 10%);
+    height: 64px;
+    z-index: 5;
+
+    button {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: white;
+
+        img {
+            height: 25px;
+            width: 25px;
+            margin-bottom: 5px;
+        }
+    }
+}
+
+h1 {
+    font-family: "Autumn Collection", serif;
+    font-size: 2rem;
+}
+
+a {
+    color: $orange;
+    text-decoration: underline;
+}
+
+.center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 }

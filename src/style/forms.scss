@@ -1,0 +1,109 @@
+@import "variables";
+@import "mixins";
+
+:focus {
+    outline: none;
+}
+
+form {
+    width: 80%;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+
+    &.inline {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        &.right {
+            justify-content: flex-end;
+        }
+
+        input {
+            margin-left: 7px;
+        }
+    }
+
+    &:not(:first-child) {
+        margin-top: 16px;
+    }
+
+    input {
+        display: block;
+    }
+
+    input:not([type="checkbox"]) {
+        height: 48px;
+        border-radius: 5px;
+        padding: 0 12px;
+        background: white;
+        border: none;
+        margin-top: 4px;
+        width: 100%;
+        color: black;
+        font-weight: 600;
+    }
+
+    input[type="checkbox"] {
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        background: white;
+        border-radius: 100%;
+
+        &:checked {
+            background: #EB611B;
+        }
+
+        &:checked:after {
+            content: '';
+            display: block;
+            width: 100%;
+            height: 100%;
+            background: url('../assets/checked.svg');
+        }
+    }
+
+    &.error input {
+        border: 1px solid $invalid;
+        color: $invalid;
+        font-size: 0.9rem;
+    }
+}
+
+button, a {
+    text-align: left;
+
+    &.primary {
+        @include button(primary);
+    }
+
+    &.secondary {
+        @include button(secondary);
+    }
+
+    &.outline {
+        @include button(outline);
+    }
+
+    &.silent {
+        @include button(silent);
+    }
+
+    &.icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 35px;
+        height: 35px;
+        padding: 0;
+    }
+
+    .icon {
+        display: inline-block;
+        margin-right: 5px;
+    }
+}
