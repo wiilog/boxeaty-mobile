@@ -5,11 +5,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {IonicModule} from '@ionic/angular';
 import {HttpClientModule} from '@angular/common/http';
 import {FieldComponent} from './components/field/field.component';
-import {HeaderComponent} from "@app/components/header/header.component";
-import {SectionComponent} from "@app/components/section/section.component";
+import {HeaderComponent} from '@app/components/header/header.component';
+import {SectionComponent} from '@app/components/section/section.component';
+import {CardWrapperComponent} from '@app/components/card-wrapper/card-wrapper.component';
 
 @NgModule({
-    declarations: [FieldComponent, HeaderComponent, SectionComponent],
+    declarations: [FieldComponent, HeaderComponent, SectionComponent, CardWrapperComponent],
     imports: [
         AngularCommonModule,
         FormsModule,
@@ -21,6 +22,7 @@ import {SectionComponent} from "@app/components/section/section.component";
         FieldComponent,
         HeaderComponent,
         SectionComponent,
+        CardWrapperComponent,
         FormsModule,
         ReactiveFormsModule
     ],

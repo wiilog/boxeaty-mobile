@@ -1,5 +1,5 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
-import {Form} from "@app/utils/form";
+import {Form} from '@app/utils/form';
 
 @Component({
     selector: 'bxi-header',
@@ -8,7 +8,7 @@ import {Form} from "@app/utils/form";
 })
 export class HeaderComponent implements OnInit {
 
-    public readonly NO_OPTIONS = "Wittjwk_@S5LDHwG+E%0pi-/zWEn(9u+";
+    public readonly NO_OPTIONS = 'Wittjwk_@S5LDHwG+E%0pi-/zWEn(9u+';
 
     @ViewChild('wrapper') wrapper: ElementRef;
 
@@ -19,7 +19,7 @@ export class HeaderComponent implements OnInit {
     public shadow: boolean;
 
     @Input()
-    public options: Array<{label: string, value: string|number}>|string = this.NO_OPTIONS;
+    public options: Array<{label: string; value: string|number}>|string = this.NO_OPTIONS;
 
     @Output()
     public change = new EventEmitter<string|number>();

@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
-import {StorageService} from "@app/services/storage.service";
-import {Depository} from "@app/entities/depository";
+import {StorageService} from '@app/services/storage.service';
+import {Depository} from '@app/entities/depository';
 
 @Component({
     selector: 'app-home',
@@ -9,7 +9,7 @@ import {Depository} from "@app/entities/depository";
 })
 export class HomePage implements OnInit {
 
-    public depositories: Array<{label: string, value: number}> = null;
+    public depositories: Array<{label: string; value: number}> = null;
 
     constructor(private storage: StorageService) {
     }

@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {Form} from "@app/utils/form";
-import {ApiService} from "@app/services/api.service";
-import {NavService} from "@app/services/nav.service";
+import {Form} from '@app/utils/form';
+import {ApiService} from '@app/services/api.service';
+import {NavService} from '@app/services/nav.service';
 import configuration from '../../../config/credentials.json';
 
 @Component({
@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
     ngOnInit() {
     }
 
-    async submit(configuration: {email: string, password: string} = null) {
+    async submit(configuration: {email: string; password: string} = null) {
         const data = configuration || this.form.process();
 
         if(data) {

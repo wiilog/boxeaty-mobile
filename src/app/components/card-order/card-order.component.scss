@@ -1,0 +1,28 @@
+@import "~style/variables";
+
+.amount {
+    display: flex;
+    padding: 10px 0 0 10px;
+
+    img {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    .crate {
+        display: flex;
+        margin-right: 40px;
+        font-weight: 700;
+    }
+
+    .token {
+        display: flex;
+        font-weight: 700;
+    }
+}
+
+.number {
+    margin: 10px 0 0 10px;
+    font-size: 15px;
+}

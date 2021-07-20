@@ -1,0 +1,47 @@
+@import "~style/variables";
+
+.card {
+
+    .client-informations {
+        background-color: $grey-light;
+        width: 100%;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        padding: 5px 5px 5px 10px;
+    }
+
+    .order-informations {
+        border: 1px solid lightgrey;
+        border-top: none;
+        border-radius: 0 0 5px 5px;
+        background-color: white;
+        height: 70px;
+    }
+
+    .amount {
+        display: flex;
+        padding: 10px 0 0 10px;
+
+        img {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+
+        .crate {
+            display: flex;
+            margin-right: 40px;
+            font-weight: 700;
+        }
+
+        .token {
+            display: flex;
+            font-weight: 700;
+        }
+    }
+
+    .number {
+        margin: 10px 0 0 10px;
+        font-size: 15px;
+    }
+}
