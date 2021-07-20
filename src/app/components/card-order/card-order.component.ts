@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'app-bxi-card',
+  selector: 'bx-card-order',
   templateUrl: './card-order.component.html',
   styleUrls: ['./card-order.component.scss'],
 })

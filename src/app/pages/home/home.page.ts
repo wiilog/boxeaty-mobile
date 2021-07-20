@@ -3,7 +3,7 @@ import {StorageService} from '@app/services/storage.service';
 import {Depository} from '@app/entities/depository';
 
 @Component({
-    selector: 'app-home',
+    selector: 'bx-home',
     templateUrl: './home.page.html',
     styleUrls: ['./home.page.scss'],
 })

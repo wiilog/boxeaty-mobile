@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
-import {NavService} from "./services/nav.service";
+import {NavService} from './services/nav.service';
 import {Platform} from '@ionic/angular';
-import {StorageService} from "@app/services/storage.service";
-import {ApiService} from "@app/services/api.service";
+import {StorageService} from '@app/services/storage.service';
+import {ApiService} from '@app/services/api.service';
 
 @Component({
-    selector: 'app-root',
+    selector: 'bx-root',
     templateUrl: 'app.component.html',
     styleUrls: ['app.component.scss'],
 })
