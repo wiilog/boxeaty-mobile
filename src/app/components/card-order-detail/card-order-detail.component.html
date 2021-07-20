@@ -1,0 +1,10 @@
+<bx-card-wrapper [title]="title">
+    <div class="container">
+        <div class="client">
+            <div class="state">{{ state || '-' }}</div>
+            <div class="label">{{ label || '-' }}</div>
+            <div class="tour">Tournée N°{{ tour || '-' }}</div>
+        </div>
+        <bx-card-content [crateAmount]="crateAmount" [tokenAmount]="tokenAmount"></bx-card-content>
+    </div>
+</bx-card-wrapper>

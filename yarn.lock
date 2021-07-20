@@ -1218,6 +1218,11 @@
     "@babel/helper-validator-identifier" "^7.14.5"
     to-fast-properties "^2.0.0"
 
+"@capacitor-community/sqlite@^3.1.2-1":
+  version "3.1.2-1"
+  resolved "https://registry.yarnpkg.com/@capacitor-community/sqlite/-/sqlite-3.1.2-1.tgz#290d941628c3f24cf56fdfd694e7cc2ea56f5757"
+  integrity sha512-2migtXT4+GOQIJTxysYAyD9B/NVCFqZa9t6aXWxicHxmexZoFOed6FGdD9qHw25zPcKWi84JUzWtFtrHPglmgw==
+
 "@capacitor/android@^3.1.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-3.1.1.tgz#7bfca661a7aacd162694d7e7a81747da79ed20ae"

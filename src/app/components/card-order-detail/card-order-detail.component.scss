@@ -1,0 +1,31 @@
+@import "~style/variables";
+
+.container {
+    display: flex;
+
+    .client {
+        padding: 10px;
+
+        .state {
+            background-color: rgba($orange, 10%);
+            color: $orange;
+            font-size: 18px;
+            padding: 3px 7px;
+            border-radius: 5px;
+            text-align: center;
+        }
+
+        .label {
+            font-size: 15px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+
+        .tour {
+            margin-top: 3px;
+            font-size: 15px;
+            font-weight: 400;
+            color: $grey-dark;
+        }
+    }
+}
