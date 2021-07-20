@@ -8,5 +8,11 @@ import {Component, Input} from '@angular/core';
 export class CardOrderDetailComponent {
 
     @Input()
-    public title: string;
+    public state: string;
+
+    @Input()
+    public label: string;
+
+    @Input()
+    public tour: string;
 }
