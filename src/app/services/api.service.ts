@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
 import {tap, timeout} from 'rxjs/operators';
 import {NavService} from '@app/services/nav.service';
@@ -36,12 +36,12 @@ export class ApiService {
 
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
 
-    private token: string;
+    private _token: string;
 
     constructor(private nav: NavService, private client: HttpClient, private toastService: ToastService) {
     }
 
-    private static objectToURI(params: {[name: string]: string|number}): string {
+    private static objectToURI(params: { [name: string]: string | number }): string {
         return Object.keys(params)
             .filter(key => key)
             .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
@@ -55,17 +55,17 @@ export class ApiService {
             withCredentials: false,
         };
 
-        if(this.token) {
+        if (this._token) {
             options.headers = {
-                Authorization: `Bearer ${this.token}`,
+                Authorization: `Bearer ${this._token}`,
             };
         }
 
-        if(params) {
+        if (params) {
             endpoint = endpoint.replace(/{(\w+)}/g, (match, name) => {
                 const value = params[name];
 
-                if(value !== undefined) {
+                if (value !== undefined) {
                     delete params[name];
                     return value;
                 } else {
@@ -74,9 +74,9 @@ export class ApiService {
             });
         }
 
-        if((method === `GET` || method === `DELETE`) && params) {
+        if ((method === `GET` || method === `DELETE`) && params) {
             const queryParams = ApiService.objectToURI(params);
-            if(queryParams) {
+            if (queryParams) {
                 endpoint += (endpoint.indexOf('?') !== -1 ? '&' : '?') + queryParams;
             }
         }
@@ -86,12 +86,20 @@ export class ApiService {
             .pipe(
                 timeout(ApiService.VERIFICATION_SERVICE_TIMEOUT),
                 tap(
-                async (result: any) => this.toastService.show(result && result.message),
-                async () => {
-                    await this.toastService.show(`Une erreur est survenue lors de la communication avec le serveur, merci de contacter un responsable d'établissement`);
-                    await this.nav.setRoot(NavService.HOME);
-                },
-            ));
+                    async (result: any) => this.toastService.show(result && result.message),
+                    async (error: HttpErrorResponse) => {
+                        if (error.status === 401) {
+                            this.token = null;
+                            await this.toastService.show(`Une autre session est déjà ouverte, vous avez été déconnecté`);
+                            await this.nav.setRoot(NavService.LOGIN);
+                        } else {
+                            await this.toastService.show(`Une erreur est survenue lors de la communication avec le serveur, merci de contacter un responsable d'établissement`);
+                        }
+                    },
+                ));
     }
 
+    set token(value: string) {
+        this._token = value;
+    }
 }

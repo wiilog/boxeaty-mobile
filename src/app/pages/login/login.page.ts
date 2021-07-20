@@ -14,7 +14,6 @@ export class LoginPage implements OnInit {
     public form = Form.create({
         email: Form.email(true),
         password: Form.password(true),
-        rememberMe: Form.checkbox(),
     });
 
     constructor(private api: ApiService, private navService: NavService) {
@@ -34,6 +33,7 @@ export class LoginPage implements OnInit {
         if(data) {
             const result = await this.api.request(ApiService.LOGIN, data).toPromise();
             if(result.success) {
+                this.api.token = result.token;
                 this.navService.setRoot(NavService.LOADING);
             }
         }
