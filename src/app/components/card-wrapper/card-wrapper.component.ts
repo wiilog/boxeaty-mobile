@@ -8,5 +8,8 @@ import {Component, Input} from '@angular/core';
 export class CardWrapperComponent {
 
     @Input()
-    public title: string;
+    public rightTitle: string;
+
+    @Input()
+    public leftTitle: string;
 }

@@ -12,11 +12,15 @@ export class NavService {
     public static readonly LOGIN = 'login';
     public static readonly HOME = 'home';
     public static readonly LOADING = 'loading';
+    public static readonly RECEPTION_MENU = 'reception_menu';
+    public static readonly RECEPTION_CRATE = 'reception_crate';
 
     private static readonly ROUTES = {
         login: '/login',
         home: '/home',
         loading: '/loading',
+        reception_menu: '/reception-menu',
+        reception_crate: '/reception-crate',
     };
 
     public constructor(private navController: NavController, private route: ActivatedRoute) {

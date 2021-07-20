@@ -29,6 +29,11 @@ export class ApiService {
         endpoint: '/depositories',
     };
 
+    public static readonly CRATES = {
+        method: 'GET',
+        endpoint: '/crates',
+    };
+
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
 
     constructor(private nav: NavService, private client: HttpClient, private toastService: ToastService) {
@@ -59,14 +64,12 @@ export class ApiService {
                 }
             });
         }
-
         if((method === `GET` || method === `DELETE`) && params) {
             const queryParams = ApiService.objectToURI(params);
             if(queryParams) {
                 endpoint += (endpoint.indexOf('?') !== -1 ? '&' : '?') + queryParams;
             }
         }
-
         return this.client
             .request(method, ApiService.URL + endpoint, options)
             .pipe(
@@ -75,7 +78,6 @@ export class ApiService {
                 async (result: any) => this.toastService.show(result && result.message),
                 async () => {
                     await this.toastService.show(`Une erreur est survenue lors de la communication avec le serveur, merci de contacter un responsable d'établissement`);
-                    await this.nav.setRoot(NavService.HOME);
                 },
             ));
     }
