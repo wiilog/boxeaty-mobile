@@ -8,9 +8,28 @@ import {FieldComponent} from './components/field/field.component';
 import {HeaderComponent} from '@app/components/header/header.component';
 import {SectionComponent} from '@app/components/section/section.component';
 import {CardWrapperComponent} from '@app/components/card-wrapper/card-wrapper.component';
+import {CardComponent} from '@app/components/card/card.component';
+import {CardClientComponent} from '@app/components/card-client/card-client.component';
+import {CardContentComponent} from '@app/components/card-content/card-content.component';
+import {CardOrderComponent} from '@app/components/card-order/card-order.component';
+import {ItemComponent} from "@app/components/item/item.component";
+import {ButtonComponent} from "@app/components/button/button.component";
+import {CardOrderDetailComponent} from "@app/components/card-order-detail/card-order-detail.component";
 
 @NgModule({
-    declarations: [FieldComponent, HeaderComponent, SectionComponent, CardWrapperComponent],
+    declarations: [
+        FieldComponent,
+        HeaderComponent,
+        SectionComponent,
+        CardWrapperComponent,
+        CardComponent,
+        CardClientComponent,
+        CardContentComponent,
+        CardOrderComponent,
+        ItemComponent,
+        ButtonComponent,
+        CardOrderDetailComponent
+    ],
     imports: [
         AngularCommonModule,
         FormsModule,
@@ -24,7 +43,14 @@ import {CardWrapperComponent} from '@app/components/card-wrapper/card-wrapper.co
         SectionComponent,
         CardWrapperComponent,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        CardComponent,
+        CardClientComponent,
+        CardContentComponent,
+        CardOrderComponent,
+        ItemComponent,
+        ButtonComponent,
+        CardOrderDetailComponent
     ],
 })
 export class CommonModule {

@@ -6,7 +6,7 @@ import {StorageService} from "@app/services/storage.service";
 import {ViewWillEnter} from '@ionic/angular';
 
 @Component({
-    selector: 'app-loading',
+    selector: 'bx-loading',
     templateUrl: './loading.page.html',
     styleUrls: ['./loading.page.scss'],
 })

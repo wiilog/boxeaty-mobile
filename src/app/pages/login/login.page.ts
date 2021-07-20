@@ -5,7 +5,7 @@ import {NavService} from '@app/services/nav.service';
 import configuration from '../../../config/credentials.json';
 
 @Component({
-    selector: 'app-login',
+    selector: 'bx-login',
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.scss'],
 })
