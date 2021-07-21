@@ -1,4 +1,7 @@
 <div class="card" [class.disabled]="disabled">
-    <div class="title"><!--{{ title }}-->EatSalad Pessac</div>
+    <div class="title">
+        <span>{{ leftTitle }}</span>
+        <span>{{ rightTitle }}</span>
+    </div>
     <ng-content></ng-content>
 </div>

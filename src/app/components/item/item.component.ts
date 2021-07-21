@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'bx-item',
@@ -9,4 +9,19 @@ export class ItemComponent {
 
     @Input()
     public label: string;
+
+    @Input()
+    public border: boolean;
+
+    @Input()
+    public icon: string;
+
+    @Output()
+    public action = new EventEmitter<void>();
+
+    onImageClick() {
+        if (this.action) {
+            this.action.emit();
+        }
+    }
 }

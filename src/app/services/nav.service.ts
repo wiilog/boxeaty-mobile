@@ -17,6 +17,8 @@ export class NavService {
     public static readonly COLLECTS = 'collects';
     public static readonly RECEPTIONS = 'receptions';
     public static readonly LOADING = 'loading';
+    public static readonly RECEPTION_MENU = 'reception_menu';
+    public static readonly RECEPTION_CRATE = 'reception_crate';
 
     private static readonly ROUTES = {
         login: '/login',
@@ -24,6 +26,8 @@ export class NavService {
         delivery_rounds: '/delivery-rounds',
         select_delivery: '/select-delivery',
         loading: '/loading',
+        reception_menu: '/reception-menu',
+        reception_crate: '/reception-crate',
     };
 
     public constructor(private navController: NavController, private route: ActivatedRoute) {

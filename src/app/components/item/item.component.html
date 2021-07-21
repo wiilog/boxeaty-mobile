@@ -1,3 +1,6 @@
-<div class="content">
-    <div class="label">{{ label }}</div>
+<div class="content" [class.border]="border">
+    <div class="item-content">
+        <span>{{ label }}</span>
+        <img src="../assets/{{icon}}" *ngIf="icon" (click)="onImageClick()">
+    </div>
 </div>

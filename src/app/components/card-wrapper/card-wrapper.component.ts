@@ -11,5 +11,8 @@ export class CardWrapperComponent {
     public disabled: boolean;
 
     @Input()
-    public title: string;
+    public rightTitle: string;
+
+    @Input()
+    public leftTitle: string;
 }

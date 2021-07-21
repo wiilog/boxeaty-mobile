@@ -1,0 +1,20 @@
+@import "../../../../style/variables";
+
+.main-menu {
+    padding: 10px;
+    height: 100%;
+    button {
+        img {
+            width: 50%;
+            height: 50%;
+            display: block;
+            margin: 0 auto;
+        }
+        height: 40%;
+        width: 100%;
+        background-color: $orange-light;
+        color: white;
+        border-radius: 5px;
+        text-align: center;
+    }
+}

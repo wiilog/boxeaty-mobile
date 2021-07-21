@@ -20,6 +20,14 @@ const routes: Routes = [
         loadChildren: () => import('./pages/loading/loading.module').then(m => m.LoadingPageModule)
     },
     {
+        path: 'reception-menu',
+        loadChildren: () => import('./pages/reception/reception-menu/reception-menu.module').then( m => m.ReceptionMenuPageModule)
+    },
+    {
+        path: 'reception-crate',
+        loadChildren: () => import('./pages/reception/reception-crate/reception-crate.module').then( m => m.ReceptionCratePageModule)
+    },
+    {
         path: 'delivery-rounds',
         loadChildren: () => import('./pages/delivery/delivery-rounds/delivery-rounds.module').then(m => m.DeliveryRoundsPageModule)
     },

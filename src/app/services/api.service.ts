@@ -30,6 +30,11 @@ export class ApiService {
         endpoint: '/depositories',
     };
 
+    public static readonly CRATES = {
+        method: 'GET',
+        endpoint: '/crates',
+    };
+
     public static readonly AVAILABLE_DELIVERY_ROUNDS = {
         method: 'GET',
         endpoint: '/delivery-rounds',
@@ -86,7 +91,6 @@ export class ApiService {
                 endpoint += (endpoint.indexOf('?') !== -1 ? '&' : '?') + queryParams;
             }
         }
-
         return this.client
             .request(method, ApiService.URL + endpoint, options)
             .pipe(

@@ -12,6 +12,7 @@ import {ApiService} from '@app/services/api.service';
 })
 export class AppComponent {
     readonly LOGIN_PATH = NavService.path(NavService.LOGIN);
+    readonly RECEPTION_MENU = NavService.RECEPTION_MENU;
 
     readonly PREPARATIONS = `preparations`;
     readonly DELIVERIES = `deliveries`;
@@ -50,5 +51,9 @@ export class AppComponent {
 
     logout() {
         this.navService.setRoot(NavService.LOGIN);
+    }
+
+    goTo(route: string, args = {}) {
+        this.navService.push(route, args);
     }
 }

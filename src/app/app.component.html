@@ -31,7 +31,7 @@
                 alt="Icone de livraison">
             Livraisons
         </button>
-        <button (click)="navigateReceptions()" [class.active]="current === RECEPTIONS">
+        <button (click)="this.goTo(this.RECEPTION_MENU)" [class.active]="current === RECEPTIONS">
             <img [src]="'../assets/navigation/' + (current === RECEPTIONS ? 'active' : 'off') + '/reception.svg'"
                  alt="Icone de réception">
             Réceptions

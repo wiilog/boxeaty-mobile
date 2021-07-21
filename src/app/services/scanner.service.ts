@@ -6,41 +6,31 @@ import {Plugins} from '@capacitor/core';
 })
 export class ScannerService {
 
-    private body;
-
     constructor() {
     }
 
     public scan(success = null, failure = null) {
         const {BarcodeScanner} = Plugins;
-
-        this.show();
-        BarcodeScanner.startScan().then(result => {
-            this.hide();
-
-            if (result.hasContent && success != null) {
-                success(result.content);
-            } else if(!result.hasContent && failure != null) {
+        // check or request permission
+        BarcodeScanner.showBackground();
+        BarcodeScanner.stopScan();
+        BarcodeScanner.checkPermission({ force: true }).then((status) => {
+            if (status.granted) {
+                BarcodeScanner.hideBackground(); // make background of WebView transparent
+                BarcodeScanner.startScan().then(result => {
+                    if (result.hasContent && success != null) {
+                        BarcodeScanner.showBackground();
+                        BarcodeScanner.stopScan();
+                        success(result.content);
+                    } else if(!result.hasContent && failure != null) {
+                        BarcodeScanner.showBackground();
+                        BarcodeScanner.stopScan();
+                        failure();
+                    }
+                });
+            } else {
                 failure();
             }
         });
     }
-
-    public hide() {
-        this.setOpacity(1);
-    }
-
-    public show() {
-        this.setOpacity(0.5);
-    }
-
-    setOpacity(value: number) {
-        if (!this.body) {
-            this.body = document.getElementsByTagName(`html`)[0];
-        }
-
-        this.body.style.transition = `opacity 500ms`;
-        this.body.style.opacity = `${value}`;
-    }
-
 }
