@@ -40,7 +40,7 @@ export class AppComponent {
     }
 
     navigateReceptions() {
-        this.navService.push(NavService.HOME);
+        this.navService.push(NavService.RECEPTION_MENU);
         this.current = this.RECEPTIONS;
     }
 

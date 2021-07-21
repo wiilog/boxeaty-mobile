@@ -17,6 +17,9 @@ export class ButtonComponent implements OnInit, OnDestroy{
     @Input()
     public icon: string;
 
+    @Input()
+    public scanner: boolean;
+
     @Output()
     public action = new EventEmitter<string>();
 
@@ -42,13 +45,15 @@ export class ButtonComponent implements OnInit, OnDestroy{
     }
 
     startScan() {
-        this.scanning = false;
-        this.scanService.scan((response) => {
-            this.action.emit(response);
-        }, () => {
-            this.toastService.show('Une erreur est survenue lors du scan de la caisse.');
-        });
-        this.scanning = true;
+        if (this.scanner) {
+            this.scanning = false;
+            this.scanService.scan((response) => {
+                this.action.emit(response);
+            }, () => {
+                this.toastService.show('Une erreur est survenue lors du scan de la caisse.');
+            });
+            this.scanning = true;
+        }
     }
 
 }

@@ -15,6 +15,8 @@ import {CardOrderComponent} from '@app/components/card-order/card-order.componen
 import {ItemComponent} from "@app/components/item/item.component";
 import {ButtonComponent} from "@app/components/button/button.component";
 import {CardOrderDetailComponent} from "@app/components/card-order-detail/card-order-detail.component";
+import {SelectableComponent} from "./components/selectable/selectable.component";
+import {IonicSelectableComponent, IonicSelectableModule} from "ionic-selectable";
 
 @NgModule({
     declarations: [
@@ -28,14 +30,16 @@ import {CardOrderDetailComponent} from "@app/components/card-order-detail/card-o
         CardOrderComponent,
         ItemComponent,
         ButtonComponent,
-        CardOrderDetailComponent
+        SelectableComponent,
+        CardOrderDetailComponent,
     ],
     imports: [
         AngularCommonModule,
         FormsModule,
         IonicModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        IonicSelectableModule
     ],
     exports: [
         FieldComponent,
@@ -50,7 +54,9 @@ import {CardOrderDetailComponent} from "@app/components/card-order-detail/card-o
         CardOrderComponent,
         ItemComponent,
         ButtonComponent,
-        CardOrderDetailComponent
+        CardOrderDetailComponent,
+        SelectableComponent,
+        IonicSelectableComponent
     ],
 })
 export class CommonModule {

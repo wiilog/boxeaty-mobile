@@ -30,6 +30,16 @@ export class ApiService {
         endpoint: '/depositories',
     };
 
+    public static readonly LOCATIONS = {
+        method: 'GET',
+        endpoint: '/locations',
+    };
+
+    public static readonly QUALITIES = {
+        method: 'GET',
+        endpoint: '/qualities',
+    };
+
     public static readonly CRATES = {
         method: 'GET',
         endpoint: '/crates',
@@ -38,6 +48,16 @@ export class ApiService {
     public static readonly AVAILABLE_DELIVERY_ROUNDS = {
         method: 'GET',
         endpoint: '/delivery-rounds',
+    };
+
+    public static readonly BOX = {
+        method: 'GET',
+        endpoint: '/box',
+    };
+
+    public static readonly REVERSE_TRACKING = {
+        method: 'POST',
+        endpoint: '/reverse-tracking',
     };
 
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;

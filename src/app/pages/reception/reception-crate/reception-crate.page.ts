@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {StorageService} from '@app/services/storage.service';
 import {Depository} from '@app/entities/depository';
 import {ApiService} from "../../../services/api.service";
+import {NavService} from "../../../services/nav.service";
+import {ToastService} from "../../../services/toast.service";
 
 @Component({
   selector: 'app-reception-crate',
@@ -13,7 +15,7 @@ export class ReceptionCratePage implements OnInit {
     public depositories: Array<{label: string; value: number}> = null;
     public crates: Array<{crateNumber: string; crateLocation: string; crateType: string; crateId: number}> = null;
 
-    constructor(private storage: StorageService, private api: ApiService) {
+    constructor(private storage: StorageService, private api: ApiService, private nav: NavService, private toast: ToastService) {
     }
 
     ionViewWillEnter() {
@@ -34,8 +36,12 @@ export class ReceptionCratePage implements OnInit {
         });
     }
 
-    goToCrate(crate: number) {
-        console.log(crate);
-        console.log('GOTOCRATE');
+    goToCrate(crateNumber: string) {
+        const crate = this.crates.find((c) => c.crateNumber === crateNumber);
+        if (crate) {
+            this.nav.push(NavService.RECEPTION_BOX_SCAN, {crateNumber});
+        } else {
+            this.toast.show('La caisse flashée n\'existe pas dans la liste actuelle.');
+        }
     }
 }

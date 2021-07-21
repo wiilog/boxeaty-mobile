@@ -15,6 +15,8 @@ export class StorageService {
 
     private static readonly REFERENTIAL = `referential`;
     public static readonly DEPOSITORY = `depository`;
+    public static readonly LOCATION = `location`;
+    public static readonly QUALITY = `quality`;
 
     private static readonly ID = `id`;
     private static readonly NAME = `name`;
@@ -25,6 +27,14 @@ export class StorageService {
             [StorageService.ID]: `int primary key`,
             [StorageService.NAME]: `text not null`,
             [StorageService.DESCRIPTION]: `text`,
+        },
+        [StorageService.LOCATION]: {
+            [StorageService.ID]: `int primary key`,
+            [StorageService.NAME]: `text not null`,
+        },
+        [StorageService.QUALITY]: {
+            [StorageService.ID]: `int primary key`,
+            [StorageService.NAME]: `text not null`,
         },
     };
 
