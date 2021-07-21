@@ -2,10 +2,10 @@
     <div class="amount">
         <div class="crate">
             <img src="assets/crate.svg">
-            {{ crateAmount || '-' }} caisse{{ crateAmount > 1 ? 's' : '' }}</div>
+            {{ crateAmount !== null ? crateAmount : '-' }} caisse{{ crateAmount != 1 ? 's' : '' }}</div>
         <div class="token">
             <img src="assets/token.svg">
-            {{ tokenAmount || '-' }} jeton{{ tokenAmount > 1 ? 's' : '' }}
+            {{ tokenAmount !== null ? tokenAmount : '-' }} jeton{{ tokenAmount != 1 ? 's' : '' }}
         </div>
     </div>
 </div>

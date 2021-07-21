@@ -14,12 +14,39 @@ export class AppComponent {
     readonly LOGIN_PATH = NavService.path(NavService.LOGIN);
     readonly RECEPTION_MENU = NavService.RECEPTION_MENU;
 
+    readonly PREPARATIONS = `preparations`;
+    readonly DELIVERIES = `deliveries`;
+    readonly COLLECTS = `collects`;
+    readonly RECEPTIONS = `receptions`;
+
+    public current: string;
+
     constructor(private platform: Platform, private storage: StorageService,
                 private api: ApiService, public router: Router,
                 public navService: NavService) {
         this.platform.ready().then(async () => {
             await this.storage.initialize();
         });
+    }
+
+    navigatePreparations() {
+        this.navService.push(NavService.HOME);
+        this.current = this.PREPARATIONS;
+    }
+
+    navigateDeliveries() {
+        this.navService.push(NavService.DELIVERY_ROUNDS);
+        this.current = this.DELIVERIES;
+    }
+
+    navigateReceptions() {
+        this.navService.push(NavService.HOME);
+        this.current = this.RECEPTIONS;
+    }
+
+    navigateCollects() {
+        this.navService.push(NavService.HOME);
+        this.current = this.COLLECTS;
     }
 
     logout() {

@@ -1,9 +1,9 @@
-<bx-card-wrapper [title]="title">
-    <div class="container">
+<bx-card-wrapper [title]="title" [disabled]="disabled">
+    <div class="container" [class.disabled]="disabled">
         <div class="client">
-            <div class="state">{{ state || '-' }}</div>
+            <div class="state">{{ status || '-' }}</div>
             <div class="label">{{ label || '-' }}</div>
-            <div class="tour">Tournée N°{{ tour || '-' }}</div>
+            <div class="tour">Tournée N°{{ round || '-' }}</div>
         </div>
         <bx-card-content [crateAmount]="crateAmount" [tokenAmount]="tokenAmount"></bx-card-content>
     </div>
