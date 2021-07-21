@@ -28,6 +28,7 @@ export class NavService {
         loading: '/loading',
         reception_menu: '/reception-menu',
         reception_crate: '/reception-crate',
+        preparations: '/preparations'
     };
 
     public constructor(private navController: NavController, private route: ActivatedRoute) {

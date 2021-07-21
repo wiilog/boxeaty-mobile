@@ -1,0 +1,18 @@
+<bx-header [options]="depositories" (change)="getPreparations($event)" shadow></bx-header>
+<div class="preparations-container" *ngIf="preparations; else noPreparations">
+    <bx-section>à préparer <span
+        class="counter">{{ preparations.length > 0 ? '(' + preparations.length + ')' : '' }}</span></bx-section>
+    <div *ngFor="let preparation of preparations">
+        <bx-card-wrapper [leftTitle]="preparation.client">
+            <bx-card-order [crateAmount]="preparation.crate_amount" [tokenAmount]="preparation.token_amount"
+                           [orderNumber]="preparation.order_number"></bx-card-order>
+        </bx-card-wrapper>
+    </div>
+</div>
+<ng-template #noPreparations>
+    <div class="no-preparations">
+        <bx-section>à préparer</bx-section>
+        <img src="../../../../assets/loading.svg" alt="Icône de chargement">
+        <div>Aucune préparation</div>
+    </div>
+</ng-template>
