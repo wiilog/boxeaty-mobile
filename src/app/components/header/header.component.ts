@@ -13,6 +13,9 @@ export class HeaderComponent implements OnInit {
     @ViewChild('wrapper') wrapper: ElementRef;
 
     @Input()
+    public subtitle: string;
+
+    @Input()
     public border: boolean;
 
     @Input()

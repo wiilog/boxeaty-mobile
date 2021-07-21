@@ -3,6 +3,7 @@ import {Form} from '@app/utils/form';
 import {ApiService} from '@app/services/api.service';
 import {NavService} from '@app/services/nav.service';
 import configuration from '../../../config/credentials.json';
+import {StorageService} from "@app/services/storage.service";
 
 @Component({
     selector: 'bx-login',
@@ -16,7 +17,7 @@ export class LoginPage implements OnInit {
         password: Form.password(true),
     });
 
-    constructor(private api: ApiService, private navService: NavService) {
+    constructor(private api: ApiService, private storage: StorageService, private navService: NavService) {
         if(configuration.autoConnect && configuration.email && configuration.password) {
             this.submit(configuration).then(() => {
                 console.log(`Automatically logged in with ${configuration.email}`);
@@ -33,8 +34,8 @@ export class LoginPage implements OnInit {
         if(data) {
             const result = await this.api.request(ApiService.LOGIN, data).toPromise();
             if(result.success) {
-                this.api.token = result.token;
-                this.navService.setRoot(NavService.LOADING);
+                await this.storage.setToken(result.token).toPromise();
+                await this.navService.setRoot(NavService.LOADING);
             }
         }
     }

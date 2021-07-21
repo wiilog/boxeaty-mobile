@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {formatDate} from '@angular/common';
 import {ApiService} from "@app/services/api.service";
+import {DeliveryRound} from "@app/entities/delivery-round";
+import {NavService} from "@app/services/nav.service";
 
 @Component({
     selector: 'app-delivery-rounds',
@@ -9,15 +11,20 @@ import {ApiService} from "@app/services/api.service";
 })
 export class DeliveryRoundsPage implements OnInit {
 
-    private deliveryRounds: Array<any>;
+    private deliveryRounds: {[key: string]: DeliveryRound};
 
-    constructor(private api: ApiService) {
+    constructor(private api: ApiService, private nav: NavService) {
     }
 
     ngOnInit() {
         this.api.request(ApiService.AVAILABLE_DELIVERY_ROUNDS).subscribe(result => {
             this.deliveryRounds = result;
-            console.log(this.deliveryRounds);
+        });
+    }
+
+    selectDeliveryRound(round: DeliveryRound) {
+        this.nav.push(NavService.SELECT_DELIVERY, {
+            deliveryRound: round,
         });
     }
 

@@ -8,6 +8,9 @@ import {Component, Input} from '@angular/core';
 export class CardOrderDetailComponent {
 
     @Input()
+    public disabled: boolean;
+
+    @Input()
     public title: string;
 
     @Input()

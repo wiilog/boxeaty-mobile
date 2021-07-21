@@ -6,6 +6,7 @@ import {NavService} from '@app/services/nav.service';
 import {ToastService} from '@app/services/toast.service';
 
 import API_HOST from '@config/api-host';
+import {StorageService} from "@app/services/storage.service";
 
 @Injectable({
     providedIn: 'root'
@@ -36,9 +37,14 @@ export class ApiService {
 
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
 
-    private _token: string;
+    private token: string;
 
-    constructor(private nav: NavService, private client: HttpClient, private toastService: ToastService) {
+    constructor(private storage: StorageService, private nav: NavService,
+                private client: HttpClient, private toastService: ToastService) {
+
+        this.storage.getToken().subscribe(token => {
+            this.token = token;
+        });
     }
 
     private static objectToURI(params: { [name: string]: string | number }): string {
@@ -55,9 +61,9 @@ export class ApiService {
             withCredentials: false,
         };
 
-        if (this._token) {
+        if (this.token) {
             options.headers = {
-                Authorization: `Bearer ${this._token}`,
+                'x-authorization': `Bearer ${this.token}`,
             };
         }
 
@@ -99,7 +105,4 @@ export class ApiService {
                 ));
     }
 
-    set token(value: string) {
-        this._token = value;
-    }
 }

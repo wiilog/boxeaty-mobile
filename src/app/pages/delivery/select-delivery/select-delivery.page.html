@@ -1,0 +1,6 @@
+<main *ngIf="deliveryRound">
+    <bx-header [subtitle]="'N°' + deliveryRound.number">Livraison de la tournée</bx-header>
+    <bx-section>Circuit des livraisons</bx-section>
+    <bx-card-client *ngFor="let order of deliveryRound.orders">
+                    </bx-card-client>
+</main>
