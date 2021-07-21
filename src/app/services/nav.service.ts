@@ -32,6 +32,7 @@ export class NavService {
         reception_crate: '/reception-crate',
         reception_box_scan: '/reception-box-scan',
         reception_box_edit: '/reception-box-edit',
+        preparations: '/preparations'
     };
 
     public constructor(private navController: NavController, private route: ActivatedRoute) {

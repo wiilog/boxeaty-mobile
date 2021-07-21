@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {StorageService} from '@app/services/storage.service';
 import {Depository} from '@app/entities/depository';
 import {ApiService} from "../../../services/api.service";
 import {NavService} from "../../../services/nav.service";
 import {ToastService} from "../../../services/toast.service";
+import {ApiService} from "@app/services/api.service";
 
 @Component({
   selector: 'app-reception-crate',
@@ -11,6 +12,9 @@ import {ToastService} from "../../../services/toast.service";
   styleUrls: ['./reception-crate.page.scss'],
 })
 export class ReceptionCratePage implements OnInit {
+
+    @Input()
+    public preparing: string;
 
     public depositories: Array<{label: string; value: number}> = null;
     public crates: Array<{crateNumber: string; crateLocation: string; crateType: string; crateId: number}> = null;

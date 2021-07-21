@@ -60,6 +60,11 @@ export class ApiService {
         endpoint: '/reverse-tracking',
     };
 
+    public static readonly PREPARATIONS = {
+        method: 'GET',
+        endpoint: '/preparations',
+    }
+
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
 
     private token: string;

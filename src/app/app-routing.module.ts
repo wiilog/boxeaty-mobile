@@ -27,15 +27,14 @@ const routes: Routes = [
         path: 'reception-crate',
         loadChildren: () => import('./pages/reception/reception-crate/reception-crate.module').then( m => m.ReceptionCratePageModule)
     },
-  {
-    path: 'reception-box-scan',
-    loadChildren: () => import('./pages/reception/reception-box-scan/reception-box-scan.module').then( m => m.ReceptionBoxScanPageModule)
-  },
-  {
-    path: 'reception-box-edit',
-    loadChildren: () => import('./pages/reception/reception-box-edit/reception-box-edit.module').then( m => m.ReceptionBoxEditPageModule)
-  },
-
+    {
+        path: 'reception-box-scan',
+        loadChildren: () => import('./pages/reception/reception-box-scan/reception-box-scan.module').then( m => m.ReceptionBoxScanPageModule)
+    },
+    {
+        path: 'reception-box-edit',
+        loadChildren: () => import('./pages/reception/reception-box-edit/reception-box-edit.module').then( m => m.ReceptionBoxEditPageModule)
+    },
     {
         path: 'delivery-rounds',
         loadChildren: () => import('./pages/delivery/delivery-rounds/delivery-rounds.module').then(m => m.DeliveryRoundsPageModule)
@@ -44,8 +43,10 @@ const routes: Routes = [
         path: 'select-delivery',
         loadChildren: () => import('./pages/delivery/select-delivery/select-delivery.module').then(m => m.SelectDeliveryPageModule)
     },
-
-
+    {
+        path: 'preparations',
+        loadChildren: () => import('./pages/preparation/list/list.module').then( m => m.ListPageModule)
+    },
 ];
 
 @NgModule({
