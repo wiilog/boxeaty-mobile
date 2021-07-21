@@ -3,11 +3,13 @@
         <bx-section><span [innerHTML]="formatSection(rounds.key)"></span></bx-section>
         <bx-card-order-detail *ngFor="let round of rounds.value"
                               [title]="round.orders.join(', ')"
-                              [status]="round.status"
+                              [status]="round.status == 'DELIVERY_ROUND_AWAITING_DELIVERER' ? 'A venir chercher' : 'En préparation'"
+                              [disabled]="round.status != 'DELIVERY_ROUND_AWAITING_DELIVERER'"
                               [label]="'Dépôt ' + round.depository"
                               [round]="round.number"
                               [crateAmount]="round.crate_amount"
-                              [tokenAmount]="round.token_amount">
+                              [tokenAmount]="round.token_amount"
+                              (click)="selectDeliveryRound(round)">
 
         </bx-card-order-detail>
     </div>

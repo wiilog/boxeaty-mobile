@@ -4,7 +4,6 @@
 h1 {
     display: flex;
     align-items: center;
-    flex-direction: row;
     overflow-y: scroll;
 
     font-family: "Autumn Collection", serif;
@@ -12,10 +11,23 @@ h1 {
     margin: 0;
     padding: 12px;
 
+    &.vertical {
+        flex-direction: column;
+    }
+
+    &.horizontal {
+        flex-direction: row;
+    }
+
     span {
         width: 100%;
         text-align: center;
         color: $blue;
+    }
+
+    .subtitle {
+        font-family: Retroyal, sans-serif;
+        font-size: 1.2rem;
     }
 
     &.border {

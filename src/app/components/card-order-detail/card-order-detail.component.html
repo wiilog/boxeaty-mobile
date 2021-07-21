@@ -1,5 +1,5 @@
-<bx-card-wrapper [title]="title">
-    <div class="container">
+<bx-card-wrapper [title]="title" [disabled]="disabled">
+    <div class="container" [class.disabled]="disabled">
         <div class="client">
             <div class="state">{{ status || '-' }}</div>
             <div class="label">{{ label || '-' }}</div>

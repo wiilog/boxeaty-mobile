@@ -13,6 +13,7 @@ export class NavService {
     public static readonly HOME = 'home';
     public static readonly PREPARATIONS = 'preparations';
     public static readonly DELIVERY_ROUNDS = 'delivery_rounds';
+    public static readonly SELECT_DELIVERY = 'select_delivery';
     public static readonly COLLECTS = 'collects';
     public static readonly RECEPTIONS = 'receptions';
     public static readonly LOADING = 'loading';
@@ -23,6 +24,7 @@ export class NavService {
         login: '/login',
         home: '/home',
         delivery_rounds: '/delivery-rounds',
+        select_delivery: '/select-delivery',
         loading: '/loading',
         reception_menu: '/reception-menu',
         reception_crate: '/reception-crate',
@@ -36,6 +38,16 @@ export class NavService {
     }
 
     public push(route: string, params: any = {}): Observable<boolean> {
+        const objects = [];
+        for (const [key, value] of Object.entries(params)) {
+            if (typeof value === 'object') {
+                params[key] = JSON.stringify(value);
+                objects.push(key);
+            }
+        }
+
+        params.__json_objects = JSON.stringify(objects);
+
         return from(this.navController.navigateForward(NavService.ROUTES[route], {
             queryParams: params
         }));
@@ -54,7 +66,25 @@ export class NavService {
     public readParams(callback: (any) => void) {
         this.route.queryParams
             .pipe(take(1))
-            .subscribe(params => callback(params));
+            .subscribe(params => callback(this.deserializeParams(params)));
+    }
+
+    private deserializeParams(params: {[key: string]: number | string }): { [key: string]: any } {
+        const objects = JSON.parse(params.__json_objects as string);
+        const deserialized = {};
+        for (const [key, value] of Object.entries(params)) {
+            if (key === `__json_objects`) {
+                continue;
+            }
+
+            if (objects.includes(key)) {
+                deserialized[key] = JSON.parse(params[key] as string);
+            } else {
+                deserialized[key] = params[key];
+            }
+        }
+
+        return deserialized;
     }
 
 }

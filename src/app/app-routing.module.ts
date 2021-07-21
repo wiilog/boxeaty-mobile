@@ -31,6 +31,11 @@ const routes: Routes = [
         path: 'delivery-rounds',
         loadChildren: () => import('./pages/delivery/delivery-rounds/delivery-rounds.module').then(m => m.DeliveryRoundsPageModule)
     },
+    {
+        path: 'select-delivery',
+        loadChildren: () => import('./pages/delivery/select-delivery/select-delivery.module').then(m => m.SelectDeliveryPageModule)
+    },
+
 
 ];
 

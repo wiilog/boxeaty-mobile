@@ -1,12 +1,12 @@
 import {Injectable} from '@angular/core';
 
 import {SQLiteService} from "@app/services/sqlite.service";
-import {
-    CapacitorSQLite, SQLiteDBConnection, SQLiteConnection, capSQLiteSet,
-    capSQLiteChanges, capSQLiteValues, capEchoResult, capSQLiteResult
-} from '@capacitor-community/sqlite';
-import {Depository} from "@app/entities/depository";
+import {SQLiteDBConnection} from '@capacitor-community/sqlite';
+import {from, Observable, ReplaySubject, Subject} from 'rxjs';
 import {Entity} from "@app/entities/entity";
+import {Plugins} from '@capacitor/core';
+
+const {Storage} = Plugins;
 
 @Injectable({
     providedIn: 'root'
@@ -31,7 +31,27 @@ export class StorageService {
     private initialized: boolean = false;
     private connection: SQLiteDBConnection = null;
 
+    _token: Subject<string>;
+
     constructor(private sqlite: SQLiteService) {
+        this._token = new ReplaySubject<string>(1);
+
+        Storage.get({key: 'token'}).then(result => {
+            this._token.next(result.value);
+        });
+    }
+
+    public getToken(): Observable<string> {
+        return this._token;
+    }
+
+    public setToken(token: string): Observable<void> {
+        this._token.next(token);
+
+        return from(Storage.set({
+            key: 'token',
+            value: token,
+        })) as Observable<void>;
     }
 
     public async initialize(): Promise<void> {
@@ -44,11 +64,10 @@ export class StorageService {
         } else {
             this.initialized = false;
         }
-
     }
 
     private async createConnection(name: string): Promise<void> {
-        if(!this.connection) {
+        if (!this.connection) {
             try {
                 await this.sqlite.closeConnection(name);
             } catch (ignored) {
@@ -74,7 +93,10 @@ export class StorageService {
                     .map(([name, type]) => `${name} ${type}`)
                     .join(`,`);
 
-                this.connection.execute(`CREATE TABLE ${table}(${columnsWithType})`);
+                this.connection.execute(`CREATE TABLE ${table}
+                                         (
+                                             ${columnsWithType}
+                                         )`);
             }
         }
     }
@@ -82,7 +104,8 @@ export class StorageService {
     public async get<T extends Entity>(table: string, search: { [key: string]: any } = []): Promise<Array<T>> {
         await this.createConnection(StorageService.REFERENTIAL);
 
-        let query = `SELECT * FROM ${table}`;
+        let query = `SELECT *
+                     FROM ${table}`;
         const values = [];
 
         if (search && search.length) {
@@ -104,7 +127,8 @@ export class StorageService {
         }
 
         if (empty) {
-            this.connection.execute(`DELETE FROM ${table}`);
+            this.connection.execute(`DELETE
+                                     FROM ${table}`);
         }
 
         for (const item of data) {
@@ -117,7 +141,8 @@ export class StorageService {
                 .sort(([k1], [k2]) => columns.indexOf(k1) - columns.indexOf(k2))
                 .map(([_, value]) => value);
 
-            this.connection.run(`INSERT INTO ${table}(${commaColumns}) VALUES (${questionMarks})`, values)
+            this.connection.run(`INSERT INTO ${table}(${commaColumns})
+                                 VALUES (${questionMarks})`, values)
         }
     }
 

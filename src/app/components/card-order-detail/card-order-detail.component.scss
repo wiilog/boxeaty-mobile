@@ -28,4 +28,8 @@
             color: $grey-dark;
         }
     }
+
+    &.disabled {
+        filter: grayscale(1) brightness(110%);
+    }
 }
