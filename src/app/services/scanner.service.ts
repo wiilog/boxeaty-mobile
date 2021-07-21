@@ -14,13 +14,19 @@ export class ScannerService {
     public scan(success = null, failure = null) {
         const {BarcodeScanner} = Plugins;
 
-        this.show();
-        BarcodeScanner.startScan().then(result => {
-            this.hide();
+        BarcodeScanner.checkPermission({ force: true }).then((status) => {
+            if (status.granted) {
+                this.show();
+                BarcodeScanner.startScan().then(result => {
+                    this.hide();
 
-            if (result.hasContent && success != null) {
-                success(result.content);
-            } else if(!result.hasContent && failure != null) {
+                    if (result.hasContent && success != null) {
+                        success(result.content);
+                    } else if(!result.hasContent && failure != null) {
+                        failure();
+                    }
+                });
+            } else {
                 failure();
             }
         });

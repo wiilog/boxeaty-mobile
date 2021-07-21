@@ -32,7 +32,6 @@ export class ReceptionBoxScanPage implements OnInit {
     }
 
     addBox(box: string) {
-        console.log(box);
         this.api.request(ApiService.BOX, {box}).subscribe((chosen) => {
             if (chosen) {
                 const already = this.boxes.find((b) => b.boxId === chosen.boxId);

@@ -31,7 +31,6 @@ export class ReceptionBoxEditPage implements OnInit {
         this.navService.readParams((param) => {
             this.boxes = param.boxes.split(',');
             this.crate = param.crate;
-            console.log(this.boxes, this.crate);
         });
     }
 
@@ -54,6 +53,5 @@ export class ReceptionBoxEditPage implements OnInit {
                 });
             });
         });
-        console.log('VALIDATE');
     }
 }

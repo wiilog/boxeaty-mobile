@@ -38,7 +38,6 @@ export class SelectableComponent implements OnInit, OnDestroy {
 
     ngOnInit() {
         this.storage.get<Entity>(this.type).then(results => {
-            console.log(results);
             this.items = results;
             this.ready = true;
         });
@@ -63,7 +62,6 @@ export class SelectableComponent implements OnInit, OnDestroy {
     }
 
     onChange($event) {
-        console.log($event);
         this.ngModelChange.emit($event.value);
     }
 

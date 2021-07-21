@@ -1,10 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {StorageService} from '@app/services/storage.service';
 import {Depository} from '@app/entities/depository';
-import {ApiService} from "../../../services/api.service";
-import {NavService} from "../../../services/nav.service";
-import {ToastService} from "../../../services/toast.service";
-import {ApiService} from "@app/services/api.service";
+import {ApiService} from '@app/services/api.service';
+import {NavService} from '@app/services/nav.service';
+import {ToastService} from '@app/services/toast.service';
 
 @Component({
   selector: 'app-reception-crate',
