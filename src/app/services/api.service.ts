@@ -63,7 +63,12 @@ export class ApiService {
     public static readonly PREPARATIONS = {
         method: 'GET',
         endpoint: '/preparations',
-    }
+    };
+
+    public static readonly CRATES_TO_PREPARE = {
+        method: 'GET',
+        endpoint: '/crates-to-prepare',
+    };
 
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
 

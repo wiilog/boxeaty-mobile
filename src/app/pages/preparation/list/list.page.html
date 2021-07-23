@@ -4,8 +4,8 @@
         class="counter">{{ preparations.length > 0 ? '(' + preparations.length + ')' : '' }}</span></bx-section>
     <div *ngFor="let preparation of preparations">
         <bx-card-wrapper [leftTitle]="preparation.client">
-            <bx-card-order [crateAmount]="preparation.crate_amount" [tokenAmount]="preparation.token_amount"
-                           [orderNumber]="preparation.order_number"></bx-card-order>
+            <bx-card-order [crateAmount]="preparation.crateAmount" [tokenAmount]="preparation.tokenAmount"
+                           [orderNumber]="preparation.orderNumber" (click)="crateToPrepare(preparation.id)"></bx-card-order>
         </bx-card-wrapper>
     </div>
 </div>

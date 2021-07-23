@@ -1,0 +1,14 @@
+@import '~style/variables';
+
+bx-section {
+    height: auto;
+}
+
+.wrapped-cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wrapped {
+    width: 50%;
+}

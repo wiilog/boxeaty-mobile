@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {NavService} from "../../../services/nav.service";
-import {StorageService} from "../../../services/storage.service";
-import {ApiService} from "../../../services/api.service";
-import {LoadingController} from "@ionic/angular";
+import {NavService} from '@app/services/nav.service';
+import {ApiService} from '@app/services/api.service';
+import {LoadingController} from '@ionic/angular';
 
 @Component({
     selector: 'app-reception-box-edit',
@@ -18,8 +17,8 @@ export class ReceptionBoxEditPage implements OnInit {
     public selectedQuality = null;
     public selectedLocation = null;
 
-    readonly LOCATION_SELECTABLE = StorageService.LOCATION;
-    readonly QUALITY_SELECTABLE = StorageService.QUALITY;
+    readonly LOCATION_SELECTABLE = 'location';
+    readonly QUALITY_SELECTABLE = 'quality';
 
     constructor(private navService: NavService, private api: ApiService, private loader: LoadingController) {
     }

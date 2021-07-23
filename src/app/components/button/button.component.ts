@@ -1,8 +1,8 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
-import {ScannerService} from "../../services/scanner.service";
-import {ToastService} from "../../services/toast.service";
-import {Platform} from "@ionic/angular";
-import {Subscription} from "rxjs";
+import {Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {ScannerService} from '@app/services/scanner.service';
+import {ToastService} from '@app/services/toast.service';
+import {Platform} from '@ionic/angular';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'bx-button',
@@ -12,10 +12,16 @@ import {Subscription} from "rxjs";
 export class ButtonComponent implements OnInit, OnDestroy{
 
     @Input()
+    public light: boolean;
+
+    @Input()
     public label: string;
 
     @Input()
     public icon: string;
+
+    @Input()
+    public addCircle: boolean;
 
     @Input()
     public scanner: boolean;

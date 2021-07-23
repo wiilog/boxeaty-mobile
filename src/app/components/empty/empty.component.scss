@@ -1,0 +1,22 @@
+@import "~style/variables";
+
+.content {
+    text-align: center;
+
+    img {
+        width: 120px;
+        height: 120px;
+        background-color: $grey-light;
+        border-radius: 50%;
+        padding: 30px;
+        opacity: 0.5;
+        margin-top: 20px;
+    }
+
+    div {
+        font-weight: 600;
+        margin-top: 5px;
+        font-size: 20px;
+        color: $blue;
+    }
+}

@@ -11,6 +11,12 @@
         background-color: $grey-light;
         width: 100%;
         padding: 5px 10px 5px 10px;
+
+        span {
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
     }
 
     &.disabled {

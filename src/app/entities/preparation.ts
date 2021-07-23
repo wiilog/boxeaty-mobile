@@ -1,7 +1,7 @@
-import {Entity} from "@app/entities/entity";
+import {Entity} from '@app/entities/entity';
 
 export interface Preparation extends Entity {
-    client: string
+    client: string;
     crateAmount: number;
     tokenAmount: number;
     orderNumber: string;

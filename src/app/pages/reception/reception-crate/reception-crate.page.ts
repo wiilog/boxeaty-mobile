@@ -22,7 +22,7 @@ export class ReceptionCratePage implements OnInit {
     }
 
     ionViewWillEnter() {
-        this.storage.get<Depository>(StorageService.DEPOSITORY).then(depositories => {
+        this.storage.get<Depository>('depository').then(depositories => {
             this.depositories = depositories.map(depository => ({
                 value: depository.id,
                 label: depository.name,

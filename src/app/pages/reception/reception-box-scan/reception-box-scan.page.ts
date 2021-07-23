@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {NavParams} from '@ionic/angular';
-import {NavService} from "../../../services/nav.service";
-import {ApiService} from "../../../services/api.service";
-import {ToastService} from "../../../services/toast.service";
+import {NavService} from '@app/services/nav.service';
+import {ApiService} from '@app/services/api.service';
+import {ToastService} from '@app/services/toast.service';
 
 @Component({
     selector: 'app-reception-box-scan',
