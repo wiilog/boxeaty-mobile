@@ -4,6 +4,10 @@
 		"classpath": "com.dutchconcepts.capacitor.barcodescanner.BarcodeScanner"
 	},
 	{
+		"pkg": "@capacitor-community/capacitor-googlemaps-native",
+		"classpath": "com.hemangkumar.capacitorgooglemaps.CapacitorGoogleMaps"
+	},
+	{
 		"pkg": "@capacitor-community/sqlite",
 		"classpath": "com.getcapacitor.community.database.sqlite.CapacitorSQLitePlugin"
 	},

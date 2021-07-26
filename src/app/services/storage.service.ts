@@ -4,9 +4,7 @@ import {SQLiteService} from "@app/services/sqlite.service";
 import {SQLiteDBConnection} from '@capacitor-community/sqlite';
 import {from, Observable, ReplaySubject, Subject} from 'rxjs';
 import {Entity} from "@app/entities/entity";
-import {Plugins} from '@capacitor/core';
-
-const {Storage} = Plugins;
+import {Storage} from '@capacitor/storage';
 
 @Injectable({
     providedIn: 'root'

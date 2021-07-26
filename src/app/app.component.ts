@@ -4,6 +4,7 @@ import {NavService} from './services/nav.service';
 import {Platform} from '@ionic/angular';
 import {StorageService} from '@app/services/storage.service';
 import {ApiService} from '@app/services/api.service';
+import {Plugins} from '@capacitor/core';
 
 @Component({
     selector: 'bx-root',
@@ -26,6 +27,7 @@ export class AppComponent {
                 public navService: NavService) {
         this.platform.ready().then(async () => {
             await this.storage.initialize();
+            Plugins.ScreenOrientation.lockOrientation();
         });
     }
 

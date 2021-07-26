@@ -1336,17 +1336,17 @@
   resolved "https://registry.yarnpkg.com/@humanwhocodes/object-schema/-/object-schema-1.2.0.tgz#87de7af9c231826fdd68ac7258f77c429e0e5fcf"
   integrity sha512-wdppn25U8z/2yiaT6YGquE6X8sSv7hNMWSXYSSU1jGv/yd6XqjXgTDJ8KP4NgjTXfJ3GbRjeeb8RTV7a/VpM+w==
 
-"@ionic-native/core@^5.34.0":
-  version "5.34.0"
-  resolved "https://registry.yarnpkg.com/@ionic-native/core/-/core-5.34.0.tgz#80d91bfd49a8d67965c2bb9ecc8e9803ff23d3e1"
-  integrity sha512-x3xZNe4ZpifVV6nI/rliJ7j9dwiI56HTaJfrA19w8JSgVcW7ZcTvwX1RPWR1b47INOgU8RAsxVohlBQKggap1g==
+"@ionic-native/core@^5.22.0-beta-1":
+  version "5.22.0-beta-1"
+  resolved "https://registry.yarnpkg.com/@ionic-native/core/-/core-5.22.0-beta-1.tgz#cbbc607ffb211aee73f93fc3b0965bff2aa32706"
+  integrity sha512-LXyqhUbFO1EfGncqcz8K662AKQDCjP9tu3899llNRAG5mhP3F6xjdYEgV5CVWIgRDuVrLn/LOmmBQjDp8mecRQ==
   dependencies:
     "@types/cordova" latest
 
-"@ionic-native/google-maps@^5.5.0":
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/@ionic-native/google-maps/-/google-maps-5.5.0.tgz#02537e04bb0d01d5580f936d8ccce6745188d90a"
-  integrity sha512-+sCaB7cLR35ApsOyYSfwDX2ZTO2ItOI6FHkgTQ2rzOA1DVJ9rlU8HDL6jYBUhq+aDe3lhCPexSOryeBynaSvpQ==
+"@ionic-native/google-maps@^5.27.0-beta-20200630":
+  version "5.27.0-beta-20200630"
+  resolved "https://registry.yarnpkg.com/@ionic-native/google-maps/-/google-maps-5.27.0-beta-20200630.tgz#eac0d6c8a6989d0c393abc5e2cba480ad6fca386"
+  integrity sha512-qXsY6p/uptFxcZi9h/mR/g9tJnP3ohpbeeWWjVmKZ06A6pgQpb4BTa+aZF2lT79OIbaqc5sI2ImIMwY2S+Bi8g==
 
 "@ionic/angular-toolkit@^4.0.0":
   version "4.0.0"
@@ -3837,11 +3837,6 @@ dom-serializer@~0.1.1:
     domelementtype "^1.3.0"
     entities "^1.1.1"
 
-dom-walk@^0.1.0:
-  version "0.1.2"
-  resolved "https://registry.yarnpkg.com/dom-walk/-/dom-walk-0.1.2.tgz#0c548bef048f4d1f2a97249002236060daa3fd84"
-  integrity sha512-6QvTW9mrGeIegrFXdtQi9pk7O/nSK6lSdXW2eqUspN5LWD7UTji2Fqw5V2YLjBpHEoU9Xl/eUWNpDeZvoyOv2w==
-
 domelementtype@1, domelementtype@^1.3.0, domelementtype@^1.3.1:
   version "1.3.1"
   resolved "https://registry.yarnpkg.com/domelementtype/-/domelementtype-1.3.1.tgz#d048c44b37b0d10a7f2a3d5fee3f4333d790481f"
@@ -4842,14 +4837,6 @@ glob@7.1.7, glob@^7.0.3, glob@^7.0.6, glob@^7.1.3, glob@^7.1.4, glob@^7.1.6, glo
     minimatch "^3.0.4"
     once "^1.3.0"
     path-is-absolute "^1.0.0"
-
-global@^4.4.0:
-  version "4.4.0"
-  resolved "https://registry.yarnpkg.com/global/-/global-4.4.0.tgz#3e7b105179006a323ed71aafca3e9c57a5cc6406"
-  integrity sha512-wv/LAoHdRE3BeTGz53FAamhGlPLhlssK45usmGFThIi4XqnBmjKQ16u+RNbP7WvigRZDxUsM0J3gcQ5yicaL0w==
-  dependencies:
-    min-document "^2.19.0"
-    process "^0.11.10"
 
 globals@^11.1.0:
   version "11.12.0"
@@ -6542,13 +6529,6 @@ mimic-response@^3.1.0:
   resolved "https://registry.yarnpkg.com/mimic-response/-/mimic-response-3.1.0.tgz#2d1d59af9c1b129815accc2c46a022a5ce1fa3c9"
   integrity sha512-z0yWI+4FDrrweS8Zmt4Ej5HdJmky15+L2e6Wgn3+iK5fWzb6T3fhNFq2+MeTRb064c6Wr4N/wv0DzQTjNzHNGQ==
 
-min-document@^2.19.0:
-  version "2.19.0"
-  resolved "https://registry.yarnpkg.com/min-document/-/min-document-2.19.0.tgz#7bd282e3f5842ed295bb748cdd9f1ffa2c824685"
-  integrity sha1-e9KC4/WELtKVu3SM3Z8f+iyCRoU=
-  dependencies:
-    dom-walk "^0.1.0"
-
 mini-css-extract-plugin@1.5.1:
   version "1.5.1"
   resolved "https://registry.yarnpkg.com/mini-css-extract-plugin/-/mini-css-extract-plugin-1.5.1.tgz#c0ac557c48a7de47de3df0768fe037c9cf961f69"
@@ -6587,6 +6567,7 @@ minipass-fetch@^1.3.0, minipass-fetch@^1.3.2:
   resolved "https://registry.yarnpkg.com/minipass-fetch/-/minipass-fetch-1.3.3.tgz#34c7cea038c817a8658461bf35174551dce17a0a"
   integrity sha512-akCrLDWfbdAWkMLBxJEeWTdNsjML+dt5YgOI4gJ53vuO0vrmYQkUPxa6j6V65s9CcePIr2SSWqjT2EcrNseryQ==
   dependencies:
+    encoding "^0.1.12"
     minipass "^3.1.0"
     minipass-sized "^1.0.3"
     minizlib "^2.0.0"
@@ -8139,11 +8120,6 @@ process-nextick-args@~2.0.0:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/process-nextick-args/-/process-nextick-args-2.0.1.tgz#7820d9b16120cc55ca9ae7792680ae7dba6d7fe2"
   integrity sha512-3ouUOpQhtgrbOa17J7+uxOTpITYWaGP7/AhoR3+A+/1e9skrzelGi/dXzEYyvbxubEF6Wn2ypscTKiKJFFn1ag==
-
-process@^0.11.10:
-  version "0.11.10"
-  resolved "https://registry.yarnpkg.com/process/-/process-0.11.10.tgz#7332300e840161bda3e69a1d1d91a7d4bc16f182"
-  integrity sha1-czIwDoQBYb2j5podHZGn1LwW8YI=
 
 progress@^2.0.0:
   version "2.0.3"

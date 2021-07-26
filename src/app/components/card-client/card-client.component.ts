@@ -1,11 +1,14 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'bx-card-client',
-  templateUrl: './card-client.component.html',
-  styleUrls: ['./card-client.component.scss'],
+    selector: 'bx-card-client',
+    templateUrl: './card-client.component.html',
+    styleUrls: ['./card-client.component.scss'],
 })
 export class CardClientComponent implements OnInit {
+
+    @Input()
+    public title: string;
 
     @Input()
     public name: string;
@@ -19,8 +22,17 @@ export class CardClientComponent implements OnInit {
     @Input()
     public phoneNumber: string;
 
-  constructor() { }
+    @Input()
+    public crateAmount: number;
 
-  ngOnInit() {}
+    @Input()
+    public tokenAmount: number;
+
+    constructor() {
+    }
+
+    ngOnInit() {
+        console.log(this.crateAmount, this.tokenAmount);
+    }
 
 }

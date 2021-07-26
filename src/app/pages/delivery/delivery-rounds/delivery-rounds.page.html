@@ -2,7 +2,7 @@
     <div *ngFor="let rounds of deliveryRounds | keyvalue">
         <bx-section><span [innerHTML]="formatSection(rounds.key)"></span></bx-section>
         <bx-card-order-detail *ngFor="let round of rounds.value"
-                              [title]="round.orders.join(', ')"
+                              [title]="round.joined_clients"
                               [status]="round.status == 'DELIVERY_ROUND_AWAITING_DELIVERER' ? 'A venir chercher' : 'En préparation'"
                               [disabled]="round.status != 'DELIVERY_ROUND_AWAITING_DELIVERER'"
                               [label]="'Dépôt ' + round.depository"

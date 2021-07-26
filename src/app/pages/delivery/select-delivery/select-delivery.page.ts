@@ -1,4 +1,4 @@
-import {Component, OnInit, Input} from '@angular/core';
+import {Component, OnInit, Input, ViewChild, ElementRef} from '@angular/core';
 import {DeliveryRound} from "@app/entities/delivery-round";
 import {NavService} from "@app/services/nav.service";
 
@@ -14,7 +14,7 @@ export class SelectDeliveryPage implements OnInit {
     constructor(private nav: NavService) {
         this.nav.readParams(params => {
             this.deliveryRound = params.deliveryRound;
-            console.log(params);
+            console.log(this.deliveryRound);
         });
     }
 

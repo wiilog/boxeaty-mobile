@@ -10,4 +10,6 @@ export interface DeliveryRound extends Entity {
     token_amount: number;
     orders: Array<any>;
     order: Array<number>;
+
+    joined_clients: string;
 }

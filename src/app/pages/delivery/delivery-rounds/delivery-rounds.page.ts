@@ -11,7 +11,7 @@ import {NavService} from "@app/services/nav.service";
 })
 export class DeliveryRoundsPage implements OnInit {
 
-    private deliveryRounds: {[key: string]: DeliveryRound};
+    private deliveryRounds: { [key: string]: Array<DeliveryRound> };
 
     constructor(private api: ApiService, private nav: NavService) {
     }
@@ -19,6 +19,12 @@ export class DeliveryRoundsPage implements OnInit {
     ngOnInit() {
         this.api.request(ApiService.AVAILABLE_DELIVERY_ROUNDS).subscribe(result => {
             this.deliveryRounds = result;
+
+            for(const rounds of Object.values(this.deliveryRounds)) {
+                for(const round of rounds) {
+                    round.joined_clients = round.orders.map(order => order.client.name).join(', ')
+                }
+            }
         });
     }
 
@@ -33,12 +39,12 @@ export class DeliveryRoundsPage implements OnInit {
         const date = new Date(Date.parse(stringDate));
 
         const today = new Date();
-        if(date.getDate() == today.getDate() && date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear()) {
+        if (date.getDate() == today.getDate() && date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear()) {
             return `Aujourd'hui <span class="silent">${formatDate(date, `d MMMM`, `fr`)}</span>`;
         }
 
         const tomorrow = new Date(today.getTime() + day);
-        if(date.getDate() == tomorrow.getDate() && date.getMonth() == tomorrow.getMonth() && date.getFullYear() == tomorrow.getFullYear()) {
+        if (date.getDate() == tomorrow.getDate() && date.getMonth() == tomorrow.getMonth() && date.getFullYear() == tomorrow.getFullYear()) {
             return `Demain <span class="silent">${formatDate(date, `d MMMM`, `fr`)}</span>`;
         }
 
