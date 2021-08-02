@@ -1,5 +1,5 @@
 <div class="card" [class.disabled]="disabled">
-    <div class="title">
+    <div class="title" *ngIf="!hideTitle">
         <span>{{ leftTitle }}</span>
         <span>{{ rightTitle }}</span>
     </div>

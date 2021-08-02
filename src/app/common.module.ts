@@ -12,9 +12,12 @@ import {CardComponent} from '@app/components/card/card.component';
 import {CardClientComponent} from '@app/components/card-client/card-client.component';
 import {CardContentComponent} from '@app/components/card-content/card-content.component';
 import {CardOrderComponent} from '@app/components/card-order/card-order.component';
-import {ItemComponent} from "@app/components/item/item.component";
-import {ButtonComponent} from "@app/components/button/button.component";
-import {CardOrderDetailComponent} from "@app/components/card-order-detail/card-order-detail.component";
+import {ItemComponent} from '@app/components/item/item.component';
+import {ButtonComponent} from '@app/components/button/button.component';
+import {CardOrderDetailComponent} from '@app/components/card-order-detail/card-order-detail.component';
+import {SelectableComponent} from './components/selectable/selectable.component';
+import {IonicSelectableComponent, IonicSelectableModule} from 'ionic-selectable';
+import {EmptyComponent} from "@app/components/empty/empty.component";
 
 @NgModule({
     declarations: [
@@ -28,14 +31,17 @@ import {CardOrderDetailComponent} from "@app/components/card-order-detail/card-o
         CardOrderComponent,
         ItemComponent,
         ButtonComponent,
-        CardOrderDetailComponent
+        SelectableComponent,
+        CardOrderDetailComponent,
+        EmptyComponent
     ],
     imports: [
         AngularCommonModule,
         FormsModule,
         IonicModule,
         ReactiveFormsModule,
-        HttpClientModule
+        HttpClientModule,
+        IonicSelectableModule
     ],
     exports: [
         FieldComponent,
@@ -50,8 +56,11 @@ import {CardOrderDetailComponent} from "@app/components/card-order-detail/card-o
         CardOrderComponent,
         ItemComponent,
         ButtonComponent,
-        CardOrderDetailComponent
-    ],
+        CardOrderDetailComponent,
+        SelectableComponent,
+        IonicSelectableComponent,
+        EmptyComponent
+    ]
 })
 export class CommonModule {
 }

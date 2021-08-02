@@ -1,0 +1,22 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">
+            <bx-header>Identification des box</bx-header>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div class="content">
+        <bx-section>{{crate}}</bx-section>
+        <div class="boxes" *ngIf="boxes">
+            <bx-item *ngFor="let box of boxes" [label]="box.boxNumber + ' - ' + box.boxType" [border]="true" [icon]="'reception/trash-cercle.svg'"
+                     (action)="deleteBox(box)"></bx-item>
+        </div>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <bx-button [label]="'Flasher box'" [icon]="'scan.svg'" (action)="addBox($event)" [scanner]="true"></bx-button>
+    <bx-button [label]="'Suivant'" [icon]="'checked.svg'" (click)="next()"></bx-button>
+</ion-footer>

@@ -21,11 +21,19 @@ const routes: Routes = [
     },
     {
         path: 'reception-menu',
-        loadChildren: () => import('./pages/reception/reception-menu/reception-menu.module').then( m => m.ReceptionMenuPageModule)
+        loadChildren: () => import('./pages/reception/reception-menu/reception-menu.module').then(m => m.ReceptionMenuPageModule)
     },
     {
         path: 'reception-crate',
-        loadChildren: () => import('./pages/reception/reception-crate/reception-crate.module').then( m => m.ReceptionCratePageModule)
+        loadChildren: () => import('./pages/reception/reception-crate/reception-crate.module').then(m => m.ReceptionCratePageModule)
+    },
+    {
+        path: 'reception-box-scan',
+        loadChildren: () => import('./pages/reception/reception-box-scan/reception-box-scan.module').then(m => m.ReceptionBoxScanPageModule)
+    },
+    {
+        path: 'reception-box-edit',
+        loadChildren: () => import('./pages/reception/reception-box-edit/reception-box-edit.module').then(m => m.ReceptionBoxEditPageModule)
     },
     {
         path: 'delivery-rounds',
@@ -35,7 +43,14 @@ const routes: Routes = [
         path: 'select-delivery',
         loadChildren: () => import('./pages/delivery/select-delivery/select-delivery.module').then(m => m.SelectDeliveryPageModule)
     },
-
+    {
+        path: 'preparations',
+        loadChildren: () => import('./pages/preparation/list/list.module').then(m => m.ListPageModule)
+    },
+    {
+        path: 'crates-to-prepare',
+        loadChildren: () => import('./pages/preparation/crates-to-prepare/crates-to-prepare.module').then(m => m.CrateToPreparePageModule)
+    },
 
 ];
 

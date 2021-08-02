@@ -7,6 +7,7 @@
     background-color: $orange;
     display: flex;
     justify-content: center;
+    align-items: center;
 
     .label {
         color: $white;
@@ -16,5 +17,20 @@
 
     img {
         width: 30px;
+    }
+
+    .circle {
+        background: $orange-lightest;
+        border-radius: 50%;
+    }
+
+    &.light {
+        background-color: $white;
+        border: 1px solid $orange;
+        border-radius: 5px;
+
+        .label {
+            color: $orange;
+        }
     }
 }

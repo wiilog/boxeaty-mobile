@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, HostBinding, Input} from '@angular/core';
 
 @Component({
     selector: 'bx-card-wrapper',
@@ -15,4 +15,7 @@ export class CardWrapperComponent {
 
     @Input()
     public leftTitle: string;
+
+    @Input()
+    public hideTitle: boolean;
 }

@@ -14,7 +14,6 @@ export class SelectDeliveryPage implements OnInit {
     constructor(private nav: NavService) {
         this.nav.readParams(params => {
             this.deliveryRound = params.deliveryRound;
-            console.log(params);
         });
     }
 

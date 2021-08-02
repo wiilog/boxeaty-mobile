@@ -11,7 +11,13 @@ export class ItemComponent {
     public label: string;
 
     @Input()
+    public bolderLabel: boolean;
+
+    @Input()
     public border: boolean;
+
+    @Input()
+    public addCircle: boolean;
 
     @Input()
     public icon: string;
