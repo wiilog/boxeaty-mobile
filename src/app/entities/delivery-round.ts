@@ -6,8 +6,8 @@ export interface DeliveryRound extends Entity {
     status: string;
     depository: string;
     expected_date: string;
-    crate_amount: number;
-    token_amount: number;
+    crateAmount: number;
+    tokenAmount: number;
     orders: Array<any>;
     order: Array<number>;
 

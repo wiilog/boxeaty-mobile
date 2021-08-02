@@ -7,12 +7,31 @@
 }
 
 .content {
-    padding: 10px;
+    padding: 5px 10px;
+    color: $blue;
+
+    .circle {
+        background: #F2F8F5;
+        border-radius: 50%;
+    }
+
+    .bolder {
+        font-weight: 600;
+        font-size: 22px;
+    }
 }
 
 .item-content {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+
+    span {
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+
     img {
         width: 40px;
         height: 40px;

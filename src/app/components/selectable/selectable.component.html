@@ -1,0 +1,16 @@
+<div class="selectable">
+    <ionic-selectable #component
+                      [(ngModel)]="_item"
+                      [items]="items"
+                      itemValueField="id"
+                      itemTextField="name"
+                      (onChange)="onChange($event)"
+                      [canSearch]="true"
+                      [placeholder]="placeholder"
+                      searchPlaceholder="Rechercher"
+                      searchFailText="Aucun résultat trouvé">
+    </ionic-selectable>
+    <div class="spinner" *ngIf="!ready">
+        <ion-spinner name="crescent"></ion-spinner>
+    </div>
+</div>

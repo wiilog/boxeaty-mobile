@@ -2,8 +2,6 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {NavService} from './services/nav.service';
 import {Platform} from '@ionic/angular';
-import {StorageService} from '@app/services/storage.service';
-import {ApiService} from '@app/services/api.service';
 import {Plugins} from '@capacitor/core';
 
 @Component({
@@ -22,17 +20,15 @@ export class AppComponent {
 
     public current: string;
 
-    constructor(private platform: Platform, private storage: StorageService,
-                private api: ApiService, public router: Router,
-                public navService: NavService) {
-        this.platform.ready().then(async () => {
-            await this.storage.initialize();
+    constructor(public router: Router, public navService: NavService, private platform: Platform) {
+        this.platform.ready().then(() => {
+            this.navService.setRoot(NavService.LOADING);
             Plugins.ScreenOrientation.lockOrientation();
         });
     }
 
     navigatePreparations() {
-        this.navService.push(NavService.HOME);
+        this.navService.push(NavService.PREPARATIONS);
         this.current = this.PREPARATIONS;
     }
 
@@ -42,7 +38,7 @@ export class AppComponent {
     }
 
     navigateReceptions() {
-        this.navService.push(NavService.HOME);
+        this.navService.push(NavService.RECEPTION_MENU);
         this.current = this.RECEPTIONS;
     }
 

@@ -1,9 +1,11 @@
 import {Injectable} from '@angular/core';
 
-import {SQLiteService} from "@app/services/sqlite.service";
-import {SQLiteDBConnection} from '@capacitor-community/sqlite';
+import {SQLiteService} from '@app/services/sqlite/sqlite.service';
 import {from, Observable, ReplaySubject, Subject} from 'rxjs';
-import {Entity} from "@app/entities/entity";
+import {Entity} from '@app/entities/entity';
+import {TableName} from '@app/services/sqlite/table-name';
+import {tablesDefinitions} from '@app/services/sqlite/table-definitions';
+
 import {Storage} from '@capacitor/storage';
 
 @Injectable({
@@ -11,40 +13,24 @@ import {Storage} from '@capacitor/storage';
 })
 export class StorageService {
 
-    private static readonly REFERENTIAL = `referential`;
-    public static readonly DEPOSITORY = `depository`;
+    private static readonly referential = `referential`;
 
-    private static readonly ID = `id`;
-    private static readonly NAME = `name`;
-    private static readonly DESCRIPTION = `description`;
-
-    private static readonly TABLES = {
-        [StorageService.DEPOSITORY]: {
-            [StorageService.ID]: `int primary key`,
-            [StorageService.NAME]: `text not null`,
-            [StorageService.DESCRIPTION]: `text`,
-        },
-    };
-
-    private initialized: boolean = false;
-    private connection: SQLiteDBConnection = null;
-
-    _token: Subject<string>;
+    private readonly token: Subject<string>;
 
     constructor(private sqlite: SQLiteService) {
-        this._token = new ReplaySubject<string>(1);
+        this.token = new ReplaySubject<string>(1);
 
         Storage.get({key: 'token'}).then(result => {
-            this._token.next(result.value);
+            this.token.next(result.value);
         });
     }
 
     public getToken(): Observable<string> {
-        return this._token;
+        return this.token;
     }
 
     public setToken(token: string): Observable<void> {
-        this._token.next(token);
+        this.token.next(token);
 
         return from(Storage.set({
             key: 'token',
@@ -53,55 +39,10 @@ export class StorageService {
     }
 
     public async initialize(): Promise<void> {
-        const initialized = await this.sqlite.initializePlugin();
-        if (initialized) {
-            await this.createConnection(StorageService.REFERENTIAL);
-            await this.createDatabase(StorageService.REFERENTIAL, false);
-
-            this.initialized = true;
-        } else {
-            this.initialized = false;
-        }
+        await this.sqlite.createDatabase(StorageService.referential);
     }
 
-    private async createConnection(name: string): Promise<void> {
-        if (!this.connection) {
-            try {
-                await this.sqlite.closeConnection(name);
-            } catch (ignored) {
-            }
-
-            const conn = await this.sqlite.createConnection(name, true, `secret`, 1);
-            await conn.open();
-
-            this.connection = conn;
-        }
-    }
-
-    public async createDatabase(name: string, destroy: boolean = false): Promise<void> {
-        await this.createConnection(StorageService.REFERENTIAL);
-
-        for (const [table, columns] of Object.entries(StorageService.TABLES)) {
-            if (destroy && (await this.connection.isTable(table)).result) {
-                this.connection.execute(`DROP TABLE ${table}`);
-            }
-
-            if (destroy || !(await this.connection.isTable(table)).result) {
-                const columnsWithType = Object.entries(columns)
-                    .map(([name, type]) => `${name} ${type}`)
-                    .join(`,`);
-
-                this.connection.execute(`CREATE TABLE ${table}
-                                         (
-                                             ${columnsWithType}
-                                         )`);
-            }
-        }
-    }
-
-    public async get<T extends Entity>(table: string, search: { [key: string]: any } = []): Promise<Array<T>> {
-        await this.createConnection(StorageService.REFERENTIAL);
-
+    public async get<T extends Entity>(table: string, search: { [key: string]: any } = {}): Promise<Array<T>> {
         let query = `SELECT *
                      FROM ${table}`;
         const values = [];
@@ -114,23 +55,22 @@ export class StorageService {
             }
         }
 
-        return (await this.connection.query(query, values)).values as Array<T>;
+        return (await this.sqlite.executeQuery(query, values).toPromise()) as Array<T>;
     }
 
-    public async insert<T extends Entity>(table: string, data: T | Array<T>, empty = false): Promise<void> {
-        await this.createConnection(StorageService.REFERENTIAL);
-
+    public async insert<T extends Entity>(table: TableName, data: T | Array<T>, empty = false): Promise<void> {
         if (!Array.isArray(data)) {
             data = [data];
         }
 
         if (empty) {
-            this.connection.execute(`DELETE
-                                     FROM ${table}`);
+            await this.sqlite.executeQuery(`DELETE FROM ${table}`).toPromise();
         }
 
+        const tableDefinition = tablesDefinitions.find(({name}) => name === table);
+        const columns = Object.keys(tableDefinition.attributes);
+
         for (const item of data) {
-            const columns = Object.keys(StorageService.TABLES[table]);
             const commaColumns = columns.join(`,`);
             const questionMarks = columns.map(_ => `?`).join(`,`);
 
@@ -139,8 +79,8 @@ export class StorageService {
                 .sort(([k1], [k2]) => columns.indexOf(k1) - columns.indexOf(k2))
                 .map(([_, value]) => value);
 
-            this.connection.run(`INSERT INTO ${table}(${commaColumns})
-                                 VALUES (${questionMarks})`, values)
+            await this.sqlite.executeQuery(`INSERT INTO ${table}(${commaColumns})
+                                 VALUES (${questionMarks})`, values).toPromise();
         }
     }
 
