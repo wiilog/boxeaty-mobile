@@ -70,6 +70,16 @@ export class ApiService {
         endpoint: '/crates-to-prepare',
     };
 
+    public static readonly AVAILABLE_CRATES = {
+        method: 'GET',
+        endpoint: '/available-crates',
+    };
+
+    public static readonly AVAILABLE_BOXES = {
+        method: 'GET',
+        endpoint: '/available-boxes',
+    };
+
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
 
     private token: string;

@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">
+            <bx-header>Prélèvement d'une caisse</bx-header>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="content">
+        <span>Sélection d'une caisse</span>
+        <span>{{ type }}</span>
+    </div>
+    <bx-section>Caisse{{ (availableCrates|length) > 1 ? 's' : '' }} disponible{{ (availableCrates|length) > 1 ? 's' : '' }}</bx-section>
+    <div class="crate-container" *ngFor="let crates of availableCrates|keyvalue">
+        <bx-card-wrapper [leftTitle]="'Emplacement ' + crates.key">
+            <bx-item [leftLabel]="type" [bolderLeftLabel]="true"
+                     [rightLabel]="'x' + (crates|length)" [bolderRightLabel]="true">
+            </bx-item>
+        </bx-card-wrapper>
+        <div class="wrapped-cards">
+            <bx-card-wrapper *ngFor="let crate of crates.value|values" [hideTitle]="true" class="wrapped">
+                <bx-item [leftLabel]="crate" icon="checked-grey.svg" [addCircle]="true"
+                         (action)="treatCrate(crate)">
+                </bx-item>
+            </bx-card-wrapper>
+        </div>
+    </div>
+</ion-content>
+<ion-footer>
+    <bx-button label="Flasher caisse" icon="scan.svg" (action)="treatCrate($event)" [scanner]="true"></bx-button>
+</ion-footer>

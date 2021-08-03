@@ -1,6 +1,9 @@
 <div class="content" [class.border]="border">
     <div class="item-content">
-        <span [class.bolder]="bolderLabel">{{ label }}</span>
+        <div class="labels">
+            <span [class.bolder]="bolderLeftLabel">{{ leftLabel }}</span>
+            <span [class.bolder]="bolderRightLabel">{{ rightLabel }}</span>
+        </div>
         <img [class.circle]="addCircle" src="../assets/{{ icon }}" *ngIf="icon" (click)="onImageClick()">
     </div>
 </div>

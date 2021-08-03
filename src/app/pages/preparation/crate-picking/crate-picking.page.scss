@@ -1,0 +1,26 @@
+@import '~style/variables';
+
+.content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 1rem;
+
+    span:not(:first-child) {
+        color: $blue;
+        font-weight: 700;
+    }
+}
+
+.wrapped-cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wrapped {
+    width: 50%;
+}
+
+.crate-container {
+    margin-top: 30px;
+}

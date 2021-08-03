@@ -1,0 +1,16 @@
+@import "~style/variables";
+
+.content {
+    text-align: center;
+    margin-top: 20px;
+
+    span {
+        color: $blue;
+        font-weight: 700;
+    }
+
+    .progress-bar {
+        width: 90%;
+        margin: 10px auto 0 auto;
+    }
+}

@@ -1,17 +1,23 @@
 import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
-  selector: 'bx-item',
-  templateUrl: './item.component.html',
-  styleUrls: ['./item.component.scss'],
+    selector: 'bx-item',
+    templateUrl: './item.component.html',
+    styleUrls: ['./item.component.scss'],
 })
 export class ItemComponent {
 
     @Input()
-    public label: string;
+    public leftLabel: string;
 
     @Input()
-    public bolderLabel: boolean;
+    public rightLabel: string;
+
+    @Input()
+    public bolderLeftLabel: boolean;
+
+    @Input()
+    public bolderRightLabel: boolean;
 
     @Input()
     public border: boolean;

@@ -10,7 +10,7 @@
     <div class="content">
         <bx-section>{{crate}}</bx-section>
         <div class="boxes" *ngIf="boxes">
-            <bx-item *ngFor="let box of boxes" [label]="box.boxNumber + ' - ' + box.boxType" [border]="true" [icon]="'reception/trash-cercle.svg'"
+            <bx-item *ngFor="let box of boxes" [leftLabel]="box.boxNumber + ' - ' + box.boxType" [border]="true" [icon]="'reception/trash-cercle.svg'"
                      (action)="deleteBox(box)"></bx-item>
         </div>
     </div>

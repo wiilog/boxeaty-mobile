@@ -11,9 +11,10 @@ import {NavService} from '@app/services/nav.service';
 export class CratesToPreparePage implements ViewWillEnter {
 
     public preparation: string;
+    public crate: string;
 
-    public cratesToPrepare: Array<{ id: number; crateNumber: string; boxType: string }> = [];
-    public preparedCrates: Array<{ id: number; crateNumber: string; boxType: string }> = [];
+    public cratesToPrepare: Array<{ id: number; number: string; type: string }> = [];
+    public preparedCrates: Array<{ id: number; number: string; type: string }> = [];
 
     constructor(private loader: LoadingController, private api: ApiService, private nav: NavService) {}
 
@@ -24,8 +25,11 @@ export class CratesToPreparePage implements ViewWillEnter {
         });
     }
 
-    public treatCrate(): void {
-        // TODO
+    public treatCrate(type): void {
+        this.nav.push(NavService.CRATE_PICKING, {
+            type,
+            preparation: this.preparation
+        });
     }
 
     public endPreparations(): void {

@@ -5,7 +5,7 @@
     <div *ngFor="let preparation of preparations">
         <bx-card-wrapper [leftTitle]="preparation.client">
             <bx-card-order [crateAmount]="preparation.crateAmount" [tokenAmount]="preparation.tokenAmount"
-                           [orderNumber]="preparation.orderNumber" (click)="crateToPrepare(preparation.id)"></bx-card-order>
+                           [orderNumber]="preparation.orderNumber" (click)="cratesToPrepare(preparation.id)"></bx-card-order>
         </bx-card-wrapper>
     </div>
 </div>

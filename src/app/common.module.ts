@@ -17,7 +17,10 @@ import {ButtonComponent} from '@app/components/button/button.component';
 import {CardOrderDetailComponent} from '@app/components/card-order-detail/card-order-detail.component';
 import {SelectableComponent} from './components/selectable/selectable.component';
 import {IonicSelectableComponent, IonicSelectableModule} from 'ionic-selectable';
-import {EmptyComponent} from "@app/components/empty/empty.component";
+import {EmptyComponent} from '@app/components/empty/empty.component';
+import { LengthPipe } from './pipes/length/length.pipe';
+import { EntriesPipe } from './pipes/entries/entries.pipe';
+import { ValuesPipe } from './pipes/values/values.pipe';
 
 @NgModule({
     declarations: [
@@ -33,7 +36,10 @@ import {EmptyComponent} from "@app/components/empty/empty.component";
         ButtonComponent,
         SelectableComponent,
         CardOrderDetailComponent,
-        EmptyComponent
+        EmptyComponent,
+        LengthPipe,
+        EntriesPipe,
+        ValuesPipe
     ],
     imports: [
         AngularCommonModule,
@@ -59,7 +65,10 @@ import {EmptyComponent} from "@app/components/empty/empty.component";
         CardOrderDetailComponent,
         SelectableComponent,
         IonicSelectableComponent,
-        EmptyComponent
+        EmptyComponent,
+        LengthPipe,
+        EntriesPipe,
+        ValuesPipe
     ]
 })
 export class CommonModule {

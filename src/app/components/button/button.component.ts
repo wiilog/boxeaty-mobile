@@ -1,4 +1,4 @@
-import {Component, EventEmitter, HostBinding, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {ScannerService} from '@app/services/scanner.service';
 import {ToastService} from '@app/services/toast.service';
 import {Platform} from '@ionic/angular';
