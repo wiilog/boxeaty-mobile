@@ -1,5 +1,5 @@
 <div class="content">
-    <div class="amount">
+    <div class="amount" [style.flex-direction]="direction">
         <div class="crate">
             <img src="assets/crate.svg">
             {{ crateAmount !== null ? crateAmount : '-' }} caisse{{ crateAmount != 1 ? 's' : '' }}</div>

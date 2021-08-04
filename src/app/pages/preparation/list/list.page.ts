@@ -35,12 +35,13 @@ export class ListPage implements ViewWillEnter {
             message: 'Chargement des préparations en cours...',
         }).then((loader) => {
             loader.present().then(() => {
-                this.api.request(ApiService.PREPARATIONS, {depository}).subscribe((preparations) => {
-                    loader.dismiss();
-                    this.preparations = preparations;
-                }, () => {
-                    loader.dismiss();
-                });
+                this.api.request(ApiService.PREPARATIONS, {depository}).subscribe(
+                    (preparations) => {
+                        loader.dismiss();
+                        this.preparations = preparations;
+                    },
+                    () => loader.dismiss()
+                );
             });
         });
     }

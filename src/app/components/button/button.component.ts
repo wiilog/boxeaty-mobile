@@ -27,26 +27,29 @@ export class ButtonComponent implements OnInit, OnDestroy{
     public scanner: boolean;
 
     @Output()
-    public action = new EventEmitter<string>();
+    public click = new EventEmitter<void>();
+
+    @Output()
+    public scan = new EventEmitter<string>();
 
     public scanning: boolean;
 
-    public scan: Subscription;
+    public scanSubscription: Subscription;
 
     constructor(private scanService: ScannerService, private toastService: ToastService, private platform: Platform) {
 
     }
 
     ngOnInit() {
-        this.scan = this.platform.backButton.subscribe(() => {
+        this.scanSubscription = this.platform.backButton.subscribe(() => {
             this.scanService.stop();
         });
     }
 
 
     ngOnDestroy() {
-        if (this.scan) {
-            this.scan.unsubscribe();
+        if (this.scanSubscription) {
+            this.scanSubscription.unsubscribe();
         }
     }
 
@@ -54,12 +57,16 @@ export class ButtonComponent implements OnInit, OnDestroy{
         if (this.scanner) {
             this.scanning = false;
             this.scanService.scan((response) => {
-                this.action.emit(response);
+                this.scan.emit(response);
             }, () => {
                 this.toastService.show('Une erreur est survenue lors du scan de la caisse.');
             });
             this.scanning = true;
         }
+    }
+
+    emitClick() {
+        this.click.emit();
     }
 
 }

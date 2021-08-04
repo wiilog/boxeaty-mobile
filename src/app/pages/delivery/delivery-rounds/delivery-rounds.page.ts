@@ -3,25 +3,26 @@ import {formatDate} from '@angular/common';
 import {ApiService} from "@app/services/api.service";
 import {DeliveryRound} from "@app/entities/delivery-round";
 import {NavService} from "@app/services/nav.service";
+import {ViewWillEnter} from '@ionic/angular';
 
 @Component({
     selector: 'app-delivery-rounds',
     templateUrl: './delivery-rounds.page.html',
     styleUrls: ['./delivery-rounds.page.scss'],
 })
-export class DeliveryRoundsPage implements OnInit {
+export class DeliveryRoundsPage implements ViewWillEnter {
 
     private deliveryRounds: { [key: string]: Array<DeliveryRound> };
 
     constructor(private api: ApiService, private nav: NavService) {
     }
 
-    ngOnInit() {
-        this.api.request(ApiService.AVAILABLE_DELIVERY_ROUNDS).subscribe(result => {
+    public ionViewWillEnter(): void {
+        this.api.request(ApiService.AVAILABLE_DELIVERY_ROUNDS, null, ApiService.LOADING_DELIVERIES).subscribe(result => {
             this.deliveryRounds = result;
 
-            for(const rounds of Object.values(this.deliveryRounds)) {
-                for(const round of rounds) {
+            for (const rounds of Object.values(this.deliveryRounds)) {
+                for (const round of rounds) {
                     round.joined_clients = round.orders.map(order => order.client.name).join(', ')
                 }
             }

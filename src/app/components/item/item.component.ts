@@ -17,7 +17,7 @@ export class ItemComponent {
     public border: boolean;
 
     @Input()
-    public addCircle: boolean;
+    public circle: string;
 
     @Input()
     public icon: string;

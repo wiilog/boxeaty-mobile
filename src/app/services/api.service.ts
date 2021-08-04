@@ -4,6 +4,7 @@ import {Observable} from 'rxjs';
 import {tap, timeout} from 'rxjs/operators';
 import {NavService} from '@app/services/nav.service';
 import {ToastService} from '@app/services/toast.service';
+import {LoadingController} from '@ionic/angular';
 
 import API_HOST from '@config/api-host';
 import {StorageService} from "@app/services/storage.service";
@@ -14,6 +15,9 @@ import {StorageService} from "@app/services/storage.service";
 export class ApiService {
 
     public static readonly URL: string = `${API_HOST}/api/mobile`;
+
+    public static readonly LOADING_PREPARATIONS = `Chargement des préparations`;
+    public static readonly LOADING_DELIVERIES = `Chargement des livraisons`;
 
     public static readonly PING = {
         method: 'GET',
@@ -75,7 +79,8 @@ export class ApiService {
     private token: string;
 
     constructor(private storage: StorageService, private nav: NavService,
-                private client: HttpClient, private toastService: ToastService) {
+                private client: HttpClient, private toastService: ToastService,
+                private loader: LoadingController) {
 
         this.storage.getToken().subscribe(token => {
             this.token = token;
@@ -89,7 +94,15 @@ export class ApiService {
             .join(`&`);
     }
 
-    public request({method, endpoint}: { method: string, endpoint: string }, params = null): Observable<any> {
+    public request({method, endpoint}: { method: string, endpoint: string }, params = null, loading: string = null): Observable<any> {
+        let loader = null;
+        if(loading) {
+            this.loader.create({message: loading}).then(l => {
+                loader = l;
+                loader.present();
+            });
+        }
+
         const options = {
             body: params ? JSON.stringify(params) : null,
             headers: undefined,
@@ -121,13 +134,24 @@ export class ApiService {
                 endpoint += (endpoint.indexOf('?') !== -1 ? '&' : '?') + queryParams;
             }
         }
+
         return this.client
             .request(method, ApiService.URL + endpoint, options)
             .pipe(
                 timeout(ApiService.VERIFICATION_SERVICE_TIMEOUT),
                 tap(
-                    async (result: any) => this.toastService.show(result && result.message),
+                    async (result: any) => {
+                        if(loader) {
+                            loader.dismiss();
+                        }
+
+                        this.toastService.show(result && result.message)
+                    },
                     async (error: HttpErrorResponse) => {
+                        if(loader) {
+                            loader.dismiss();
+                        }
+
                         if (error.status === 401) {
                             this.token = null;
                             await this.toastService.show(`Une autre session est déjà ouverte, vous avez été déconnecté`);

@@ -18,6 +18,7 @@ import {CardOrderDetailComponent} from '@app/components/card-order-detail/card-o
 import {SelectableComponent} from './components/selectable/selectable.component';
 import {IonicSelectableComponent, IonicSelectableModule} from 'ionic-selectable';
 import {EmptyComponent} from "@app/components/empty/empty.component";
+import {CardDeliveryComponent} from "@app/components/card-delivery/card-delivery.component";
 
 @NgModule({
     declarations: [
@@ -33,6 +34,7 @@ import {EmptyComponent} from "@app/components/empty/empty.component";
         ButtonComponent,
         SelectableComponent,
         CardOrderDetailComponent,
+        CardDeliveryComponent,
         EmptyComponent
     ],
     imports: [
@@ -59,6 +61,7 @@ import {EmptyComponent} from "@app/components/empty/empty.component";
         CardOrderDetailComponent,
         SelectableComponent,
         IonicSelectableComponent,
+        CardDeliveryComponent,
         EmptyComponent
     ]
 })

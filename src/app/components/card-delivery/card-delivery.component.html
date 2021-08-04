@@ -1,0 +1,23 @@
+<bx-card-wrapper [leftTitle]="title">
+    <div class="content">
+        <div class="left">
+            <div *ngIf="crateAmount !== null && tokenAmount !== null" class="amount">
+                <div class="crate">
+                    <img src="assets/crate.svg">
+                    {{ crateAmount !== null ? crateAmount : '-' }} caisse{{ crateAmount != 1 ? 's' : '' }}</div>
+                <div class="token">
+                    <img src="assets/token.svg">
+                    {{ tokenAmount !== null ? tokenAmount : '-' }} jeton{{ tokenAmount != 1 ? 's' : '' }}
+                </div>
+            </div>
+            <div class="client" *ngIf="name">{{ name }}</div>
+            <div class="address" *ngIf="address">{{ address }}</div>
+            <div class="deliverer">{{ deliverer }} - {{ phoneNumber }}</div>
+        </div>
+        <div class="right">
+            <button class="primary">
+                <img src="assets/navigation.svg" alt="Aller">
+            </button>
+        </div>
+    </div>
+</bx-card-wrapper>

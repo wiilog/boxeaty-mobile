@@ -8,6 +8,9 @@ import {Component, Input, OnInit} from '@angular/core';
 export class CardContentComponent implements OnInit {
 
     @Input()
+    public direction: string;
+
+    @Input()
     public crateAmount: number;
 
     @Input()

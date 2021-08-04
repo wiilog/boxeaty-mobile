@@ -4,6 +4,9 @@
     padding: 10px;
 
     .amount {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         padding: 10px;
 
         img {

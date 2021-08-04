@@ -1,4 +1,5 @@
 import {Entity} from "@app/entities/entity";
+import {Order} from "@app/entities/order";
 
 export interface DeliveryRound extends Entity {
     id: number;
@@ -6,9 +7,9 @@ export interface DeliveryRound extends Entity {
     status: string;
     depository: string;
     expected_date: string;
-    crateAmount: number;
-    tokenAmount: number;
-    orders: Array<any>;
+    crate_amount: number;
+    token_amount: number;
+    orders: Array<Order>;
     order: Array<number>;
 
     joined_clients: string;

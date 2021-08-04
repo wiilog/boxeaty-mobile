@@ -10,9 +10,20 @@
     padding: 5px 10px;
     color: $blue;
 
-    .circle {
-        background: #F2F8F5;
+    img {
         border-radius: 50%;
+
+        &.grey {
+            background: rgba($grey, 10%);
+        }
+
+        &.orange {
+            background: rgba($orange, 10%);
+        }
+
+        &.green {
+            background: rgba($green, 10%);
+        }
     }
 
     .bolder {

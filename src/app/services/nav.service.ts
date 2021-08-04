@@ -14,6 +14,7 @@ export class NavService {
     public static readonly PREPARATIONS = 'preparations';
     public static readonly DELIVERY_ROUNDS = 'delivery_rounds';
     public static readonly SELECT_DELIVERY = 'select_delivery';
+    public static readonly PICK_EVERYTHING = 'pick_everything';
     public static readonly COLLECTS = 'collects';
     public static readonly RECEPTIONS = 'receptions';
     public static readonly LOADING = 'loading';
@@ -28,6 +29,7 @@ export class NavService {
         home: '/home',
         delivery_rounds: '/delivery-rounds',
         select_delivery: '/select-delivery',
+        pick_everything: '/pick-everything',
         loading: '/loading',
         reception_menu: '/reception-menu',
         reception_crate: '/reception-crate',

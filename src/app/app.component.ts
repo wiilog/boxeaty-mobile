@@ -2,7 +2,6 @@ import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {NavService} from './services/nav.service';
 import {Platform} from '@ionic/angular';
-import {Plugins} from '@capacitor/core';
 
 @Component({
     selector: 'bx-root',
@@ -11,6 +10,7 @@ import {Plugins} from '@capacitor/core';
 })
 export class AppComponent {
     readonly LOGIN_PATH = NavService.path(NavService.LOGIN);
+    readonly LOADING_PATH = NavService.path(NavService.LOADING);
     readonly RECEPTION_MENU = NavService.RECEPTION_MENU;
 
     readonly PREPARATIONS = `preparations`;
@@ -21,9 +21,10 @@ export class AppComponent {
     public current: string;
 
     constructor(public router: Router, public navService: NavService, private platform: Platform) {
-        this.platform.ready().then(() => {
+        window.screen.orientation.lock('portrait');
+
+        this.platform.ready().then(async () => {
             this.navService.setRoot(NavService.LOADING);
-            Plugins.ScreenOrientation.lockOrientation();
         });
     }
 

@@ -1,13 +1,21 @@
-<main *ngIf="deliveryRound">
-    <bx-header [subtitle]="'N°' + deliveryRound.number">Livraison de la tournée</bx-header>
-    <bx-section>Circuit des livraisons</bx-section>
-    <bx-card-client *ngFor="let order of deliveryRound.orders; let i = index"
-                    [title]="(i + 1) + '. ' + order.client.name"
-                    [address]="order.client.address"
-                    [deliverer]="order.client.contact"
-                    [phoneNumber]="order.client.phone"
-                    [crateAmount]="order.crate_amount"
-                    [tokenAmount]="order.token_amount">
+<ion-content>
+    <main *ngIf="deliveryRound">
+        <bx-header [subtitle]="'N°' + deliveryRound.number">Livraison de la tournée</bx-header>
+        <div #map class="map"></div>
+        <bx-section>Circuit des livraisons</bx-section>
+        <div class="scrollable">
+            <bx-card-delivery *ngFor="let order of deliveryRound.orders; let i = index"
+                              [title]="(i + 1) + '. ' + order.client.name"
+                              [address]="order.client.address"
+                              [deliverer]="order.client.contact"
+                              [phoneNumber]="order.client.phone"
+                              [crateAmount]="order.crate_amount"
+                              [tokenAmount]="order.token_amount">
 
-    </bx-card-client>
-</main>
+            </bx-card-delivery>
+        </div>
+    </main>
+</ion-content>
+<ion-footer>
+    <bx-button label="Récupérer tout" (click)="pickEverything()"></bx-button>
+</ion-footer>

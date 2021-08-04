@@ -1,0 +1,65 @@
+@import "~style/variables";
+
+.content {
+    display: flex;
+
+    .left {
+        width: calc(100% - 50px);
+        padding: 10px;
+
+        .amount {
+            display: flex;
+
+            img {
+                width: 20px;
+                height: 20px;
+                margin-right: 10px;
+            }
+
+            .crate {
+                display: flex;
+                margin-right: 40px;
+                font-weight: 700;
+                margin-bottom: 10px;
+            }
+
+            .token {
+                display: flex;
+                font-weight: 700;
+            }
+        }
+
+        .client {
+            font-weight: 700;
+        }
+
+        .address {
+            margin-top: 10px;
+        }
+
+        .deliverer {
+            margin-top: 5px;
+            font-weight: 400;
+            color: $grey-dark;
+        }
+    }
+
+    .right {
+        padding: 10px;
+    }
+
+    .right button {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-width: initial;
+        width: 40px;
+        height: 100%;
+
+        img {
+            max-width: initial;
+            width: 20px;
+            height: 20px;
+        }
+    }
+}

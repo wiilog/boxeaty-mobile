@@ -28,6 +28,19 @@ body {
     font-size: 5vw;
 }
 
+main {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: scroll;
+    background: white;
+}
+
+.scrollable {
+    flex: 1 1 auto;
+    overflow-y: scroll;
+}
+
 header {
     height: 80px;
     background: $blue;

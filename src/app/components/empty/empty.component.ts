@@ -1,9 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
-  selector: 'bx-empty',
-  templateUrl: './empty.component.html',
-  styleUrls: ['./empty.component.scss'],
+    selector: 'bx-empty',
+    templateUrl: './empty.component.html',
+    styleUrls: ['./empty.component.scss'],
 })
 export class EmptyComponent implements OnInit {
 
@@ -13,8 +13,10 @@ export class EmptyComponent implements OnInit {
     @Input()
     public icon;
 
-  constructor() { }
+    constructor() {
+    }
 
-  ngOnInit() {}
+    ngOnInit() {
+    }
 
 }
