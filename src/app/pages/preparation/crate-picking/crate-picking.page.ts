@@ -21,11 +21,9 @@ export class CratePickingPage implements ViewWillEnter {
     }
 
     public ionViewWillEnter(): void {
-        this.nav.readParams((param) => {
-            this.type = param.type;
-            this.preparation = param.preparation;
-            this.getAvailableCrates(this.type);
-        });
+        this.type = this.nav.param<string>(`type`);
+        this.preparation = this.nav.param<string>(`preparation`);
+        this.getAvailableCrates(this.type);
     }
 
     public treatCrate(crate): void {

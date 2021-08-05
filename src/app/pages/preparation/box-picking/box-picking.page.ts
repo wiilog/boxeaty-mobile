@@ -22,11 +22,9 @@ export class BoxPickingPage implements ViewWillEnter {
     }
 
     public ionViewWillEnter() {
-        this.nav.readParams((param) => {
-            this.crate = param.crate;
-            this.preparation = param.preparation;
-            this.getAvailableBoxes(this.preparation);
-        });
+        this.crate = this.nav.param<string>(`crate`);
+        this.preparation = this.nav.param<string>(`preparation`);
+        this.getAvailableBoxes(this.preparation);
     }
 
     public scanBox(box) {

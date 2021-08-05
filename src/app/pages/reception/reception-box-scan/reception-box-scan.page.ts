@@ -11,7 +11,7 @@ import {ToastService} from '@app/services/toast.service';
 export class ReceptionBoxScanPage implements OnInit {
 
     public crate: string;
-    public boxes: Array<{boxNumber: string; boxType: string; boxId: number}>;
+    public boxes: Array<{ boxNumber: string; boxType: string; boxId: number }>;
 
     constructor(private navService: NavService, private api: ApiService, private toast: ToastService) {
     }
@@ -20,13 +20,11 @@ export class ReceptionBoxScanPage implements OnInit {
     }
 
     ionViewWillEnter() {
-        this.navService.readParams((param) => {
-            this.crate = param.crateNumber;
-            this.boxes = [];
-        });
+        this.crate = this.navService.param<string>(`crateNumber`);
+        this.boxes = [];
     }
 
-    deleteBox(box: {boxNumber: string; boxType: string; boxId: number}) {
+    deleteBox(box: { boxNumber: string; boxType: string; boxId: number }) {
         this.boxes = this.boxes.filter((b) => b.boxNumber !== box.boxNumber);
     }
 

@@ -86,7 +86,7 @@ button, a {
     }
 
     &.outline {
-        @include button(outline);
+        @include button(outline-orange);
     }
 
     &.silent {

@@ -5,14 +5,14 @@ import {Platform} from '@ionic/angular';
 import {Subscription} from 'rxjs';
 
 @Component({
-  selector: 'bx-button',
-  templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss'],
+    selector: 'bx-button',
+    templateUrl: './button.component.html',
+    styleUrls: ['./button.component.scss'],
 })
-export class ButtonComponent implements OnInit, OnDestroy{
+export class ButtonComponent implements OnInit, OnDestroy {
 
     @Input()
-    public light: boolean;
+    public type: string = `primary`;
 
     @Input()
     public label: string;
@@ -21,7 +21,7 @@ export class ButtonComponent implements OnInit, OnDestroy{
     public icon: string;
 
     @Input()
-    public addCircle: boolean;
+    public disabled: boolean;
 
     @Input()
     public scanner: boolean;
@@ -46,7 +46,6 @@ export class ButtonComponent implements OnInit, OnDestroy{
         });
     }
 
-
     ngOnDestroy() {
         if (this.scanSubscription) {
             this.scanSubscription.unsubscribe();
@@ -65,8 +64,10 @@ export class ButtonComponent implements OnInit, OnDestroy{
         }
     }
 
-    emitClick() {
-        this.click.emit();
+    handleClick() {
+        if (this.scanner && !this.disabled) {
+            this.startScan();
+        }
     }
 
 }

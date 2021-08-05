@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, Output, OnInit, EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'bx-card-delivery',
@@ -27,6 +27,12 @@ export class CardDeliveryComponent implements OnInit {
 
     @Input()
     public tokenAmount: number;
+
+    @Input()
+    public disabled: boolean;
+
+    @Output()
+    public navigate = new EventEmitter<void>();
 
     constructor() {
     }

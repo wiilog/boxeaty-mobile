@@ -1,5 +1,5 @@
-<h1 #wrapper [hidden]="!hasContent" class="vertical" [class.border]="border !== undefined" [class.shadow]="shadow !== undefined">
-    <span><ng-content></ng-content></span>
+<h1 [hidden]="!hasContent" class="vertical" [class.border]="border !== undefined" [class.shadow]="shadow !== undefined">
+    <span #wrapper><ng-content></ng-content></span>
     <div *ngIf="subtitle" class="subtitle">{{ subtitle }}</div>
 </h1>
 

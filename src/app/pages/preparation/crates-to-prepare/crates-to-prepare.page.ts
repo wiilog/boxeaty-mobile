@@ -19,10 +19,8 @@ export class CratesToPreparePage implements ViewWillEnter {
     constructor(private loader: LoadingController, private api: ApiService, private nav: NavService) {}
 
     public ionViewWillEnter(): void {
-        this.nav.readParams((param) => {
-            this.preparation = param.preparation;
-            this.getCratesToPrepare(this.preparation);
-        });
+        this.preparation = this.nav.param<string>(`preparation`);
+        this.getCratesToPrepare(this.preparation);
     }
 
     public treatCrate(type): void {

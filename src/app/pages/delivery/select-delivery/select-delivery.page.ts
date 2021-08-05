@@ -1,72 +1,72 @@
-import {Component, OnInit, OnDestroy, ViewChild, ElementRef, } from '@angular/core';
-import {ViewWillEnter, ViewWillLeave} from '@ionic/angular';
+import {Component, ViewChild, ElementRef} from '@angular/core';
+import {ViewWillEnter, ViewDidEnter} from '@ionic/angular';
 import {DeliveryRound} from "@app/entities/delivery-round";
 import {NavService} from "@app/services/nav.service";
-import {CapacitorGoogleMaps} from '@capacitor-community/capacitor-googlemaps-native';
+import {Platform} from '@ionic/angular';
+import {Order} from "@app/entities/order";
+import {Map} from "@app/utils/map";
 
 @Component({
     selector: 'app-select-delivery',
     templateUrl: './select-delivery.page.html',
     styleUrls: ['./select-delivery.page.scss'],
 })
-export class SelectDeliveryPage implements OnInit, ViewWillEnter, ViewWillLeave {
+export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
 
     @ViewChild('map') mapView: ElementRef;
 
     public deliveryRound: DeliveryRound;
 
-    constructor(private nav: NavService) {
-        this.nav.readParams(params => {
-            this.deliveryRound = params.deliveryRound;
-        });
-    }
-
-
-    ngOnInit() {
+    constructor(private nav: NavService, private platform: Platform) {
     }
 
     public pickEverything() {
         this.nav.push(NavService.PICK_EVERYTHING, {
             deliveryRound: this.deliveryRound,
+            callback: (crates: Array<{order: number, crate: string, boxes: Array<{number: string}>, taken: boolean}>) => {
+                for(const order of this.deliveryRound.orders) {
+                    let count = 0;
+
+                    for(const crate of crates.filter(crate => crate.order == order.id)) {
+                        for(const line of order.preparation.lines.filter(line => crate.crate === line.crate)) {
+                            line.taken = crate.taken;
+                            if(line.taken) {
+                                count++;
+                            }
+                        }
+                    }
+
+                    order.taken = count === order.preparation.lines.length;
+                }
+            }
         });
     }
 
-    async ionViewWillEnter() {
-        const boundingRect = this.mapView.nativeElement.getBoundingClientRect() as DOMRect;
-        const clients: Array<{latitude: number, longitude: number, title: string}> = [];
+    ionViewWillEnter() {
+        this.deliveryRound = this.nav.param<DeliveryRound>("deliveryRound");
+    }
 
-        for(const order of this.deliveryRound.orders) {
-            clients.push({
+    ionViewDidEnter() {
+        const map = Map.create(`map`);
+
+        for (const order of this.deliveryRound.orders) {
+            map.addMarker({
+                title: order.client.name,
                 latitude: Number(order.client.latitude),
                 longitude: Number(order.client.longitude),
-                title: order.client.name,
-            });
+            })
         }
 
-        CapacitorGoogleMaps.create({
-            width: Math.round(boundingRect.width),
-            height: Math.round(boundingRect.height),
-            x: Math.round(boundingRect.x),
-            y: Math.round(boundingRect.y),
-            latitude: clients[0].latitude,
-            longitude: clients[0].longitude,
-            zoom: 8
-        });
-
-        CapacitorGoogleMaps.addListener("onMapReady", async () => {
-            for(const marker of clients) {
-                CapacitorGoogleMaps.addMarker(marker);
-            }
-
-            CapacitorGoogleMaps.setMapType({
-                type: "normal"
-            })
-        })
+        map.fitBounds();
     }
 
+    public navigate(order: Order) {
+        if (this.platform.is(`android`)) {
+            window.location.href = `geo:0,0?q=${order.client.address}`;
 
-    ionViewWillLeave() {
-        CapacitorGoogleMaps.close();
+        } else {
+            window.location.href = `maps://maps.apple.com/?q=${order.client.address}`;
+        }
     }
 
 }

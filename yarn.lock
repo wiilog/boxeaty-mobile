@@ -1223,14 +1223,6 @@
   resolved "https://registry.yarnpkg.com/@capacitor-community/barcode-scanner/-/barcode-scanner-2.0.1.tgz#49ae48b111804388cc20d37d7bc04a36dbb2bac8"
   integrity sha512-x5CWW57SgnKCuXj0re+7Q+5VrjnuaXAu0vEWOKwj2q154+R0KawEcf42HfEUcgLvbolp9A9+2Cl/5U7vRApI9w==
 
-"@capacitor-community/capacitor-googlemaps-native@^1.1.0":
-  version "1.1.0"
-  resolved "https://registry.yarnpkg.com/@capacitor-community/capacitor-googlemaps-native/-/capacitor-googlemaps-native-1.1.0.tgz#24f732517e10fae6d8ad3ae504a41955e45bb9e3"
-  integrity sha512-ZU1OogVMdfqUFvFtK7YYp6pyMCVJdB20hCwYEcxAARa5inF0EO1jAeqVUkKs+T1bJAEAHsu+pMA2HZOpChuUSQ==
-  dependencies:
-    "@capacitor/cli" "^3.0.0"
-    "@capacitor/core" "^3.0.0"
-
 "@capacitor/android@^3.1.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@capacitor/android/-/android-3.1.1.tgz#7bfca661a7aacd162694d7e7a81747da79ed20ae"
@@ -1268,39 +1260,10 @@
     tslib "^2.1.0"
     xml2js "^0.4.23"
 
-"@capacitor/cli@^3.0.0":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.1.2.tgz#e25b2ab2426412d6db7f1c5e2ef56649a194aff3"
-  integrity sha512-o3NYIXso8A8Gyo77cIWPKMnR0vc7LzzE8rbQnLRFSYrnTLy2G0v7yQrB1J7xm/qgjMIplaJOJ+WzLHbtu0NEFw==
-  dependencies:
-    "@ionic/cli-framework-output" "^2.2.1"
-    "@ionic/utils-fs" "^3.1.5"
-    "@ionic/utils-subprocess" "^2.1.6"
-    "@ionic/utils-terminal" "^2.3.0"
-    commander "^6.0.0"
-    debug "^4.2.0"
-    env-paths "^2.2.0"
-    kleur "^4.1.1"
-    native-run "^1.4.0"
-    open "^7.1.0"
-    plist "^3.0.2"
-    prompts "^2.3.2"
-    semver "^7.3.2"
-    tar "^6.0.5"
-    tslib "^2.1.0"
-    xml2js "^0.4.23"
-
 "@capacitor/core@3.1.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.1.1.tgz#61e1ad8b9f532ee5bc5e5c680b0fd71a00492765"
   integrity sha512-VTOdy2GZPLxMGDmwXWfhQWoP7G+0XE8gx2er2uo8e8Y6K8YjT8bxqlOL4VJ8gC5X8Wq281SR4OsajzhdgDazgQ==
-  dependencies:
-    tslib "^2.1.0"
-
-"@capacitor/core@^3.0.0":
-  version "3.1.2"
-  resolved "https://registry.yarnpkg.com/@capacitor/core/-/core-3.1.2.tgz#0e4691ca098e1ff5bd96105b9523122768e8657d"
-  integrity sha512-cMqDY4JTNtyonqVPYxHqbmN3M3jlEBnQxecptlR+6yk/ZuhUwOJTHT1ActXRLyrQ8XIc74+9Yd37fwjWckSwFg==
   dependencies:
     tslib "^2.1.0"
 
@@ -1374,11 +1337,6 @@
   integrity sha512-x3xZNe4ZpifVV6nI/rliJ7j9dwiI56HTaJfrA19w8JSgVcW7ZcTvwX1RPWR1b47INOgU8RAsxVohlBQKggap1g==
   dependencies:
     "@types/cordova" latest
-
-"@ionic-native/google-maps@^5.5.0":
-  version "5.5.0"
-  resolved "https://registry.yarnpkg.com/@ionic-native/google-maps/-/google-maps-5.5.0.tgz#02537e04bb0d01d5580f936d8ccce6745188d90a"
-  integrity sha512-+sCaB7cLR35ApsOyYSfwDX2ZTO2ItOI6FHkgTQ2rzOA1DVJ9rlU8HDL6jYBUhq+aDe3lhCPexSOryeBynaSvpQ==
 
 "@ionic-native/sqlite@^5.34.0":
   version "5.34.0"
@@ -1746,6 +1704,11 @@
   resolved "https://registry.yarnpkg.com/@types/estree/-/estree-0.0.47.tgz#d7a51db20f0650efec24cd04994f523d93172ed4"
   integrity sha512-c5ciR06jK8u9BstrmJyO97m+klJrrhCf9u3rLu3DEAJBirxRqSCvDQoYKmxuYwQI5SZChAWu+tq9oVlGRuzPAg==
 
+"@types/geojson@*":
+  version "7946.0.8"
+  resolved "https://registry.yarnpkg.com/@types/geojson/-/geojson-7946.0.8.tgz#30744afdb385e2945e22f3b033f897f76b1f12ca"
+  integrity sha512-1rkryxURpr6aWP7R786/UQOkJ3PcpQiWkAXBmdWc7ryFWqN6a4xfK7BtjXvFBKO9LjQ+MWQSWxYeZX1OApnArA==
+
 "@types/glob@^7.1.1":
   version "7.1.4"
   resolved "https://registry.yarnpkg.com/@types/glob/-/glob-7.1.4.tgz#ea59e21d2ee5c517914cb4bc8e4153b99e566672"
@@ -1775,6 +1738,13 @@
   version "7.0.8"
   resolved "https://registry.yarnpkg.com/@types/json-schema/-/json-schema-7.0.8.tgz#edf1bf1dbf4e04413ca8e5b17b3b7d7d54b59818"
   integrity sha512-YSBPTLTVm2e2OoQIDYx8HaeWJ5tTToLH67kXR7zYNGupXMEHa2++G8k+DczX2cFVgalypqtyZIcU19AFcmOpmg==
+
+"@types/leaflet@^1.7.4":
+  version "1.7.4"
+  resolved "https://registry.yarnpkg.com/@types/leaflet/-/leaflet-1.7.4.tgz#bb9430f69d588ca5829c1ba82657e179454f93a1"
+  integrity sha512-a3qYlMwJ62+WRoiDmYODUD4KywA14jP2XohAkAWtELGuMAD3MohZa/MmIvQDqF52xNI9OYaY8BMsL+9z7yf2HQ==
+  dependencies:
+    "@types/geojson" "*"
 
 "@types/minimatch@*":
   version "3.0.5"
@@ -6125,6 +6095,11 @@ klona@^2.0.4:
   version "2.0.4"
   resolved "https://registry.yarnpkg.com/klona/-/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
   integrity sha512-ZRbnvdg/NxqzC7L9Uyqzf4psi1OM4Cuc+sJAkQPjO6XkQIJTNbfK2Rsmbw8fx1p2mkZdp2FZYo2+LwXYY/uwIA==
+
+leaflet@^1.7.1:
+  version "1.7.1"
+  resolved "https://registry.yarnpkg.com/leaflet/-/leaflet-1.7.1.tgz#10d684916edfe1bf41d688a3b97127c0322a2a19"
+  integrity sha512-/xwPEBidtg69Q3HlqPdU3DnrXQOvQU/CCHA1tcDQVzOwm91YMYaILjNp7L4Eaw5Z4sOYdbBz6koWyibppd8Zqw==
 
 leek@0.0.24:
   version "0.0.24"

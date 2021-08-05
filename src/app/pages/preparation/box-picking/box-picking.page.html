@@ -22,7 +22,6 @@
 <ion-footer>
     <bx-button label="Flasher Box" icon="scan.svg" (action)="scanBox($event)" [scanner]="true">
     </bx-button>
-    <bx-button label="Terminer" icon="checked-orange.svg" [addCircle]="true" (click)="endPicking($event)"
-               [light]="true">
+    <bx-button type="outline" label="Terminer" icon="checked-orange.svg" (click)="endPicking($event)">
     </bx-button>
 </ion-footer>

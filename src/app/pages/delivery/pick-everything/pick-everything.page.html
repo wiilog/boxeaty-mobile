@@ -1,13 +1,15 @@
 <ion-content>
     <main>
         <bx-header>Récupération des caisses</bx-header>
-        <bx-card-content direction="row" [crateAmount]="deliveryRound.crate_amount" [tokenAmount]="deliveryRound.token_amount"></bx-card-content>
+        <bx-card-content direction="row" [crateAmount]="deliveryRound.crate_amount"
+                         [tokenAmount]="deliveryRound.token_amount"></bx-card-content>
         <bx-card-wrapper *ngFor="let crate of crates" [leftTitle]="crate.crate" rightTitle="Attente expédition">
-            <bx-item [label]="'Type ' + crate.type" icon="checked-grey.svg" circle="grey"></bx-item>
+            <bx-item [label]="'Type ' + crate.type"
+                     [icon]="crate.taken ? 'checked-green.svg' : 'checked-grey.svg'"></bx-item>
         </bx-card-wrapper>
     </main>
 </ion-content>
 <ion-footer>
-    <bx-button label="Flasher caisse" icon="scan.svg" [scanner]="true"></bx-button>
-    <bx-button label="Terminer" icon="checked.svg" (click)="finish()"></bx-button>
+    <bx-button label="Flasher caisse" icon="scan.svg" [scanner]="true" (scan)="scanCrate($event)"></bx-button>
+    <bx-button label="Terminer" type="outline" icon="checked-orange.svg" (click)="finish()"></bx-button>
 </ion-footer>

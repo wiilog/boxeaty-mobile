@@ -1,36 +1,18 @@
 @import "~style/variables";
 
-.content {
-    padding: 10px;
-    margin: 10px 10px 0 10px;
-    border-radius: 5px;
-    background-color: $orange;
+button {
     display: flex;
     justify-content: center;
     align-items: center;
-
-    .label {
-        color: $white;
-        font-weight: 700;
-        margin-right: 20px;
-    }
+    width: calc(100% - 20px);
+    margin: 5px 10px;
 
     img {
-        width: 30px;
+        width: 25px;
     }
 
-    .circle {
-        background: $orange-lightest;
-        border-radius: 50%;
-    }
-
-    &.light {
-        background-color: $white;
-        border: 1px solid $orange;
-        border-radius: 5px;
-
-        .label {
-            color: $orange;
-        }
+    span + img {
+        margin-left: 10px;
     }
 }
+

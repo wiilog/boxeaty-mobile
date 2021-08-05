@@ -43,6 +43,8 @@ export class NavService {
         box_picking: '/box-picking'
     };
 
+    private paramStack: Array<any> = [];
+
     public constructor(private navController: NavController, private route: ActivatedRoute) {
     }
 
@@ -51,53 +53,26 @@ export class NavService {
     }
 
     public push(route: string, params: any = {}): Observable<boolean> {
-        const objects = [];
-        for (const [key, value] of Object.entries(params)) {
-            if (typeof value === 'object') {
-                params[key] = JSON.stringify(value);
-                objects.push(key);
-            }
-        }
-
-        params.__json_objects = JSON.stringify(objects);
-
-        return from(this.navController.navigateForward(NavService.ROUTES[route], {
-            queryParams: params
-        }));
+        this.paramStack.push(params);
+        return from(this.navController.navigateForward(NavService.ROUTES[route]));
     }
 
     public pop(): Observable<void> {
+        this.paramStack.pop();
         return from(this.navController.pop());
     }
 
     public setRoot(route: string, params: any = {}): Observable<boolean> {
-        return from(this.navController.navigateRoot(NavService.ROUTES[route], {
-            queryParams: params
-        }));
+        this.paramStack = [params];
+        return from(this.navController.navigateRoot(NavService.ROUTES[route]));
     }
 
-    public readParams(callback: (any) => void) {
-        this.route.queryParams
-            .pipe(take(1))
-            .subscribe(params => callback(this.deserializeParams(params)));
+    public params<T = any>(): T {
+        return this.paramStack[this.paramStack.length - 1];
     }
 
-    private deserializeParams(params: {[key: string]: number | string }): { [key: string]: any } {
-        const objects = JSON.parse(params.__json_objects as string);
-        const deserialized = {};
-        for (const [key, value] of Object.entries(params)) {
-            if (key === `__json_objects`) {
-                continue;
-            }
-
-            if (objects.includes(key)) {
-                deserialized[key] = JSON.parse(params[key] as string);
-            } else {
-                deserialized[key] = params[key];
-            }
-        }
-
-        return deserialized;
+    public param<T = any>(key: string): T {
+        return this.paramStack[this.paramStack.length - 1][key];
     }
 
 }

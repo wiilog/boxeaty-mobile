@@ -23,9 +23,6 @@ export class ItemComponent {
     public border: boolean;
 
     @Input()
-    public circle: string;
-
-    @Input()
     public icon: string;
 
     @Output()

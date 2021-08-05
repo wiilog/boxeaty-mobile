@@ -12,7 +12,7 @@ export class ReceptionBoxEditPage implements OnInit {
 
     public crate: string;
 
-    public boxes: Array<{boxNumber: string; boxType: string; boxId: number}>;
+    public boxes: Array<string>;
 
     public selectedQuality = null;
     public selectedLocation = null;
@@ -27,10 +27,8 @@ export class ReceptionBoxEditPage implements OnInit {
     }
 
     ionViewWillEnter() {
-        this.navService.readParams((param) => {
-            this.boxes = param.boxes.split(',');
-            this.crate = param.crate;
-        });
+        this.boxes = this.navService.param<string>(`boxes`).split(`,`);
+        this.crate = this.navService.param<string>(`crate`);
     }
 
     validate() {
