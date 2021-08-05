@@ -10,9 +10,17 @@
         <span>Caisse {{ crate }}</span>
         <ion-progress-bar class="progress-bar" value="0.3" color="success"></ion-progress-bar>
     </div>
+    <bx-section>Box disponibles</bx-section>
+    <div class="crate-container" *ngFor="let types of availableBoxes|keyvalue">
+        <bx-card-wrapper [leftTitle]="'Type ' + types.key">
+            <bx-item *ngFor="let locations of types.value|keyvalue"
+                     [leftLabel]="'Emplacement ' + locations.key" [bolderLeftLabel]="true"
+                     [rightLabel]="'x' + (locations.value|length)" [bolderRightLabel]="true"></bx-item>
+        </bx-card-wrapper>
+    </div>
 </ion-content>
 <ion-footer>
-    <bx-button label="Flasher Box" icon="scan.svg" (click)="scanCrate($event)" [scanner]="true">
+    <bx-button label="Flasher Box" icon="scan.svg" (action)="scanBox($event)" [scanner]="true">
     </bx-button>
     <bx-button label="Terminer" icon="checked-orange.svg" [addCircle]="true" (click)="endPicking($event)"
                [light]="true">

@@ -14,7 +14,7 @@
     <div class="crate-container" *ngFor="let crates of availableCrates|keyvalue">
         <bx-card-wrapper [leftTitle]="'Emplacement ' + crates.key">
             <bx-item [leftLabel]="type" [bolderLeftLabel]="true"
-                     [rightLabel]="'x' + (crates|length)" [bolderRightLabel]="true">
+                     [rightLabel]="'x' + (crates.value|length)" [bolderRightLabel]="true">
             </bx-item>
         </bx-card-wrapper>
         <div class="wrapped-cards">
