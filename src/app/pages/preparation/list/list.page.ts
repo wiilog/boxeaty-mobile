@@ -46,7 +46,7 @@ export class ListPage implements ViewWillEnter {
         });
     }
 
-    public crateToPrepare(preparation): void {
+    public cratesToPrepare(preparation): void {
         this.navService.push(NavService.CRATE_TO_PREPARE, {preparation});
     }
 

@@ -11,7 +11,7 @@
         <bx-section>CAISSE</bx-section>
         <div class="crates" *ngIf="crates">
             <bx-card-wrapper *ngFor="let crate of crates" [rightTitle]="crate.crateNumber" [leftTitle]="crate.crateLocation">
-                <bx-item [label]="crate.crateType" [border]="false" [icon]="'reception/terminer.svg'" (action)="goToCrate(crate.crateNumber)"></bx-item>
+                <bx-item [leftLabel]="crate.crateType" [border]="false" [icon]="'reception/terminer.svg'" (action)="goToCrate(crate.crateNumber)"></bx-item>
             </bx-card-wrapper>
         </div>
     </div>

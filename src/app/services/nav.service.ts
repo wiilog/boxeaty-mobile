@@ -23,6 +23,8 @@ export class NavService {
     public static readonly RECEPTION_BOX_SCAN = 'reception_box_scan';
     public static readonly RECEPTION_BOX_EDIT = 'reception_box_edit';
     public static readonly CRATE_TO_PREPARE = 'crates_to_prepare';
+    public static readonly CRATE_PICKING = 'crate_picking';
+    public static readonly BOX_PICKING = 'box_picking';
 
     private static readonly ROUTES = {
         login: '/login',
@@ -36,7 +38,9 @@ export class NavService {
         reception_box_scan: '/reception-box-scan',
         reception_box_edit: '/reception-box-edit',
         preparations: '/preparations',
-        crates_to_prepare: '/crates-to-prepare'
+        crates_to_prepare: '/crates-to-prepare',
+        crate_picking: '/crate-picking',
+        box_picking: '/box-picking'
     };
 
     public constructor(private navController: NavController, private route: ActivatedRoute) {

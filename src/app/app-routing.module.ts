@@ -50,10 +50,19 @@ const routes: Routes = [
     {
         path: 'crates-to-prepare',
         loadChildren: () => import('./pages/preparation/crates-to-prepare/crates-to-prepare.module').then(m => m.CrateToPreparePageModule)
-    },  {
-    path: 'pick-everything',
-    loadChildren: () => import('./pages/delivery/pick-everything/pick-everything.module').then( m => m.PickEverythingPageModule)
-  },
+    },
+    {
+        path: 'box-picking',
+        loadChildren: () => import('./pages/preparation/box-picking/box-picking.module').then(m => m.BoxPickingPageModule)
+    },
+    {
+        path: 'crate-picking',
+        loadChildren: () => import('./pages/preparation/crate-picking/crate-picking.module').then(m => m.CratePickingPageModule)
+    },
+    {
+        path: 'pick-everything',
+        loadChildren: () => import('./pages/delivery/pick-everything/pick-everything.module').then(m => m.PickEverythingPageModule)
+    },
 
 
 ];
