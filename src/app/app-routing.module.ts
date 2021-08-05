@@ -70,7 +70,11 @@ const routes: Routes = [
     {
         path: 'pick-everything',
         loadChildren: () => import('./pages/delivery/pick-everything/pick-everything.module').then(m => m.PickEverythingPageModule)
-    },
+    },  {
+    path: 'crate-content',
+    loadChildren: () => import('./pages/preparation/crate-content/crate-content.module').then( m => m.CrateContentPageModule)
+  },
+
 
 
 ];

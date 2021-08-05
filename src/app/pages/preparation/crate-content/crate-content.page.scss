@@ -1,0 +1,19 @@
+@import "~style/variables";
+
+.wrapped-cards {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.wrapped {
+    width: 50%;
+}
+
+.type {
+    margin: 15px 10px 0;
+
+    span {
+        font-weight: 700;
+        color: $blue;
+    }
+}

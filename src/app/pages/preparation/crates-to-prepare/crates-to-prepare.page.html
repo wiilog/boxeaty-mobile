@@ -11,7 +11,7 @@
     </bx-section>
     <bx-card-wrapper *ngFor="let crate of preparedCrates" [leftTitle]="crate.number"
                      rightTitle="Attente expédition">
-        <bx-item [leftLabel]="crate.type" [label]="crate.boxType" icon="checked-green.svg" [bolderLeftLabel]="true"></bx-item>
+        <bx-item [leftLabel]="crate.type" icon="checked-green.svg" [bolderLeftLabel]="true"></bx-item>
     </bx-card-wrapper>
     <ng-template #noPreparedCrates>
         <bx-section>Caisse préparée</bx-section>

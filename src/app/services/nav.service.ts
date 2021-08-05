@@ -25,6 +25,7 @@ export class NavService {
     public static readonly CRATE_TO_PREPARE = 'crates_to_prepare';
     public static readonly CRATE_PICKING = 'crate_picking';
     public static readonly BOX_PICKING = 'box_picking';
+    public static readonly CRATE_CONTENT = 'crate_content';
 
     private static readonly ROUTES = {
         login: '/login',
@@ -40,7 +41,8 @@ export class NavService {
         preparations: '/preparations',
         crates_to_prepare: '/crates-to-prepare',
         crate_picking: '/crate-picking',
-        box_picking: '/box-picking'
+        box_picking: '/box-picking',
+        crate_content: '/crate-content'
     };
 
     private paramStack: Array<any> = [];

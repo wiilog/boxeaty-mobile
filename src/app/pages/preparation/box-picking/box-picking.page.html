@@ -7,8 +7,18 @@
 </ion-header>
 <ion-content>
     <div class="content">
-        <span>Caisse {{ crate }}</span>
-        <ion-progress-bar class="progress-bar" value="0.3" color="success"></ion-progress-bar>
+        <span>Caisse {{ crateNumber }}</span>
+        <div class="progress-bar-container">
+            <ion-progress-bar class="progress-bar" value="{{ progress || 0 }}" color="success"></ion-progress-bar>
+            <span>{{ current || '-' }}/{{ total || '-' }}</span>
+        </div>
+    </div>
+    <div class="scanned-boxes">
+        <bx-card-wrapper *ngFor="let box of scannedBoxes" [hideTitle]="true">
+            <bx-item [leftLabel]="'Type ' + box.type" [rightLabel]="box.quantity + '/' + typeQuantity[box.type].quantity"
+                     icon="{{ box.quantity === typeQuantity[box.type] ? 'checked-green.svg' : 'checked-grey.svg' }}"
+                     (click)="crateContent(box.subs, box.type)"></bx-item>
+        </bx-card-wrapper>
     </div>
     <bx-section>Box disponibles</bx-section>
     <div class="crate-container" *ngFor="let types of availableBoxes|keyvalue">
@@ -20,8 +30,9 @@
     </div>
 </ion-content>
 <ion-footer>
-    <bx-button label="Flasher Box" icon="scan.svg" (action)="scanBox($event)" [scanner]="true">
+    <bx-button label="Flasher Box" icon="scan.svg" (scan)="scanBox($event)" [scanner]="true">
     </bx-button>
-    <bx-button type="outline" label="Terminer" icon="checked-orange.svg" (click)="endPicking($event)">
+    <bx-button type="outline" label="Terminer" icon="checked-orange.svg"
+               (click)="endPicking($event)" [disabled]="progress !== 1">
     </bx-button>
 </ion-footer>

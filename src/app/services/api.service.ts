@@ -84,6 +84,11 @@ export class ApiService {
         endpoint: '/available-boxes',
     };
 
+    public static readonly BOX_INFORMATIONS = {
+        method: 'GET',
+        endpoint: '/box-informations',
+    };
+
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
 
     private token: string;

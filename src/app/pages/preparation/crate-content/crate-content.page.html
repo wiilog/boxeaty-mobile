@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">
+            <bx-header>Contenu de la caisse</bx-header>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div *ngIf="containedBoxes.length > 0; else noBoxes">
+        <div class="ion-text-center type">
+            <span>Type {{ type }}</span>
+        </div>
+        <div class="wrapped-cards">
+            <bx-card-wrapper *ngFor="let box of containedBoxes" [hideTitle]="true" class="wrapped">
+                <bx-item [leftLabel]="box" icon="trash.svg"
+                         (action)="delete(box)">
+                </bx-item>
+            </bx-card-wrapper>
+        </div>
+    </div>
+    <ng-template #noBoxes>
+        <bx-empty label="Aucune Box" icon="loading.svg"></bx-empty>
+    </ng-template>
+</ion-content>
+<ion-footer>
+    <bx-button label="Retour" (click)="back()">
+    </bx-button>
+</ion-footer>
