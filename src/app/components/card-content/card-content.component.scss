@@ -1,29 +1,22 @@
 @import "~style/variables";
 
-.content {
-    padding: 10px;
+.amount {
+    display: flex;
+    height: 100%;
 
-    .amount {
+    img {
+        width: 20px;
+        height: 20px;
+        margin-right: 10px;
+    }
+
+    .crate {
         display: flex;
-        flex-direction: column;
-        justify-content: center;
-        padding: 10px;
+        font-weight: 700;
+    }
 
-        img {
-            width: 20px;
-            height: 20px;
-            margin-right: 10px;
-        }
-
-        .crate {
-            display: flex;
-            margin-right: 40px;
-            font-weight: 700;
-        }
-
-        .token {
-            display: flex;
-            font-weight: 700;
-        }
+    .token {
+        display: flex;
+        font-weight: 700;
     }
 }

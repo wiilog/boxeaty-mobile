@@ -13,7 +13,14 @@ export interface Client extends Entity {
 export interface Preparation extends Entity {
     id: number;
     depository: string;
-    lines: Array<{ crate: string, boxes: Array<{ number: string }>, taken: boolean }>;
+    lines: Array<PreparationLine>;
+}
+
+export interface PreparationLine {
+    crate: string,
+    boxes: Array<{ number: string }>,
+    taken: boolean,
+    deposited: boolean
 }
 
 export interface Order extends Entity {
@@ -24,5 +31,7 @@ export interface Order extends Entity {
     client: Client;
     lines: Array<{ box_type: { id: number, name: string }, quantity: number }>;
 
+    order: number;
     taken: boolean;
+    deposited: boolean;
 }

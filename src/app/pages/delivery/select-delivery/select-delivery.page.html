@@ -1,18 +1,19 @@
-<ion-content>
+<ion-content *ngIf="deliveryRound">
     <main *ngIf="deliveryRound">
         <bx-header [subtitle]="'N°' + deliveryRound.number">Livraison de la tournée</bx-header>
         <div id="map"></div>
 
         <bx-section>Circuit des livraisons</bx-section>
         <div class="scrollable">
-            <bx-card-delivery *ngFor="let order of deliveryRound.orders; let i = index"
+            <bx-card-delivery *ngFor="let order of deliveryRound.orders"
                               [disabled]="!order.taken"
-                              [title]="(i + 1) + '. ' + order.client.name"
+                              [title]="order.order + '. ' + order.client.name"
                               [address]="order.client.address"
                               [deliverer]="order.client.contact"
                               [phoneNumber]="order.client.phone"
                               [crateAmount]="order.crate_amount"
                               [tokenAmount]="order.token_amount"
+                              (click)="startDeposit(order)"
                               (navigate)="navigate(order)">
 
             </bx-card-delivery>

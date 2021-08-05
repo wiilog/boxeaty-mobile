@@ -1,8 +1,10 @@
 import {Injectable} from '@angular/core';
-import {NavController} from '@ionic/angular';
+import {NavController, Platform} from '@ionic/angular';
 import {from, Observable} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
-import {take} from 'rxjs/operators';
+import {ScannerService} from "@app/services/scanner.service";
+import {PhotoService} from "@app/services/photo.service";
+import {Router, NavigationStart} from '@angular/router';
 
 @Injectable({
     providedIn: 'root'
@@ -11,14 +13,16 @@ export class NavService {
 
     public static readonly LOGIN = 'login';
     public static readonly HOME = 'home';
+    public static readonly LOADING = 'loading';
     public static readonly PREPARATIONS = 'preparations';
     public static readonly DELIVERY_ROUNDS = 'delivery_rounds';
     public static readonly SELECT_DELIVERY = 'select_delivery';
     public static readonly PICK_EVERYTHING = 'pick_everything';
+    public static readonly DEPOSIT_BOXES = 'deposit_boxes';
+    public static readonly DELIVERY_SIGN = 'delivery_sign';
     public static readonly COLLECTS = 'collects';
-    public static readonly RECEPTIONS = 'receptions';
-    public static readonly LOADING = 'loading';
-    public static readonly RECEPTION_MENU = 'reception_menu';
+    public static readonly COLLECT_NEW = 'collect_new';
+    public static readonly RECEPTIONS = 'reception_menu';
     public static readonly RECEPTION_CRATE = 'reception_crate';
     public static readonly RECEPTION_BOX_SCAN = 'reception_box_scan';
     public static readonly RECEPTION_BOX_EDIT = 'reception_box_edit';
@@ -29,10 +33,14 @@ export class NavService {
     private static readonly ROUTES = {
         login: '/login',
         home: '/home',
+        loading: '/loading',
         delivery_rounds: '/delivery-rounds',
         select_delivery: '/select-delivery',
         pick_everything: '/pick-everything',
-        loading: '/loading',
+        deposit_boxes: '/deposit-boxes',
+        delivery_sign: '/delivery-sign',
+        collects: '/collects',
+        collect_new: '/collect-new',
         reception_menu: '/reception-menu',
         reception_crate: '/reception-crate',
         reception_box_scan: '/reception-box-scan',
@@ -43,9 +51,21 @@ export class NavService {
         box_picking: '/box-picking'
     };
 
-    private paramStack: Array<any> = [];
+    private paramStack: Array<{ route: string, params: any }> = [];
+    private justNavigated: boolean;
 
-    public constructor(private navController: NavController, private route: ActivatedRoute) {
+    public constructor(private platform: Platform, private navController: NavController,
+                       private router: Router,
+                       private scanner: ScannerService, private photo: PhotoService) {
+        this.router.events.subscribe(event => {
+            if(event instanceof NavigationStart) {
+                if(!this.justNavigated && this.paramStack.length) {
+                    this.paramStack.pop();
+                }
+
+                this.justNavigated = false;
+            }
+        });
     }
 
     public static path(route: string) {
@@ -53,26 +73,52 @@ export class NavService {
     }
 
     public push(route: string, params: any = {}): Observable<boolean> {
-        this.paramStack.push(params);
+        this.justNavigated = true;
+        this.paramStack.push({route, params});
+
         return from(this.navController.navigateForward(NavService.ROUTES[route]));
     }
 
-    public pop(): Observable<void> {
-        this.paramStack.pop();
-        return from(this.navController.pop());
+    public pop(route: string = null): Observable<void> {
+        this.justNavigated = true;
+
+        if(route === null) {
+            this.paramStack.pop();
+            return from(this.navController.pop());
+        } else {
+            const params = [...this.paramStack].reverse();
+            params.shift();
+
+            let index = null;
+            for(let i = 0; i < params.length; i++) {
+                if(params[i].route === route) {
+                    index = i + 1;
+                    break;
+                }
+            }
+
+            if(index === null) {
+                throw new Error(`Could not find route ${route}`);
+            }
+
+            this.paramStack.splice(this.paramStack.length - index, index);
+            return from(this.navController.navigateBack(NavService.ROUTES[route]) as unknown as Observable<void>);
+        }
     }
 
     public setRoot(route: string, params: any = {}): Observable<boolean> {
+        this.justNavigated = true;
         this.paramStack = [params];
+
         return from(this.navController.navigateRoot(NavService.ROUTES[route]));
     }
 
     public params<T = any>(): T {
-        return this.paramStack[this.paramStack.length - 1];
+        return this.paramStack[this.paramStack.length - 1].params;
     }
 
     public param<T = any>(key: string): T {
-        return this.paramStack[this.paramStack.length - 1][key];
+        return this.paramStack[this.paramStack.length - 1].params[key];
     }
 
 }

@@ -32,12 +32,21 @@ export class CardDeliveryComponent implements OnInit {
     public disabled: boolean;
 
     @Output()
+    public click = new EventEmitter<void>();
+
+    @Output()
     public navigate = new EventEmitter<void>();
 
     constructor() {
     }
 
     ngOnInit() {
+    }
+
+    handleClick(event) {
+        if(this.disabled) {
+            event.stopPropagation();
+        }
     }
 
 }

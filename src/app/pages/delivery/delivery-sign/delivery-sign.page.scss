@@ -1,0 +1,18 @@
+bx-card-client strong {
+    font-size: 1.2rem;
+}
+
+form {
+    width: 100%;
+    padding: 0 10px;
+
+    .row {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+
+        .half {
+            flex: 1 1 50%;
+        }
+    }
+}

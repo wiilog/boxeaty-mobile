@@ -26,7 +26,7 @@ export class Form {
         };
     }
 
-    static text(required: boolean): FormField {
+    static text(required: boolean = false): FormField {
         return {
             type: `text`,
             control: new FormControl(null, [
@@ -35,7 +35,27 @@ export class Form {
         }
     }
 
-    static email(required: boolean): FormField {
+    static textarea(required: boolean = false): FormField {
+        return {
+            type: `textarea`,
+            control: new FormControl(null, [
+                ...(required ? [Validators.required] : []),
+            ]),
+        }
+    }
+
+    static number(minimum: number = null, maximum: number = null, required: boolean = false): FormField {
+        return {
+            type: `text`,
+            control: new FormControl(null, [
+                ...(minimum !== null ? [Validators.min(minimum)] : []),
+                ...(maximum !== null ? [Validators.max(maximum)] : []),
+                ...(required ? [Validators.required] : []),
+            ]),
+        }
+    }
+
+    static email(required: boolean = false): FormField {
         return {
             type: `email`,
             control: new FormControl(null, [
@@ -45,9 +65,27 @@ export class Form {
         };
     }
 
-    static password(required: boolean): FormField {
+    static password(required: boolean = false): FormField {
         return {
             type: `password`,
+            control: new FormControl(null, [
+                ...(required ? [Validators.required] : []),
+            ])
+        };
+    }
+
+    static photo(required: boolean = false): FormField {
+        return {
+            type: `photo`,
+            control: new FormControl(null, [
+                ...(required ? [Validators.required] : []),
+            ])
+        };
+    }
+
+    static signature(required: boolean = false): FormField {
+        return {
+            type: `signature`,
             control: new FormControl(null, [
                 ...(required ? [Validators.required] : []),
             ])

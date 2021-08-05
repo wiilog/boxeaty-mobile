@@ -11,7 +11,6 @@ import {Platform} from '@ionic/angular';
 export class AppComponent {
     readonly LOGIN_PATH = NavService.path(NavService.LOGIN);
     readonly LOADING_PATH = NavService.path(NavService.LOADING);
-    readonly RECEPTION_MENU = NavService.RECEPTION_MENU;
 
     readonly PREPARATIONS = `preparations`;
     readonly DELIVERIES = `deliveries`;
@@ -39,7 +38,7 @@ export class AppComponent {
     }
 
     navigateReceptions() {
-        this.navService.push(NavService.RECEPTION_MENU);
+        this.navService.push(NavService.RECEPTIONS);
         this.current = this.RECEPTIONS;
     }
 
