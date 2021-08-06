@@ -25,6 +25,9 @@ export class ItemComponent {
     @Input()
     public icon: string;
 
+    @Input()
+    public subtitle: boolean;
+
     @Output()
     public action = new EventEmitter<void>();
 

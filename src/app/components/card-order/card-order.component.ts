@@ -19,6 +19,9 @@ export class CardOrderComponent implements OnInit {
     @Input()
     public orderNumber: string;
 
+    @Input()
+    public operator: string;
+
   constructor() { }
 
   ngOnInit() {}

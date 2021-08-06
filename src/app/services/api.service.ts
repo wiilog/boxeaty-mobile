@@ -69,6 +69,11 @@ export class ApiService {
         endpoint: '/preparations',
     };
 
+    public static readonly TOGGLE_PREPARATION_STATUS = {
+        method: 'POST',
+        endpoint: '/toggle-preparation-status',
+    };
+
     public static readonly CRATES_TO_PREPARE = {
         method: 'GET',
         endpoint: '/crates-to-prepare',

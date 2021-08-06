@@ -1,7 +1,7 @@
 <div class="content" [class.border]="border">
     <div class="item-content">
         <div class="labels">
-            <span [class.bolder]="bolderLeftLabel">{{ leftLabel }}</span>
+            <span [class.bolder]="bolderLeftLabel" [class.subtitle]="subtitle">{{ leftLabel }}</span>
             <span [class.bolder]="bolderRightLabel">{{ rightLabel }}</span>
         </div>
         <img src="../assets/{{ icon }}" *ngIf="icon" (click)="onImageClick()">

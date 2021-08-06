@@ -13,7 +13,8 @@ import {NavService} from '@app/services/nav.service';
 export class ListPage implements ViewWillEnter {
 
     public depositories: Array<{ label: string; value: number }> = undefined;
-    public preparations: Array<{ id: number; client: string; crateAmount: number; tokenAmount: number; orderNumber: string }> = undefined;
+    public toPrepare: Array<{ id: number; client: string; crateAmount: number; tokenAmount: number; orderNumber: string; operator: string }> = [];
+    public preparing: Array<{ id: number; client: string; crateAmount: number; tokenAmount: number; orderNumber: string; operator: string }> = [];
 
     constructor(private storage: StorageService, private api: ApiService,
                 private loader: LoadingController, private navService: NavService) {
@@ -33,13 +34,16 @@ export class ListPage implements ViewWillEnter {
     public getPreparations(depository = undefined): void {
         this.api.request(ApiService.PREPARATIONS, {depository}, `Chargement des préparations en cours...`)
             .subscribe(
-                (preparations) => {
-                    this.preparations = preparations;
+                ({toPrepare, preparing}) => {
+                    console.log({toPrepare, preparing});
+                    this.toPrepare = toPrepare;
+                    this.preparing = preparing;
                 });
     }
 
     public cratesToPrepare(preparation): void {
-        this.navService.push(NavService.CRATE_TO_PREPARE, {preparation});
+        this.api.request(ApiService.TOGGLE_PREPARATION_STATUS, {id: preparation, preparing: true}).subscribe(() => {
+            this.navService.push(NavService.CRATE_TO_PREPARE, {preparation});
+        });
     }
-
 }
