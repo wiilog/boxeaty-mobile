@@ -8,7 +8,6 @@ import {FieldComponent} from './components/field/field.component';
 import {HeaderComponent} from '@app/components/header/header.component';
 import {SectionComponent} from '@app/components/section/section.component';
 import {CardWrapperComponent} from '@app/components/card-wrapper/card-wrapper.component';
-import {CardComponent} from '@app/components/card/card.component';
 import {CardClientComponent} from '@app/components/card-client/card-client.component';
 import {CardContentComponent} from '@app/components/card-content/card-content.component';
 import {CardOrderComponent} from '@app/components/card-order/card-order.component';
@@ -22,6 +21,8 @@ import {LengthPipe} from './pipes/length/length.pipe';
 import {EntriesPipe} from './pipes/entries/entries.pipe';
 import {ValuesPipe} from './pipes/values/values.pipe';
 import {CardDeliveryComponent} from "@app/components/card-delivery/card-delivery.component";
+import {SignComponent} from "@app/components/sign/sign.component";
+import {PhotoComponent} from "@app/components/photo/photo.component";
 
 @NgModule({
     declarations: [
@@ -29,7 +30,6 @@ import {CardDeliveryComponent} from "@app/components/card-delivery/card-delivery
         HeaderComponent,
         SectionComponent,
         CardWrapperComponent,
-        CardComponent,
         CardClientComponent,
         CardContentComponent,
         CardOrderComponent,
@@ -42,6 +42,8 @@ import {CardDeliveryComponent} from "@app/components/card-delivery/card-delivery
         EntriesPipe,
         ValuesPipe,
         CardDeliveryComponent,
+        SignComponent,
+        PhotoComponent,
     ],
     imports: [
         AngularCommonModule,
@@ -58,7 +60,6 @@ import {CardDeliveryComponent} from "@app/components/card-delivery/card-delivery
         CardWrapperComponent,
         FormsModule,
         ReactiveFormsModule,
-        CardComponent,
         CardClientComponent,
         CardContentComponent,
         CardOrderComponent,
@@ -72,6 +73,8 @@ import {CardDeliveryComponent} from "@app/components/card-delivery/card-delivery
         EntriesPipe,
         ValuesPipe,
         CardDeliveryComponent,
+        SignComponent,
+        PhotoComponent,
     ]
 })
 export class CommonModule {

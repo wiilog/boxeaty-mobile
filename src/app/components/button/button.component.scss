@@ -1,6 +1,6 @@
 @import "~style/variables";
 
-button {
+div.button {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -13,6 +13,10 @@ button {
 
     span + img {
         margin-left: 10px;
+    }
+
+    &.disabled {
+        filter: grayscale(1) brightness(110%);
     }
 }
 

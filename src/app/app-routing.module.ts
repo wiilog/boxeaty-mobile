@@ -70,7 +70,16 @@ const routes: Routes = [
     {
         path: 'pick-everything',
         loadChildren: () => import('./pages/delivery/pick-everything/pick-everything.module').then(m => m.PickEverythingPageModule)
-    },  {
+    },
+  {
+    path: 'delivery-sign',
+    loadChildren: () => import('./pages/delivery/delivery-sign/delivery-sign.module').then( m => m.DeliverySignPageModule)
+  },
+  {
+    path: 'sign-modal',
+    loadChildren: () => import('./modals/sign-modal/sign-modal.module').then( m => m.SignModalPageModule)
+  },
+  {
     path: 'crate-content',
     loadChildren: () => import('./pages/preparation/crate-content/crate-content.module').then( m => m.CrateContentPageModule)
   },

@@ -1,1 +1,25 @@
-lol!
+<ion-content *ngIf="order">
+    <bx-card-client [title]="order.order + '. ' + order.client.name"
+                    [address]="order.client.address"
+                    [deliverer]="order.client.contact"
+                    [phoneNumber]="order.client.phone">
+        <bx-card-content direction="row" [center]="false"
+                         [crateAmount]="order.crate_amount"
+                         [tokenAmount]="order.token_amount"></bx-card-content>
+    </bx-card-client>
+
+    <bx-section *ngIf="toDeposit.length">Caisses à déposer</bx-section>
+    <bx-card-wrapper *ngFor="let crate of toDeposit" [leftTitle]="crate.crate">
+        <bx-item [leftLabel]="'Type ' + crate.type" icon="checked-grey.svg"></bx-item>
+    </bx-card-wrapper>
+
+    <bx-section *ngIf="deposited.length">Caisses déposées</bx-section>
+    <bx-card-wrapper *ngFor="let crate of deposited" [leftTitle]="crate.crate">
+        <bx-item [leftLabel]="'Type ' + crate.type" icon="checked-green.svg"></bx-item>
+    </bx-card-wrapper>
+</ion-content>
+<ion-footer>
+    <bx-button label="Flasher caisse" icon="scan.svg" [scanner]="true" (scan)="scanCrate($event)"></bx-button>
+    <bx-button label="Terminer" type="outline" icon="checked-orange.svg" [disabled]="toDeposit.length"
+               (click)="finish()"></bx-button>
+</ion-footer>

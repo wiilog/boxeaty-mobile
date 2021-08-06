@@ -20,30 +20,15 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
     constructor(private nav: NavService, private platform: Platform) {
     }
 
-    public pickEverything() {
-        this.nav.push(NavService.PICK_EVERYTHING, {
-            deliveryRound: this.deliveryRound,
-            callback: (crates: Array<{order: number, crate: string, boxes: Array<{number: string}>, taken: boolean}>) => {
-                for(const order of this.deliveryRound.orders) {
-                    let count = 0;
-
-                    for(const crate of crates.filter(crate => crate.order == order.id)) {
-                        for(const line of order.preparation.lines.filter(line => crate.crate === line.crate)) {
-                            line.taken = crate.taken;
-                            if(line.taken) {
-                                count++;
-                            }
-                        }
-                    }
-
-                    order.taken = count === order.preparation.lines.length;
-                }
-            }
-        });
-    }
-
     ionViewWillEnter() {
         this.deliveryRound = this.nav.param<DeliveryRound>("deliveryRound");
+
+        const ord = this.deliveryRound.order;
+        this.deliveryRound.orders.sort((a, b) => ord[a.id] - ord[b.id]);
+
+        for(const order of this.deliveryRound.orders) {
+            order.order = ord[order.id];
+        }
     }
 
     ionViewDidEnter() {
@@ -60,13 +45,24 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
         map.fitBounds();
     }
 
+    public startDeposit(order: Order) {
+        this.nav.push(NavService.DEPOSIT_BOXES, {
+            order
+        });
+    }
+
     public navigate(order: Order) {
         if (this.platform.is(`android`)) {
             window.location.href = `geo:0,0?q=${order.client.address}`;
-
         } else {
             window.location.href = `maps://maps.apple.com/?q=${order.client.address}`;
         }
+    }
+
+    public pickEverything() {
+        this.nav.push(NavService.PICK_EVERYTHING, {
+            deliveryRound: this.deliveryRound
+        });
     }
 
 }

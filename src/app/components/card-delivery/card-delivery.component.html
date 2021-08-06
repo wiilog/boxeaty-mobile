@@ -1,4 +1,4 @@
-<bx-card-wrapper [disabled]="disabled" [leftTitle]="title">
+<bx-card-wrapper (click)="handleClick($event)" [disabled]="disabled" [leftTitle]="title">
     <div class="content" [class.disabled]="disabled">
         <div class="left">
             <div *ngIf="crateAmount !== null && tokenAmount !== null" class="amount">
@@ -15,7 +15,7 @@
             <div class="deliverer">{{ deliverer }} - {{ phoneNumber }}</div>
         </div>
         <div class="right">
-            <button class="primary" (click)="navigate.emit()">
+            <button class="primary" [disabled]="disabled" (click)="navigate.emit()">
                 <img src="assets/navigation.svg" alt="Aller">
             </button>
         </div>

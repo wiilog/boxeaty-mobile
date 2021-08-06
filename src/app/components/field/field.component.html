@@ -1,5 +1,30 @@
 <label [class]="class" [class.error]="form.errors[name]">
     {{ label }}
-    <input *ngIf="form.errors[name]" type="text" [value]="form.errors[name]" (click)="clearErrors()" readonly>
-    <input *ngIf="!form.errors[name]" [formControl]="control" [type]="type" [placeholder]="placeholder" [required]="required">
+
+    <ng-container *ngIf="!['textarea', 'photo', 'signature'].includes(type)">
+        <input *ngIf="form.errors[name]" type="text" [value]="form.errors[name]" (click)="clearErrors()" readonly>
+        <input *ngIf="!form.errors[name]" [formControl]="control" [type]="type" [placeholder]="placeholder"
+               [required]="required">
+    </ng-container>
+
+    <ng-container *ngIf="type == 'textarea'">
+        <textarea *ngIf="form.errors[name]" (click)="clearErrors()" readonly>{{ form.errors[name] }}</textarea>
+        <textarea *ngIf="!form.errors[name]" [placeholder]="placeholder" [required]="required"></textarea>
+    </ng-container>
+
+    <ng-container *ngIf="type == 'photo'">
+        <img *ngIf="control.value" [src]="control.value" alt="Photo">
+        <bx-photo (done)="control.setValue($event)"></bx-photo>
+        <span *ngIf="form.errors[name]">{{ form.errors[name] }}</span>
+
+        <input [formControl]="control" type="hidden">
+    </ng-container>
+
+    <ng-container *ngIf="type == 'signature'">
+        <img *ngIf="control.value" [src]="control.value" alt="Signature">
+        <bx-sign (done)="control.setValue($event)"></bx-sign>
+        <span *ngIf="form.errors[name]">{{ form.errors[name] }}</span>
+
+        <input [formControl]="control" type="hidden">
+    </ng-container>
 </label>

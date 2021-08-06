@@ -8,7 +8,10 @@ import {Component, Input, OnInit} from '@angular/core';
 export class CardContentComponent implements OnInit {
 
     @Input()
-    public direction: string;
+    public direction: string = `vertical`;
+
+    @Input()
+    public center: boolean = true;
 
     @Input()
     public crateAmount: number;
@@ -20,6 +23,11 @@ export class CardContentComponent implements OnInit {
     }
 
     ngOnInit() {
+        if(this.direction === `horizontal`) {
+            this.direction = `row`;
+        } else if(this.direction === `vertical`) {
+            this.direction = `column`;
+        }
     }
 
 }

@@ -1238,6 +1238,11 @@
   resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-1.0.2.tgz#920dbf7055aa8ba060932d6e8dcac6f8bbc821af"
   integrity sha512-P9PInUnUdkiqYk+7wzd51Oe6AzJ4KyKDRFVebDMGo7UgHFuK2ogDTDLabrv9XQUV1Zk2tXvpEoGmw46dd+2Img==
 
+"@capacitor/camera@^1.0.3":
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/@capacitor/camera/-/camera-1.0.3.tgz#50601cbe316d14ffac98c637f849394d77da7785"
+  integrity sha512-4QTJB1kk8PZiX/NDDT9YB4457fPKbPOEXXOqOOnHiSA+QL6lTqHgyBp/A435UVbr9oZAJcSb7/sLYOr3JseqzA==
+
 "@capacitor/cli@3.1.1":
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/@capacitor/cli/-/cli-3.1.1.tgz#2805e6952364d465567a97ff20509ca6e1a488aa"
@@ -8974,6 +8979,11 @@ signal-exit@^3.0.0, signal-exit@^3.0.2, signal-exit@^3.0.3:
   version "3.0.3"
   resolved "https://registry.yarnpkg.com/signal-exit/-/signal-exit-3.0.3.tgz#a1410c2edd8f077b08b4e253c8eacfcaf057461c"
   integrity sha512-VUJ49FC8U1OxwZLxIbTTrDvLnf/6TDgxZcK8wxR8zs13xpx7xbG60ndBlhNrFi2EMuFRoeDoJO7wthSLq42EjA==
+
+signature_pad@^3.0.0-beta.4:
+  version "3.0.0-beta.4"
+  resolved "https://registry.yarnpkg.com/signature_pad/-/signature_pad-3.0.0-beta.4.tgz#2a8441559e9f439e7f2f525da3ee630ef973ecf6"
+  integrity sha512-cOf2NhVuTiuNqe2X/ycEmizvCDXk0DoemhsEpnkcGnA4kS5iJYTCqZ9As7tFBbsch45Q1EdX61833+6sjJ8rrw==
 
 simple-concat@^1.0.0:
   version "1.0.1"

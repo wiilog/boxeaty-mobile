@@ -32,23 +32,15 @@ export class ReceptionBoxEditPage implements OnInit {
     }
 
     validate() {
-        this.loader.create({
-            message: 'Veuillez patienter...',
-        }).then((loader) => {
-            loader.present().then(() => {
-                const params = {
-                    boxes: this.boxes.join(','),
-                    crate: this.crate,
-                    quality: this.selectedQuality.id,
-                    location: this.selectedLocation.id,
-                };
-                this.api.request(ApiService.REVERSE_TRACKING, params).subscribe(() => {
-                    loader.dismiss();
-                    this.navService.setRoot(NavService.RECEPTION_MENU);
-                }, () => {
-                    loader.dismiss();
-                });
-            });
-        });
+        const params = {
+            boxes: this.boxes.join(','),
+            crate: this.crate,
+            quality: this.selectedQuality.id,
+            location: this.selectedLocation.id,
+        };
+
+        this.api.request(ApiService.REVERSE_TRACKING, params, `Envoi des données`).subscribe(() => {
+            this.navService.pop(NavService.RECEPTIONS);
+        })
     }
 }

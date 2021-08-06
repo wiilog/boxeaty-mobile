@@ -1,11 +1,11 @@
-<div class="content">
-    <div class="amount" [style.flex-direction]="direction">
-        <div class="crate">
-            <img src="assets/crate.svg">
-            {{ crateAmount !== null ? crateAmount : '-' }} caisse{{ crateAmount != 1 ? 's' : '' }}</div>
-        <div class="token">
-            <img src="assets/token.svg">
-            {{ tokenAmount !== null ? tokenAmount : '-' }} jeton{{ tokenAmount != 1 ? 's' : '' }}
-        </div>
+<div class="amount" [style.flex-direction]="direction"
+     [style.justify-content]="center ? 'center' : null"
+     [style.align-items]="center ? 'center' : null">
+    <div class="crate" [style.margin-right]="direction == 'row' ? '40px' : null" [style.margin-bottom]="direction == 'column' ? '10px' : null">
+        <img src="assets/crate.svg">
+        {{ crateAmount !== null ? crateAmount : '-' }} caisse{{ crateAmount != 1 ? 's' : '' }}</div>
+    <div class="token">
+        <img src="assets/token.svg">
+        {{ tokenAmount !== null ? tokenAmount : '-' }} jeton{{ tokenAmount != 1 ? 's' : '' }}
     </div>
 </div>

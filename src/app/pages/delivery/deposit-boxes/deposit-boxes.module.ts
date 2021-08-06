@@ -1,20 +1,18 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule as AngularCommonModule} from '@angular/common';
 
-import { IonicModule } from '@ionic/angular';
+import {DepositBoxesPageRoutingModule} from './deposit-boxes-routing.module';
 
-import { DepositBoxesPageRoutingModule } from './deposit-boxes-routing.module';
-
-import { DepositBoxesPage } from './deposit-boxes.page';
+import {DepositBoxesPage} from './deposit-boxes.page';
+import {CommonModule} from "@app/common.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    FormsModule,
-    IonicModule,
-    DepositBoxesPageRoutingModule
-  ],
-  declarations: [DepositBoxesPage]
+    imports: [
+        AngularCommonModule,
+        DepositBoxesPageRoutingModule,
+        CommonModule,
+    ],
+    declarations: [DepositBoxesPage]
 })
-export class DepositBoxesPageModule {}
+export class DepositBoxesPageModule {
+}
