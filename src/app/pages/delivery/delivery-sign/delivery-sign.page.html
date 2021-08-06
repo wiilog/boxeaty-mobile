@@ -13,19 +13,17 @@
 
     <bx-section>Signature et commentaire</bx-section>
     <form>
-        <div class="row">
-            <div class="half">
-                <bx-field [form]="form" name="signature" label="Signer*"></bx-field>
-            </div>
-            <div class="half">
-                <bx-field [form]="form" name="photo" label="Prendre une photo"></bx-field>
-            </div>
+        <div class="split">
+            <bx-field [form]="form" name="signature" label="Signer*"></bx-field>
+            <bx-field [form]="form" name="photo" label="Prendre une photo"></bx-field>
         </div>
 
-        <bx-field [form]="form" name="comment" label="Commentaire commande" placeholder="Écrivez ici..."></bx-field>
+        <bx-field [form]="form" name="comment" label="Commentaire commande" lines=2 placeholder="Écrivez ici..."></bx-field>
         <bx-field [form]="form" name="distance" label="Nombre de km réel" placeholder="0" required></bx-field>
-    </form>
 
-    <bx-button label="Terminer" icon="checked-white.svg" (click)="finish()"></bx-button>
-    <bx-button label="Terminer et collecter" icon="collect.svg" (click)="finishAndCollect()"></bx-button>
+        <br>
+
+        <bx-button label="Terminer" icon="checked-white.svg" (click)="finish()"></bx-button>
+        <bx-button label="Terminer et collecter" icon="collect.svg" (click)="finishAndCollect()"></bx-button>
+    </form>
 </ion-content>

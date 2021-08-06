@@ -31,6 +31,9 @@ export class CardDeliveryComponent implements OnInit {
     @Input()
     public disabled: boolean;
 
+    @Input()
+    public canNavigate: boolean;
+
     @Output()
     public click = new EventEmitter<void>();
 

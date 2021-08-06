@@ -3,18 +3,27 @@ import Leaflet from 'leaflet';
 Leaflet.Icon.Default.imagePath = `/assets/leaflet/`
 
 export class Map {
-    map;
-    locations = [];
 
-    static create(element) {
+    public static readonly DEFAULT_OPTIONS = {
+        zoomControl: false,
+        attributionControl: false
+    };
+
+    private id: string;
+    private map: any;
+    private locations: Array<any> = [];
+
+    public static create(id, options = this.DEFAULT_OPTIONS) {
         const map = new Map();
-        map.map = Leaflet.map(element).setView([46.467247, 2.960474], 5);
+        map.id = id;
+        map.map = Leaflet.map(id, options);
+        map.map.setView([46.467247, 2.960474], 5);
         Leaflet.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map.map);
 
         return map;
     }
 
-    addMarker(location) {
+    public addMarker(location) {
         const existing = this.locations.find(l => l.latitude === location.latitude && l.longitude === location.longitude);
         if (existing) {
             return;
@@ -27,7 +36,7 @@ export class Map {
         this.locations.push(location);
     }
 
-    setMarkers(locations, fit = true) {
+    public setMarkers(locations, fit = true) {
         for (const location of this.locations) {
             this.removeMarker(location);
         }
@@ -41,12 +50,12 @@ export class Map {
         }
     }
 
-    removeMarker(location) {
+    public removeMarker(location) {
         this.map.removeLayer(location.marker);
         this.locations.splice(this.locations.indexOf(location), 1);
     }
 
-    fitBounds() {
+    public fitBounds() {
         const bounds = [];
         for (const location of this.locations) {
             bounds.push(Leaflet.latLng(location.latitude, location.longitude));
@@ -56,5 +65,9 @@ export class Map {
             paddingTopLeft: [0, 30],
             maxZoom: 12,
         });
+    }
+
+    public reinitialize() {
+        document.getElementById(this.id).innerHTML = `<div id="map"></div>`
     }
 }

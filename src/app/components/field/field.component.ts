@@ -27,6 +27,9 @@ export class FieldComponent implements OnInit {
     public placeholder: string = ``;
 
     @Input()
+    public lines: number = 2;
+
+    @Input()
     public required: boolean = false;
 
     private previousValue: any;

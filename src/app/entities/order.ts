@@ -17,19 +17,21 @@ export interface Preparation extends Entity {
 }
 
 export interface PreparationLine {
-    crate: string,
-    boxes: Array<{ number: string }>,
-    taken: boolean,
-    deposited: boolean
+    crate: string;
+    taken: boolean;
+    deposited: boolean;
+
+    order: number;
 }
 
 export interface Order extends Entity {
     id: number;
+    delivered: boolean;
     crate_amount: number;
     token_amount: number;
     preparation: Preparation;
     client: Client;
-    lines: Array<{ box_type: { id: number, name: string }, quantity: number }>;
+    comment: string;
 
     order: number;
     taken: boolean;

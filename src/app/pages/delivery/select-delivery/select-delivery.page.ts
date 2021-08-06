@@ -5,6 +5,7 @@ import {NavService} from "@app/services/nav.service";
 import {Platform} from '@ionic/angular';
 import {Order} from "@app/entities/order";
 import {Map} from "@app/utils/map";
+import {ApiService} from "@app/services/api.service";
 
 @Component({
     selector: 'app-select-delivery',
@@ -14,41 +15,52 @@ import {Map} from "@app/utils/map";
 export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
 
     @ViewChild('map') mapView: ElementRef;
+    private map: Map = null;
 
     public deliveryRound: DeliveryRound;
 
-    constructor(private nav: NavService, private platform: Platform) {
+    constructor(private nav: NavService, private api: ApiService, private platform: Platform) {
     }
 
     ionViewWillEnter() {
         this.deliveryRound = this.nav.param<DeliveryRound>("deliveryRound");
+        for (const order of this.deliveryRound.orders) {
+            console.log(order.preparation.lines);
+            order.taken = order.preparation.lines.filter(line => !line.taken).length === 0;
+        }
 
         const ord = this.deliveryRound.order;
         this.deliveryRound.orders.sort((a, b) => ord[a.id] - ord[b.id]);
 
-        for(const order of this.deliveryRound.orders) {
+        for (const order of this.deliveryRound.orders) {
             order.order = ord[order.id];
         }
     }
 
     ionViewDidEnter() {
-        const map = Map.create(`map`);
+        if(this.map === null) {
+            this.map = Map.create(`map`);
 
-        for (const order of this.deliveryRound.orders) {
-            map.addMarker({
-                title: order.client.name,
-                latitude: Number(order.client.latitude),
-                longitude: Number(order.client.longitude),
-            })
+            for (const order of this.deliveryRound.orders) {
+                this.map.addMarker({
+                    title: order.client.name,
+                    latitude: Number(order.client.latitude),
+                    longitude: Number(order.client.longitude),
+                })
+            }
+
+            this.map.fitBounds();
         }
-
-        map.fitBounds();
     }
 
     public startDeposit(order: Order) {
-        this.nav.push(NavService.DEPOSIT_BOXES, {
-            order
-        });
+        const loading = `Démarrage de la livraison`;
+
+        this.api.request(ApiService.DELIVERY_START, {order: order.id}, loading).subscribe(() => {
+            this.nav.push(NavService.DEPOSIT_BOXES, {
+                order
+            });
+        })
     }
 
     public navigate(order: Order) {

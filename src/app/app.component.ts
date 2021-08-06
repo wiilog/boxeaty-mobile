@@ -1,7 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, ChangeDetectorRef} from '@angular/core';
 import {Router} from '@angular/router';
 import {NavService} from './services/nav.service';
 import {Platform} from '@ionic/angular';
+import {Keyboard} from '@capacitor/keyboard';
 
 @Component({
     selector: 'bx-root',
@@ -18,12 +19,25 @@ export class AppComponent {
     readonly RECEPTIONS = `receptions`;
 
     public current: string;
+    public showFooter: boolean = true;
 
-    constructor(public router: Router, public navService: NavService, private platform: Platform) {
+    constructor(public router: Router, public navService: NavService, private detector: ChangeDetectorRef, private platform: Platform) {
         window.screen.orientation.lock('portrait');
 
         this.platform.ready().then(async () => {
             this.navService.setRoot(NavService.LOADING);
+        });
+
+        Keyboard.hide();
+
+        Keyboard.addListener(`keyboardWillHide`, () => {
+            this.showFooter = true;
+            this.detector.detectChanges();
+        });
+
+        Keyboard.addListener(`keyboardWillShow`, () => {
+            this.showFooter = false;
+            this.detector.detectChanges();
         });
     }
 

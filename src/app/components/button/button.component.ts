@@ -68,7 +68,6 @@ export class ButtonComponent implements OnInit, OnDestroy {
 
     handleClick(event) {
         if(this.disabled) {
-            console.error("fuck");
             event.stopPropagation();
             return;
         }

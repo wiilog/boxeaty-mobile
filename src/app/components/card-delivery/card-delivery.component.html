@@ -14,7 +14,7 @@
             <div class="address" *ngIf="address">{{ address }}</div>
             <div class="deliverer">{{ deliverer }} - {{ phoneNumber }}</div>
         </div>
-        <div class="right">
+        <div class="right" *ngIf="canNavigate">
             <button class="primary" [disabled]="disabled" (click)="navigate.emit()">
                 <img src="assets/navigation.svg" alt="Aller">
             </button>

@@ -20,71 +20,91 @@ export class ApiService {
     public static readonly LOADING_DELIVERIES = `Chargement des livraisons`;
 
     public static readonly PING = {
-        method: 'GET',
-        endpoint: '/ping',
+        method: `GET`,
+        endpoint: `/ping`,
     };
 
     public static readonly LOGIN = {
-        method: 'POST',
-        endpoint: '/login',
+        method: `POST`,
+        endpoint: `/login`,
     };
 
     public static readonly DEPOSITORIES = {
-        method: 'GET',
-        endpoint: '/depositories',
+        method: `GET`,
+        endpoint: `/depositories`,
     };
 
     public static readonly LOCATIONS = {
-        method: 'GET',
-        endpoint: '/locations',
+        method: `GET`,
+        endpoint: `/locations`,
     };
 
     public static readonly QUALITIES = {
-        method: 'GET',
-        endpoint: '/qualities',
+        method: `GET`,
+        endpoint: `/qualities`,
     };
 
     public static readonly CRATES = {
-        method: 'GET',
-        endpoint: '/crates',
+        method: `GET`,
+        endpoint: `/crates`,
     };
 
     public static readonly AVAILABLE_DELIVERY_ROUNDS = {
-        method: 'GET',
-        endpoint: '/delivery-rounds',
+        method: `GET`,
+        endpoint: `/delivery-rounds`,
+    };
+
+    public static readonly DELIVERY_START = {
+        method: `POST`,
+        endpoint: `/deliveries/start`,
+    };
+
+    public static readonly DELIVERY_TAKE = {
+        method: `POST`,
+        endpoint: `/deliveries/take`,
+    };
+
+    public static readonly DELIVERY_DEPOSIT = {
+        method: `POST`,
+        endpoint: `/deliveries/deposit`,
+    };
+
+    public static readonly DELIVERY_FINISH = {
+        method: `POST`,
+        endpoint: `/deliveries/finish`,
     };
 
     public static readonly BOX = {
-        method: 'GET',
-        endpoint: '/box',
+        method: `GET`,
+        endpoint: `/box`,
     };
 
     public static readonly REVERSE_TRACKING = {
-        method: 'POST',
-        endpoint: '/reverse-tracking',
+        method: `POST`,
+        endpoint: `/reverse-tracking`,
     };
 
     public static readonly PREPARATIONS = {
-        method: 'GET',
-        endpoint: '/preparations',
+        method: `GET`,
+        endpoint: `/preparations`,
     };
 
     public static readonly CRATES_TO_PREPARE = {
-        method: 'GET',
-        endpoint: '/crates-to-prepare',
+        method: `GET`,
+        endpoint: `/crates-to-prepare`,
     };
 
     public static readonly AVAILABLE_CRATES = {
-        method: 'GET',
-        endpoint: '/available-crates',
+        method: `GET`,
+        endpoint: `/available-crates`,
     };
 
     public static readonly AVAILABLE_BOXES = {
-        method: 'GET',
-        endpoint: '/available-boxes',
+        method: `GET`,
+        endpoint: `/available-boxes`,
     };
 
-    private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
+    private static readonly TIMEOUT: number = 15000;
 
     private token: string;
 
@@ -141,14 +161,14 @@ export class ApiService {
         if ((method === `GET` || method === `DELETE`) && params) {
             const queryParams = ApiService.objectToURI(params);
             if (queryParams) {
-                endpoint += (endpoint.indexOf('?') !== -1 ? '&' : '?') + queryParams;
+                endpoint += (endpoint.indexOf(`?`) !== -1 ? `&` : `?`) + queryParams;
             }
         }
 
         return this.client
             .request(method, ApiService.URL + endpoint, options)
             .pipe(
-                timeout(ApiService.VERIFICATION_SERVICE_TIMEOUT),
+                timeout(ApiService.TIMEOUT),
                 tap(
                     async (result: any) => {
                         if(loader) {
