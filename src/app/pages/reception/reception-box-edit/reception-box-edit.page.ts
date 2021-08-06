@@ -41,6 +41,6 @@ export class ReceptionBoxEditPage implements OnInit {
 
         this.api.request(ApiService.REVERSE_TRACKING, params, `Envoi des données`).subscribe(() => {
             this.navService.pop(NavService.RECEPTIONS);
-        })
+        });
     }
 }

@@ -89,6 +89,11 @@ export class ApiService {
         endpoint: '/box-informations',
     };
 
+    public static readonly CREATE_BOX_PICK_TRACKING_MOVEMENT = {
+        method: 'POST',
+        endpoint: '/create-box-pick-tracking-movement',
+    };
+
     private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
 
     private token: string;

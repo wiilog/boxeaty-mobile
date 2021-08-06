@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {ViewWillEnter} from '@ionic/angular';
 import {NavService} from '@app/services/nav.service';
-import {ToastService} from "@app/services/toast.service";
+import {ToastService} from '@app/services/toast.service';
 
 @Component({
     selector: 'bx-crate-content',
@@ -13,6 +13,7 @@ export class CrateContentPage implements ViewWillEnter {
     public type: string;
 
     public containedBoxes = [];
+    public movements: Array<{box: string; date: string}> = [];
 
     constructor(private nav: NavService, private toastService: ToastService) {
     }
@@ -20,23 +21,23 @@ export class CrateContentPage implements ViewWillEnter {
     public ionViewWillEnter() {
         this.type = this.nav.param<string>('type');
         this.containedBoxes = this.nav.param<Array<string>>('containedBoxes');
-        console.log(this.containedBoxes);
+        this.movements = this.nav.param<Array<{box: string; date: string}>>('movements');
     }
 
     public back() {
-        this.nav.push(NavService.BOX_PICKING, {
-            containedBoxes: this.containedBoxes,
-            type: this.type
-        });
+        this.nav.pop();
     }
 
     public delete(box) {
         const index = this.containedBoxes.indexOf(box);
+
         if(index !== -1) {
+            const movementToDelete = this.movements.findIndex(m => m.box === box);
+
+            this.movements.splice(movementToDelete, 1);
             this.containedBoxes.splice(index, 1);
-            this.toastService.show('La Box' + box + ' a bien été supprimée');
+            this.toastService.show('La Box ' + box + ' a bien été supprimée');
         }
-        console.log(this.containedBoxes);
     }
 
 }

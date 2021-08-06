@@ -30,9 +30,10 @@
     </div>
 </ion-content>
 <ion-footer>
-    <bx-button label="Flasher Box" icon="scan.svg" (scan)="scanBox($event)" [scanner]="true">
+    <bx-button label="Flasher Box" icon="scan.svg" (scan)="scanBox($event)"
+               [scanner]="true" [disabled]="progress === 1">
     </bx-button>
     <bx-button type="outline" label="Terminer" icon="checked-orange.svg"
-               (click)="endPicking($event)" [disabled]="progress !== 1">
+               (click)="endPicking()" [disabled]="progress !== 1">
     </bx-button>
 </ion-footer>

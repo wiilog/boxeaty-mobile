@@ -17,9 +17,9 @@
         <bx-section>Caisse préparée</bx-section>
         <bx-empty icon="loading.svg" label="Aucune caisse préparée"></bx-empty>
     </ng-template>
-    <bx-section>caisse{{ cratesToPrepare.length > 1 ? 's' : '' }} à préparer</bx-section>
+    <bx-section>caisse{{ pendingCrates.length > 1 ? 's' : '' }} à préparer</bx-section>
     <div class="wrapped-cards">
-        <bx-card-wrapper *ngFor="let crate of cratesToPrepare" [hideTitle]="true" class="wrapped">
+        <bx-card-wrapper *ngFor="let crate of pendingCrates" [hideTitle]="true" class="wrapped">
             <bx-item [leftLabel]="crate.type" icon="checked-grey.svg" [bolderLeftLabel]="true"
                      (action)="treatCrate(crate.type)">
             </bx-item>

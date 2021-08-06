@@ -29,7 +29,7 @@ export class CratePickingPage implements ViewWillEnter {
     public treatCrate(crate): void {
         const values = Object.values(this.availableCrates);
         const crates = [].concat.apply([], values);
-        if(crates.includes(crate)) {
+        if (crates.includes(crate)) {
             this.nav.push(NavService.BOX_PICKING, {
                 crate,
                 preparation: this.preparation
@@ -40,18 +40,10 @@ export class CratePickingPage implements ViewWillEnter {
     }
 
     private getAvailableCrates(type) {
-        this.loader.create({
-            message: 'Chargement des caisses disponibles en cours...',
-        }).then((loader) => {
-            loader.present().then(() => {
-                this.api.request(ApiService.AVAILABLE_CRATES, {type}).subscribe((availableCrates) => {
-                    loader.dismiss();
-                    this.availableCrates = availableCrates;
-                }, () => {
-                    loader.dismiss();
-                });
+        this.api.request(ApiService.AVAILABLE_CRATES, {type}, `Chargement des caisses disponibles en cours...`)
+            .subscribe((availableCrates) => {
+                this.availableCrates = availableCrates;
             });
-        });
     }
 
 }

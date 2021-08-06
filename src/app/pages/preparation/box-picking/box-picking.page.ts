@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {LoadingController, ViewWillEnter} from '@ionic/angular';
 import {NavService} from '@app/services/nav.service';
 import {ApiService} from '@app/services/api.service';
@@ -10,10 +10,11 @@ import {Stream} from '@app/utils/stream';
     templateUrl: './box-picking.page.html',
     styleUrls: ['./box-picking.page.scss'],
 })
-export class BoxPickingPage implements ViewWillEnter {
+export class BoxPickingPage implements ViewWillEnter, OnInit {
 
     public crateNumber: string;
     public preparation: string;
+    public type: string;
 
     public crateVolume: number;
     public takenBoxes: number;
@@ -26,16 +27,26 @@ export class BoxPickingPage implements ViewWillEnter {
     public availableBoxes = {};
     public typeQuantity = {};
     public scannedBoxes = [];
+    public containedBoxes = [];
+    public movements = [];
 
     constructor(private nav: NavService, private api: ApiService,
                 private loader: LoadingController, private toastService: ToastService) {
     }
 
     public ionViewWillEnter() {
-        this.crateNumber = this.nav.param<string>(`crate`);
-        this.preparation = this.nav.param<string>(`preparation`);
+        if (this.containedBoxes && this.type) {
+            const scannedBoxesToChange = this.scannedBoxes.find((b) => b.type === this.type);
+            scannedBoxesToChange.quantity -= this.containedBoxes.length;
+            scannedBoxesToChange.subs = this.containedBoxes;
+        }
 
         this.getAvailableBoxes(this.preparation);
+    }
+
+    public ngOnInit() {
+        this.crateNumber = this.nav.param<string>(`crate`);
+        this.preparation = this.nav.param<string>(`preparation`);
     }
 
     public scanBox(box) {
@@ -49,84 +60,73 @@ export class BoxPickingPage implements ViewWillEnter {
     }
 
     public crateContent(containedBoxes, type) {
-        this.nav.push(NavService.CRATE_CONTENT, {containedBoxes, type});
+        this.nav.push(NavService.CRATE_CONTENT, {containedBoxes, type, movements: this.movements});
+    }
+
+    public endPicking() {
+        this.api.request(ApiService.CREATE_BOX_PICK_TRACKING_MOVEMENT, {
+            movements: this.movements
+        }, 'Création des mouvements de traçabilité...')
+            .subscribe(() => {
+                this.nav.push(NavService.CRATE_PICKING, {});
+            });
     }
 
     private getAvailableBoxes(preparation) {
-        this.loader.create({
-            message: 'Chargement des Box disponibles en cours...',
-        }).then((loader) => {
-            loader.present().then(() => {
-                this.api.request(ApiService.AVAILABLE_BOXES, {preparation})
-                    .subscribe(({availableBoxes, typeQuantity}) => {
-                        loader.dismiss();
-                        this.availableBoxes = availableBoxes;
-                        this.typeQuantity = typeQuantity;
-                    }, () => {
-                        loader.dismiss();
-                    });
+        this.api.request(ApiService.AVAILABLE_BOXES, {preparation}, `Chargement des Box disponibles en cours...`)
+            .subscribe(({availableBoxes, typeQuantity}) => {
+                this.availableBoxes = availableBoxes;
+                this.typeQuantity = typeQuantity;
             });
-        });
     }
 
-    private addBox(number) {
+    private async addBox(number) {
         const alreadyNumber = this.scannedBoxes.find((b) => b.number === number);
         if (!alreadyNumber) {
-            this.loader.create({
-                message: 'Récupération des informations de la Box...',
-            }).then((loader) => {
-                loader.present().then(() => {
-                    this.api.request(ApiService.BOX_INFORMATIONS, {
-                        box: number,
-                        crate: this.crateNumber
-                    }).subscribe((box) => {
-                        loader.dismiss();
-                        let success = true;
-                        const already = this.scannedBoxes.find((b) => b.type === box.type);
-                        if (already) {
-                            const alreadyIndex = this.scannedBoxes.indexOf(already);
-                            if (this.typeQuantity[box.type].quantity <= this.scannedBoxes[alreadyIndex].quantity) {
-                                success = false;
-                            } else {
-                                this.scannedBoxes[alreadyIndex].quantity += 1;
-                                this.scannedBoxes[alreadyIndex].subs.push(box.number);
-                            }
-                        } else {
-                            box.quantity = 1;
-                            box.subs = [box.number];
-                            this.scannedBoxes.push(box);
-                        }
+            const box = await this.api.request(ApiService.BOX_INFORMATIONS, {
+                box: number,
+                crate: this.crateNumber
+            }, `Récupération des informations de la Box...`).toPromise();
 
-                        this.crateVolume = box.crateVolume;
-                        let neededVolume = 0;
-                        let totalBoxNumber = 0;
-                        let averageBoxVolume = 0;
-                        Object.keys(this.typeQuantity).forEach((key) => {
-                            const type = this.typeQuantity[key];
-                            neededVolume += (type.quantity * type.volume);
-                            totalBoxNumber += type.quantity;
-                        });
+            let success = true;
+            const already = this.scannedBoxes.find((b) => b.type === box.type);
+            if (already) {
+                const alreadyIndex = this.scannedBoxes.indexOf(already);
+                if (this.typeQuantity[box.type].quantity <= this.scannedBoxes[alreadyIndex].quantity) {
+                    success = false;
+                } else {
+                    this.scannedBoxes[alreadyIndex].quantity += 1;
+                    this.scannedBoxes[alreadyIndex].subs.push(box.number);
+                }
+            } else {
+                box.quantity = 1;
+                box.subs = [box.number];
 
-                        averageBoxVolume = neededVolume / totalBoxNumber;
-                        this.total = Math.ceil(this.crateVolume / averageBoxVolume);
-                        this.current = this.scannedBoxes.length;
-                        this.progress = this.current / this.total;
+                this.scannedBoxes.push(box);
+            }
+            this.movements.push({box: box.number, date: new Date()});
 
-                        if (success) {
-                            this.toastService.show('La Box <strong>' + number + '</strong> a bien été ajoutée');
-                        } else {
-                            this.toastService.show('La Box <strong>' + number + '</strong> n\'a pas été ajoutée');
-                        }
-
-                        console.log(this.scannedBoxes);
-                    }, () => {
-                        loader.dismiss();
-                        this.toastService.show('Une erreur est survenue');
-                    });
-                });
+            this.crateVolume = box.crateVolume;
+            let neededVolume = 0;
+            let totalBoxNumber = 0;
+            Object.keys(this.typeQuantity).forEach((key) => {
+                const type = this.typeQuantity[key];
+                neededVolume += (type.quantity * type.volume);
+                totalBoxNumber += type.quantity;
             });
+
+            const averageBoxVolume = neededVolume / totalBoxNumber;
+            this.total = Math.ceil(this.crateVolume / averageBoxVolume);
+            this.current = this.scannedBoxes.length;
+            this.progress = this.current / this.total;
+
+            if (success) {
+                await this.toastService.show('La Box <strong>' + number + '</strong> a bien été ajoutée');
+            } else {
+                await this.toastService.show('La Box <strong>' + number + '</strong> n\'a pas été ajoutée');
+            }
         } else {
-            this.toastService.show('La Box <strong>' + number + '</strong> a déjà été ajoutée');
+            await this.toastService.show('La Box <strong>' + number + '</strong> a déjà été ajoutée');
         }
     }
 }

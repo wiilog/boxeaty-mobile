@@ -31,19 +31,11 @@ export class ListPage implements ViewWillEnter {
     }
 
     public getPreparations(depository = undefined): void {
-        this.loader.create({
-            message: 'Chargement des préparations en cours...',
-        }).then((loader) => {
-            loader.present().then(() => {
-                this.api.request(ApiService.PREPARATIONS, {depository}).subscribe(
-                    (preparations) => {
-                        loader.dismiss();
-                        this.preparations = preparations;
-                    },
-                    () => loader.dismiss()
-                );
-            });
-        });
+        this.api.request(ApiService.PREPARATIONS, {depository}, `Chargement des préparations en cours...`)
+            .subscribe(
+                (preparations) => {
+                    this.preparations = preparations;
+                });
     }
 
     public cratesToPrepare(preparation): void {

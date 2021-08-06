@@ -13,10 +13,11 @@ export class CratesToPreparePage implements ViewWillEnter {
     public preparation: string;
     public crate: string;
 
-    public cratesToPrepare: Array<{ id: number; number: string; type: string }> = [];
-    public preparedCrates: Array<{ id: number; number: string; type: string }> = [];
+    public preparedCrates: Array<{ number: string; type: string }> = [];
+    public pendingCrates: Array<{ number: string; type: string }> = [];
 
-    constructor(private loader: LoadingController, private api: ApiService, private nav: NavService) {}
+    constructor(private loader: LoadingController, private api: ApiService, private nav: NavService) {
+    }
 
     public ionViewWillEnter(): void {
         this.preparation = this.nav.param<string>(`preparation`);
@@ -35,18 +36,10 @@ export class CratesToPreparePage implements ViewWillEnter {
     }
 
     private getCratesToPrepare(preparation?: string) {
-        this.loader.create({
-            message: 'Chargement des caisses en cours...',
-        }).then((loader) => {
-            loader.present().then(() => {
-                this.api.request(ApiService.CRATES_TO_PREPARE, {preparation}).subscribe((cratesToPrepare) => {
-                    loader.dismiss();
-                    this.cratesToPrepare = cratesToPrepare;
-                }, () => {
-                    loader.dismiss();
-                });
+        this.api.request(ApiService.CRATES_TO_PREPARE, {preparation}, `Chargement des caisses en cours...`)
+            .subscribe((crates) => {
+                this.pendingCrates = crates;
             });
-        });
     }
 
 }
