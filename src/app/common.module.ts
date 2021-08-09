@@ -54,6 +54,7 @@ import {PhotoComponent} from "@app/components/photo/photo.component";
         IonicSelectableModule
     ],
     exports: [
+        IonicModule,
         FieldComponent,
         HeaderComponent,
         SectionComponent,

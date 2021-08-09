@@ -15,7 +15,7 @@ export class PickEverythingPage implements ViewWillEnter {
 
     public deliveryRound: DeliveryRound;
 
-    public crates: Array<{ order: number, crate: string, taken: boolean }>;
+    public crates: Array<{ order: number; type: string; crate: string; taken: boolean }>;
     public finished: boolean = false;
 
     constructor(private nav: NavService, private api: ApiService, private toast: ToastService) {

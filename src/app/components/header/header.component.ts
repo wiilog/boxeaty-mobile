@@ -8,8 +8,6 @@ import {Form} from '@app/utils/form';
 })
 export class HeaderComponent implements OnInit {
 
-    public readonly NO_OPTIONS = 'Wittjwk_@S5LDHwG+E%0pi-/zWEn(9u+';
-
     @ViewChild('wrapper') wrapper: ElementRef;
 
     @Input()
@@ -19,10 +17,10 @@ export class HeaderComponent implements OnInit {
     public border: boolean;
 
     @Input()
-    public shadow: boolean;
+    public shadow: boolean|string;
 
     @Input()
-    public options: Array<{label: string; value: string|number}>|string = this.NO_OPTIONS;
+    public options: Array<{label: string; value: string|number}> = undefined;
 
     @Output()
     public change = new EventEmitter<string|number>();

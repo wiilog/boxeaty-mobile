@@ -18,6 +18,7 @@ export interface Preparation extends Entity {
 
 export interface PreparationLine {
     crate: string;
+    type: string;
     taken: boolean;
     deposited: boolean;
 

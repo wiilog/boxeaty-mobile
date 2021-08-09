@@ -14,7 +14,7 @@ export class CratePickingPage implements ViewWillEnter {
     public type: string;
     public preparation: string;
 
-    public availableCrates = {};
+    public availableCrates: {[key: string]: Array<string>} = {};
 
     constructor(private nav: NavService, private api: ApiService,
                 private loader: LoadingController, private toastService: ToastService) {

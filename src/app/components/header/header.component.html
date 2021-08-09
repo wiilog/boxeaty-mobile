@@ -3,7 +3,7 @@
     <div *ngIf="subtitle" class="subtitle">{{ subtitle }}</div>
 </h1>
 
-<h1 *ngIf="options != NO_OPTIONS" class="horizontal" [class.border]="border !== undefined" [class.shadow]="shadow !== undefined">
+<h1 *ngIf="options !== undefined" class="horizontal" [class.border]="border !== undefined" [class.shadow]="shadow !== undefined">
     <button *ngFor="let option of options"
             [class.active]="value === option.value"
             (click)="select(option.value)">{{ option.label }}</button>

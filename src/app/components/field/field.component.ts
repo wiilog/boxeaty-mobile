@@ -27,15 +27,10 @@ export class FieldComponent implements OnInit {
     public placeholder: string = ``;
 
     @Input()
-    public lines: number = 2;
+    public lines: number|string = 2;
 
     @Input()
-    public required: boolean = false;
-
-    private previousValue: any;
-
-    constructor() {
-    }
+    public required: boolean|string = false;
 
     ngOnInit() {
         this.type = this.form.controls[this.name].type;

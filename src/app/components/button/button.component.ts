@@ -21,7 +21,7 @@ export class ButtonComponent implements OnInit, OnDestroy {
     public icon: string;
 
     @Input()
-    public disabled: boolean = false;
+    public disabled: boolean|string = false;
 
     @Input()
     public scanner: boolean;

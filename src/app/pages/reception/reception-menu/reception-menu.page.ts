@@ -10,7 +10,7 @@ export class ReceptionMenuPage implements OnInit {
 
     readonly RECEPTION_CRATE = NavService.RECEPTION_CRATE;
 
-    constructor(private navService: NavService) {
+    constructor(public navService: NavService) {
     }
 
     ngOnInit() {

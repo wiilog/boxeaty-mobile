@@ -13,8 +13,8 @@ import {ApiService} from "@app/services/api.service";
 export class DepositBoxesPage implements ViewWillEnter {
 
     public order: Order;
-    public toDeposit: Array<{ order: number, crate: string, taken: boolean, deposited: boolean }> = [];
-    public deposited: Array<{ order: number, crate: string, taken: boolean, deposited: boolean }> = [];
+    public toDeposit: Array<{ order: number, type: string, crate: string, taken: boolean, deposited: boolean }> = [];
+    public deposited: Array<{ order: number, type: string, crate: string, taken: boolean, deposited: boolean }> = [];
 
     constructor(private nav: NavService, private api: ApiService, private toast: ToastService) {
     }

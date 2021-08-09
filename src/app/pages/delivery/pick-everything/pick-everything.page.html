@@ -4,11 +4,13 @@
         <bx-card-content direction="row" [crateAmount]="deliveryRound.crate_amount"
                          [tokenAmount]="deliveryRound.token_amount"></bx-card-content>
         <bx-card-wrapper *ngFor="let crate of crates" [leftTitle]="crate.crate" rightTitle="Attente expédition">
-            <bx-item [leftLabel]="'Type ' + crate.type" [icon]="crate.taken ? 'checked-green.svg' : 'checked-grey.svg'"></bx-item>
+            <bx-item [leftLabel]="'Type ' + crate.type"
+                     [icon]="crate.taken ? 'checked-green.svg' : 'checked-grey.svg'"></bx-item>
         </bx-card-wrapper>
     </main>
 </ion-content>
 <ion-footer>
     <bx-button label="Flasher caisse" icon="scan.svg" [scanner]="true" (scan)="scanCrate($event)"></bx-button>
-    <bx-button label="Terminer" type="outline" icon="checked-orange.svg" [disabled]="!finished" (click)="finish()"></bx-button>
+    <bx-button label="Terminer" type="outline" icon="checked-orange.svg" [disabled]="!finished"
+               (click)="finish()"></bx-button>
 </ion-footer>

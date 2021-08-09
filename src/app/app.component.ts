@@ -65,7 +65,4 @@ export class AppComponent {
         this.navService.setRoot(NavService.LOGIN);
     }
 
-    goTo(route: string, args = {}) {
-        this.navService.push(route, args);
-    }
 }
