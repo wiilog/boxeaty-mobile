@@ -56,9 +56,7 @@ export class NavService {
     private paramStack: Array<{ route: string, params: any }> = [];
     private justNavigated: boolean;
 
-    public constructor(private platform: Platform, private navController: NavController,
-                       private router: Router,
-                       private scanner: ScannerService, private photo: PhotoService) {
+    public constructor(private platform: Platform, private navController: NavController, private router: Router) {
         this.router.events.subscribe(event => {
             if(event instanceof NavigationStart) {
                 if(!this.justNavigated && this.paramStack.length) {
