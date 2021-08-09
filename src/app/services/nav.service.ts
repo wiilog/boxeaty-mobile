@@ -104,10 +104,11 @@ export class NavService {
             }
 
             this.paramStack.splice(this.paramStack.length - index, index);
-            this.paramStack[this.paramStack.length - 1].params = {
-                ...this.paramStack[this.paramStack.length - 1].params,
-                ...params,
-            };
+
+            const currentParams = this.paramStack[this.paramStack.length - 1].params;
+            for(const [key, value] of Object.entries(params)) {
+                currentParams[key] = value;
+            }
 
             return from(this.navController.navigateBack(NavService.ROUTES[route]) as unknown as Observable<void>);
         }
