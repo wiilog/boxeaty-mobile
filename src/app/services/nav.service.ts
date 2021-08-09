@@ -81,7 +81,7 @@ export class NavService {
         return from(this.navController.navigateForward(NavService.ROUTES[route]));
     }
 
-    public pop(route: string = null): Observable<void> {
+    public pop(route: string = null, params: any = {}): Observable<void> {
         this.justNavigated = true;
 
         if(route === null) {
@@ -104,6 +104,11 @@ export class NavService {
             }
 
             this.paramStack.splice(this.paramStack.length - index, index);
+            this.paramStack[this.paramStack.length - 1].params = {
+                ...this.paramStack[this.paramStack.length - 1].params,
+                ...params,
+            };
+
             return from(this.navController.navigateBack(NavService.ROUTES[route]) as unknown as Observable<void>);
         }
     }
