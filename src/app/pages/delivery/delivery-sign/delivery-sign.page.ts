@@ -2,8 +2,8 @@ import {Component} from '@angular/core';
 import {ViewWillEnter} from '@ionic/angular';
 import {Order} from "@app/entities/order";
 import {NavService} from "@app/services/nav.service";
-import {ToastService} from "@app/services/toast.service";
 import {Form} from "@app/utils/form";
+import {ApiService} from "@app/services/api.service";
 
 @Component({
     selector: 'app-delivery-sign',
@@ -21,23 +21,23 @@ export class DeliverySignPage implements ViewWillEnter {
         distance: Form.number(1, null, true),
     });
 
-    public signature: string;
-    public photo: string;
-
-    constructor(private nav: NavService, private toast: ToastService) {
+    constructor(private nav: NavService, private api: ApiService) {
     }
 
     ionViewWillEnter() {
         this.order = this.nav.param<Order>(`order`);
+        this.form.get(`comment`).setValue(this.order.comment);
     }
 
     saveAndBackToDeliveries() {
-        const data = this.form.process();
+        const data = this.form.process() as any;
         if(data) {
-            console.log(data);
-            //TODO: sauvegarder les données
+            data.order = this.order.id;
 
-            this.nav.pop(NavService.SELECT_DELIVERY);
+            this.api.request(ApiService.DELIVERY_FINISH, data).subscribe(() => {
+                this.order.delivered = true;
+                this.nav.pop(NavService.SELECT_DELIVERY);
+            });
         }
     }
 

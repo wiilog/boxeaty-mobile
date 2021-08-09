@@ -18,7 +18,7 @@
         <ion-router-outlet></ion-router-outlet>
     </ion-content>
 
-    <footer *ngIf="![LOGIN_PATH, LOADING_PATH].includes(this.router.url)">
+    <footer *ngIf="showFooter && ![LOGIN_PATH, LOADING_PATH].includes(this.router.url)">
         <button (click)="navigatePreparations()" [class.active]="current === PREPARATIONS">
             <img
                 [src]="'../assets/navigation/' + (current === PREPARATIONS ? 'active' : 'off') + '/preparation.svg'"

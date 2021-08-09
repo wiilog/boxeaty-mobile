@@ -7,14 +7,6 @@ import {Plugins} from '@capacitor/core';
 export class ScannerService {
 
     private body;
-    private scanning: boolean = false;
-
-    constructor() {
-    }
-
-    public isScanning(): boolean {
-        return this.scanning;
-    }
 
     public scan(success = null, failure = null) {
         const {BarcodeScanner} = Plugins;
@@ -23,7 +15,6 @@ export class ScannerService {
             if (status.granted) {
                 this.show();
 
-                this.scanning = true;
                 BarcodeScanner.startScan().then(result => {
                     this.hide();
 
@@ -32,8 +23,6 @@ export class ScannerService {
                     } else if(!result.hasContent && failure != null) {
                         failure();
                     }
-
-                    this.scanning = false;
                 });
             } else {
                 failure();
@@ -45,8 +34,6 @@ export class ScannerService {
         const {BarcodeScanner} = Plugins;
         BarcodeScanner.stopScan();
         this.hide();
-
-        this.scanning = false;
     }
 
     public hide() {

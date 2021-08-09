@@ -3,6 +3,15 @@ import {FormControl, Validators} from '@angular/forms';
 export class FormField {
     type: string;
     control: FormControl;
+
+    constructor(type: string, control: FormControl) {
+        this.type = type;
+        this.control = control;
+    }
+
+    setValue(value: any) {
+        this.control.setValue(value);
+    }
 }
 
 export class Form {
@@ -20,76 +29,56 @@ export class Form {
     }
 
     static checkbox(): FormField {
-        return {
-            type: `checkbox`,
-            control: new FormControl(null),
-        };
+        return new FormField(`checkbox`, new FormControl(null));
     }
 
     static text(required: boolean = false): FormField {
-        return {
-            type: `text`,
-            control: new FormControl(null, [
-                ...(required ? [Validators.required] : []),
-            ]),
-        }
+        return new FormField(`text`, new FormControl(null, [
+            ...(required ? [Validators.required] : []),
+        ]));
     }
 
     static textarea(required: boolean = false): FormField {
-        return {
-            type: `textarea`,
-            control: new FormControl(null, [
-                ...(required ? [Validators.required] : []),
-            ]),
-        }
+        return new FormField(`textarea`, new FormControl(null, [
+            ...(required ? [Validators.required] : []),
+        ]));
     }
 
     static number(minimum: number = null, maximum: number = null, required: boolean = false): FormField {
-        return {
-            type: `text`,
-            control: new FormControl(null, [
-                ...(minimum !== null ? [Validators.min(minimum)] : []),
-                ...(maximum !== null ? [Validators.max(maximum)] : []),
-                ...(required ? [Validators.required] : []),
-            ]),
-        }
+        return new FormField(`number`, new FormControl(null, [
+            ...(minimum !== null ? [Validators.min(minimum)] : []),
+            ...(maximum !== null ? [Validators.max(maximum)] : []),
+            ...(required ? [Validators.required] : []),
+        ]));
     }
 
     static email(required: boolean = false): FormField {
-        return {
-            type: `email`,
-            control: new FormControl(null, [
-                ...(required ? [Validators.required] : []),
-                Validators.email,
-            ]),
-        };
+        return new FormField(`email`, new FormControl(null, [
+            Validators.email,
+            ...(required ? [Validators.required] : []),
+        ]));
     }
 
     static password(required: boolean = false): FormField {
-        return {
-            type: `password`,
-            control: new FormControl(null, [
-                ...(required ? [Validators.required] : []),
-            ])
-        };
+        return new FormField(`password`, new FormControl(null, [
+            ...(required ? [Validators.required] : []),
+        ]));
     }
 
     static photo(required: boolean = false): FormField {
-        return {
-            type: `photo`,
-            control: new FormControl(null, [
-                ...(required ? [Validators.required] : []),
-            ])
-        };
+        return new FormField(`photo`, new FormControl(null, [
+            ...(required ? [Validators.required] : []),
+        ]));
     }
 
     static signature(required: boolean = false): FormField {
-        return {
-            type: `signature`,
-            control: new FormControl(null, [
-                ...(required ? [Validators.required] : []),
-            ])
-        };
+        return new FormField(`signature`, new FormControl(null, [
+            ...(required ? [Validators.required] : []),
+        ]));
+    }
+
+    public get(field: string): FormField {
+        return this.controls[field];
     }
 
     public process(): { [key: string]: any } | boolean {
@@ -100,7 +89,7 @@ export class Form {
             let value;
             if ([`text`, `email`].includes(type)) {
                 value = (control.value || ``).trim();
-            } else if(type === `checkbox`) {
+            } else if (type === `checkbox`) {
                 value = !!control.value;
             } else {
                 value = control.value;
@@ -119,7 +108,7 @@ export class Form {
 
         this.errors = errors;
 
-        if(Object.keys(errors).length === 0) {
+        if (Object.keys(errors).length === 0) {
             return data;
         } else {
             return false;

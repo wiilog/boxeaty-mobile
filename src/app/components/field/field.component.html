@@ -8,14 +8,14 @@
     </ng-container>
 
     <ng-container *ngIf="type == 'textarea'">
-        <textarea *ngIf="form.errors[name]" (click)="clearErrors()" readonly>{{ form.errors[name] }}</textarea>
-        <textarea *ngIf="!form.errors[name]" [placeholder]="placeholder" [required]="required"></textarea>
+        <textarea *ngIf="form.errors[name]" (click)="clearErrors()" [rows]="lines" readonly>{{ form.errors[name] }}</textarea>
+        <textarea *ngIf="!form.errors[name]" [formControl]="control" [placeholder]="placeholder" [rows]="lines" [required]="required"></textarea>
     </ng-container>
 
     <ng-container *ngIf="type == 'photo'">
         <img *ngIf="control.value" [src]="control.value" alt="Photo">
         <bx-photo (done)="control.setValue($event)"></bx-photo>
-        <span *ngIf="form.errors[name]">{{ form.errors[name] }}</span>
+        <span *ngIf="form.errors[name]" class="error">{{ form.errors[name] }}</span>
 
         <input [formControl]="control" type="hidden">
     </ng-container>
@@ -23,7 +23,7 @@
     <ng-container *ngIf="type == 'signature'">
         <img *ngIf="control.value" [src]="control.value" alt="Signature">
         <bx-sign (done)="control.setValue($event)"></bx-sign>
-        <span *ngIf="form.errors[name]">{{ form.errors[name] }}</span>
+        <span *ngIf="form.errors[name]" class="error">{{ form.errors[name] }}</span>
 
         <input [formControl]="control" type="hidden">
     </ng-container>
