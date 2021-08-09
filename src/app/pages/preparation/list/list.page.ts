@@ -4,6 +4,7 @@ import {Depository} from '@app/entities/depository';
 import {ApiService} from '@app/services/api.service';
 import {LoadingController, ViewWillEnter} from '@ionic/angular';
 import {NavService} from '@app/services/nav.service';
+import {ToastService} from "@app/services/toast.service";
 
 @Component({
     selector: 'bx-list',
@@ -17,7 +18,8 @@ export class ListPage implements ViewWillEnter {
     public preparing: Array<{ id: number; client: string; crateAmount: number; tokenAmount: number; orderNumber: string; operator: string }> = [];
 
     constructor(private storage: StorageService, private api: ApiService,
-                private loader: LoadingController, private navService: NavService) {
+                private loader: LoadingController, private navService: NavService,
+                private toast: ToastService) {
     }
 
     public ionViewWillEnter(): void {
@@ -32,18 +34,21 @@ export class ListPage implements ViewWillEnter {
     }
 
     public getPreparations(depository = undefined): void {
-        this.api.request(ApiService.PREPARATIONS, {depository}, `Chargement des préparations en cours...`)
+        this.api.request(ApiService.PREPARATIONS, {
+            depository
+        }, `Chargement des préparations en cours...`)
             .subscribe(
                 ({toPrepare, preparing}) => {
-                    console.log({toPrepare, preparing});
                     this.toPrepare = toPrepare;
                     this.preparing = preparing;
                 });
     }
 
     public cratesToPrepare(preparation): void {
-        this.api.request(ApiService.TOGGLE_PREPARATION_STATUS, {id: preparation, preparing: true}).subscribe(() => {
-            this.navService.push(NavService.CRATE_TO_PREPARE, {preparation});
-        });
+        this.navService.push(NavService.CRATE_TO_PREPARE, {preparation});
+    }
+
+    public blocked(): void {
+        this.toast.show(`Cette préparation est déjà en cours de traitement par un autre opérateur.`);
     }
 }

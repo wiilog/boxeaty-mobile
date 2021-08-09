@@ -11,7 +11,6 @@ import {NavService} from '@app/services/nav.service';
 export class CratesToPreparePage implements ViewWillEnter {
 
     public preparation: string;
-    public crate: string;
 
     public preparedCrates: Array<{ number: string; type: string }> = [];
     public pendingCrates: Array<{ number: string; type: string }> = [];
@@ -21,6 +20,12 @@ export class CratesToPreparePage implements ViewWillEnter {
 
     public ionViewWillEnter(): void {
         this.preparation = this.nav.param<string>(`preparation`);
+
+        const crate = this.nav.param<string>('number');
+        if (crate) {
+            const preparedCrate = this.pendingCrates.find((c) => c.number === crate);
+            this.preparedCrates.push(preparedCrate);
+        }
         this.getCratesToPrepare(this.preparation);
     }
 
@@ -31,12 +36,18 @@ export class CratesToPreparePage implements ViewWillEnter {
         });
     }
 
-    public endPreparations(): void {
-        // TODO
+    public endCratesPreparation(): void {
+        this.api.request(ApiService.END_PREPARATION, {
+            preparation: this.preparation
+        }, `Finalisation de la préparation en cours...`).subscribe(() => {
+            this.nav.pop(NavService.PREPARATIONS);
+        });
     }
 
     private getCratesToPrepare(preparation?: string) {
-        this.api.request(ApiService.CRATES_TO_PREPARE, {preparation}, `Chargement des caisses en cours...`)
+        this.api.request(ApiService.CRATES_TO_PREPARE, {
+            preparation
+        }, `Chargement des caisses en cours...`)
             .subscribe((crates) => {
                 this.pendingCrates = crates;
             });

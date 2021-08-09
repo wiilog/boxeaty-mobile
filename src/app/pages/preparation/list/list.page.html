@@ -1,6 +1,6 @@
 <bx-header [options]="depositories" (change)="getPreparations($event)" shadow></bx-header>
 <div class="preparations-container">
-    <div *ngIf="toPrepare.length > 0; else noToPreparePreparations">
+    <div *ngIf="toPrepare.length > 0; else toPreparePreparations">
         <bx-section>à préparer <span
             class="counter">{{ toPrepare.length > 0 ? '(' + toPrepare.length + ')' : '' }}</span></bx-section>
         <div *ngFor="let preparation of toPrepare">
@@ -11,7 +11,7 @@
             </bx-card-wrapper>
         </div>
     </div>
-    <ng-template #noToPreparePreparations>
+    <ng-template #toPreparePreparations>
         <bx-section>à préparer</bx-section>
         <bx-empty label="Aucune préparation" icon="loading.svg" class="h-100"></bx-empty>
     </ng-template>
@@ -22,7 +22,7 @@
             <bx-card-wrapper [leftTitle]="preparation.client">
                 <bx-card-order [crateAmount]="preparation.crateAmount" [tokenAmount]="preparation.tokenAmount"
                                [orderNumber]="preparation.orderNumber"
-                               (click)="cratesToPrepare(preparation.id)"></bx-card-order>
+                               (click)="blocked()"></bx-card-order>
                 <bx-item [leftLabel]="'Débutée par ' +  preparation.operator" [subtitle]="true"></bx-item>
             </bx-card-wrapper>
         </div>

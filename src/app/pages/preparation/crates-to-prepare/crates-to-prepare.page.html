@@ -27,5 +27,5 @@
     </div>
 </ion-content>
 <ion-footer>
-    <bx-button type="outline" label="Terminer" icon="checked-orange.svg" (click)="endPreparations()"></bx-button>
+    <bx-button type="outline" label="Terminer" icon="checked-orange.svg" (click)="endCratesPreparation()" [disabled]="pendingCrates.length !== 0"></bx-button>
 </ion-footer>

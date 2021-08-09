@@ -25,7 +25,7 @@ export class CrateContentPage implements ViewWillEnter {
     }
 
     public back() {
-        this.nav.pop();
+        this.nav.pop(NavService.BOX_PICKING, {type: this.type});
     }
 
     public delete(box) {
@@ -36,7 +36,7 @@ export class CrateContentPage implements ViewWillEnter {
 
             this.movements.splice(movementToDelete, 1);
             this.containedBoxes.splice(index, 1);
-            this.toastService.show('La Box ' + box + ' a bien été supprimée');
+            this.toastService.show(`La Box <strong>${box}</strong> a bien été supprimée`);
         }
     }
 

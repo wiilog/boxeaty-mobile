@@ -88,12 +88,12 @@ export class NavService {
             this.paramStack.pop();
             return from(this.navController.pop());
         } else {
-            const params = [...this.paramStack].reverse();
-            params.shift();
+            const reversedParamStack = [...this.paramStack].reverse();
+            reversedParamStack.shift();
 
             let index = null;
-            for(let i = 0; i < params.length; i++) {
-                if(params[i].route === route) {
+            for(let i = 0; i < reversedParamStack.length; i++) {
+                if(reversedParamStack[i].route === route) {
                     index = i + 1;
                     break;
                 }

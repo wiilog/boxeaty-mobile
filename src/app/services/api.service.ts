@@ -89,11 +89,6 @@ export class ApiService {
         endpoint: `/preparations`,
     };
 
-    public static readonly TOGGLE_PREPARATION_STATUS = {
-        method: 'POST',
-        endpoint: '/toggle-preparation-status',
-    };
-
     public static readonly CRATES_TO_PREPARE = {
         method: `GET`,
         endpoint: `/crates-to-prepare`,
@@ -119,9 +114,12 @@ export class ApiService {
         endpoint: '/create-box-pick-tracking-movement',
     };
 
-    private static readonly TIMEOUT: number = 15000;
+    public static readonly END_PREPARATION = {
+        method: 'POST',
+        endpoint: '/end-preparation',
+    }
 
-    private static readonly VERIFICATION_SERVICE_TIMEOUT: number = 5000;
+    private static readonly TIMEOUT: number = 15000;
 
     private token: string;
 

@@ -25,7 +25,6 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
     ionViewWillEnter() {
         this.deliveryRound = this.nav.param<DeliveryRound>("deliveryRound");
         for (const order of this.deliveryRound.orders) {
-            console.log(order.preparation.lines);
             order.taken = order.preparation.lines.filter(line => !line.taken).length === 0;
         }
 

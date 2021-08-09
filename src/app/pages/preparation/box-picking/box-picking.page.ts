@@ -35,10 +35,18 @@ export class BoxPickingPage implements ViewWillEnter, OnInit {
     }
 
     public ionViewWillEnter() {
+        this.type = this.nav.param<string>(`type`);
+
         if (this.containedBoxes && this.type) {
             const scannedBoxesToChange = this.scannedBoxes.find((b) => b.type === this.type);
-            scannedBoxesToChange.quantity -= this.containedBoxes.length;
-            scannedBoxesToChange.subs = this.containedBoxes;
+
+            if(this.containedBoxes.length === 0) {
+                const index = this.scannedBoxes.findIndex((b) => b.type === this.type);
+                this.scannedBoxes.splice(index, 1);
+            } else {
+                scannedBoxesToChange.quantity -= this.containedBoxes.length;
+                scannedBoxesToChange.subs = this.containedBoxes;
+            }
         }
 
         this.getAvailableBoxes(this.preparation);
@@ -55,12 +63,16 @@ export class BoxPickingPage implements ViewWillEnter, OnInit {
         if (boxes.includes(box)) {
             this.addBox(box);
         } else {
-            this.toastService.show('La Box <strong>' + box + '</strong> n\'est pas présente sur les emplacements');
+            this.toastService.show(`La Box <strong>${box}</strong> n'est pas présente sur les emplacements`);
         }
     }
 
     public crateContent(containedBoxes, type) {
-        this.nav.push(NavService.CRATE_CONTENT, {containedBoxes, type, movements: this.movements});
+        this.nav.push(NavService.CRATE_CONTENT, {
+            containedBoxes,
+            type,
+            movements: this.movements
+        });
     }
 
     public endPicking() {
@@ -68,12 +80,15 @@ export class BoxPickingPage implements ViewWillEnter, OnInit {
             movements: this.movements
         }, 'Création des mouvements de traçabilité...')
             .subscribe(() => {
-                this.nav.push(NavService.CRATE_PICKING, {});
+                this.nav.pop(NavService.CRATE_TO_PREPARE, {number: this.crateNumber});
             });
     }
 
     private getAvailableBoxes(preparation) {
-        this.api.request(ApiService.AVAILABLE_BOXES, {preparation}, `Chargement des Box disponibles en cours...`)
+        this.api.request(ApiService.AVAILABLE_BOXES, {
+            preparation,
+            preparing: true
+        }, `Chargement des Box disponibles en cours...`)
             .subscribe(({availableBoxes, typeQuantity}) => {
                 this.availableBoxes = availableBoxes;
                 this.typeQuantity = typeQuantity;
@@ -121,12 +136,12 @@ export class BoxPickingPage implements ViewWillEnter, OnInit {
             this.progress = this.current / this.total;
 
             if (success) {
-                await this.toastService.show('La Box <strong>' + number + '</strong> a bien été ajoutée');
+                await this.toastService.show(`La Box <strong>${number}</strong> a bien été ajoutée`);
             } else {
-                await this.toastService.show('La Box <strong>' + number + '</strong> n\'a pas été ajoutée');
+                await this.toastService.show(`La Box <strong>${number}</strong> n'a pas été ajoutée`);
             }
         } else {
-            await this.toastService.show('La Box <strong>' + number + '</strong> a déjà été ajoutée');
+            await this.toastService.show(`La Box <strong>${number}</strong> a déjà été ajoutée`);
         }
     }
 }

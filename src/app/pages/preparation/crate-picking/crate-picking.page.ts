@@ -35,12 +35,14 @@ export class CratePickingPage implements ViewWillEnter {
                 preparation: this.preparation
             });
         } else {
-            this.toastService.show('La caisse <strong>' + crate + '</strong> n\'est pas disponible');
+            this.toastService.show(`La caisse <strong>${crate}</strong> n'est pas disponible`);
         }
     }
 
     private getAvailableCrates(type) {
-        this.api.request(ApiService.AVAILABLE_CRATES, {type}, `Chargement des caisses disponibles en cours...`)
+        this.api.request(ApiService.AVAILABLE_CRATES, {
+            type
+        }, `Chargement des caisses disponibles en cours...`)
             .subscribe((availableCrates) => {
                 this.availableCrates = availableCrates;
             });
