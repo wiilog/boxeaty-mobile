@@ -21,12 +21,8 @@ export class AppComponent {
     public current: string;
     public showFooter: boolean = true;
 
-    constructor(public router: Router, public navService: NavService, private detector: ChangeDetectorRef, private platform: Platform) {
+    constructor(public router: Router, public navService: NavService, private detector: ChangeDetectorRef) {
         window.screen.orientation.lock('portrait');
-
-        this.platform.ready().then(async () => {
-            this.navService.setRoot(NavService.LOADING);
-        });
 
         Keyboard.hide();
 
