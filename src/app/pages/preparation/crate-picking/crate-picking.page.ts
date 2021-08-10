@@ -32,7 +32,8 @@ export class CratePickingPage implements ViewWillEnter {
         if (crates.includes(crate)) {
             this.nav.push(NavService.BOX_PICKING, {
                 crate,
-                preparation: this.preparation
+                preparation: this.preparation,
+                type: this.type
             });
         } else {
             this.toastService.show(`La caisse <strong>${crate}</strong> n'est pas disponible`);

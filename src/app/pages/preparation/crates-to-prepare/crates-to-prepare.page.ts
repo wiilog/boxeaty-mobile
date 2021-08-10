@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ApiService} from '@app/services/api.service';
 import {LoadingController, ViewWillEnter} from '@ionic/angular';
 import {NavService} from '@app/services/nav.service';
@@ -8,7 +8,7 @@ import {NavService} from '@app/services/nav.service';
     templateUrl: './crates-to-prepare.page.html',
     styleUrls: ['./crates-to-prepare.page.scss'],
 })
-export class CratesToPreparePage implements ViewWillEnter {
+export class CratesToPreparePage implements ViewWillEnter, OnInit {
 
     public preparation: string;
 
@@ -19,14 +19,19 @@ export class CratesToPreparePage implements ViewWillEnter {
     }
 
     public ionViewWillEnter(): void {
-        this.preparation = this.nav.param<string>(`preparation`);
-
         const crate = this.nav.param<string>('number');
-        if (crate) {
-            const preparedCrate = this.pendingCrates.find((c) => c.number === crate);
-            this.preparedCrates.push(preparedCrate);
+        const type = this.nav.param<string>('type');
+
+        if (crate && type) {
+            const preparedCrate = this.pendingCrates.findIndex((c) => c.type === type)[0];
+            this.pendingCrates.splice(preparedCrate, 1);
+            this.preparedCrates.push({number: crate, type: type});
         }
-        this.getCratesToPrepare(this.preparation);
+    }
+
+    public ngOnInit() {
+        this.preparation = this.nav.param<string>(`preparation`);
+        this.getPendingCrates(this.preparation);
     }
 
     public treatCrate(type): void {
@@ -44,7 +49,7 @@ export class CratesToPreparePage implements ViewWillEnter {
         });
     }
 
-    private getCratesToPrepare(preparation?: string) {
+    private getPendingCrates(preparation?: string) {
         this.api.request(ApiService.CRATES_TO_PREPARE, {
             preparation
         }, `Chargement des caisses en cours...`)

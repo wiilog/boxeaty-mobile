@@ -80,7 +80,7 @@ export class BoxPickingPage implements ViewWillEnter, OnInit {
             movements: this.movements
         }, 'Création des mouvements de traçabilité...')
             .subscribe(() => {
-                this.nav.pop(NavService.CRATE_TO_PREPARE, {number: this.crateNumber});
+                this.nav.pop(NavService.CRATE_TO_PREPARE, {number: this.crateNumber, type: this.type});
             });
     }
 
