@@ -30,6 +30,7 @@ npm-debug.log*
 /plugins
 /www
 /src/config/*
+/android/app/src/main/res/*
 
 /android/app/src/main/assets/capacitor.config.json
 /capacitor.config.json
