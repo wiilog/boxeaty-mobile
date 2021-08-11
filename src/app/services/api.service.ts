@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {tap, timeout} from 'rxjs/operators';
+import {mergeMap, take, tap, timeout} from 'rxjs/operators';
 import {NavService} from '@app/services/nav.service';
 import {ToastService} from '@app/services/toast.service';
 import {LoadingController} from '@ionic/angular';
@@ -117,19 +117,15 @@ export class ApiService {
     public static readonly END_PREPARATION = {
         method: 'POST',
         endpoint: '/end-preparation',
-    }
+    };
 
     private static readonly TIMEOUT: number = 15000;
 
-    private token: string;
-
-    constructor(private storage: StorageService, private nav: NavService,
-                private client: HttpClient, private toastService: ToastService,
-                private loader: LoadingController) {
-
-        this.storage.getToken().subscribe(token => {
-            this.token = token;
-        });
+    public constructor(private storage: StorageService,
+                       private nav: NavService,
+                       private client: HttpClient,
+                       private toastService: ToastService,
+                       private loader: LoadingController) {
     }
 
     private static objectToURI(params: { [name: string]: string | number }): string {
@@ -154,12 +150,6 @@ export class ApiService {
             withCredentials: false,
         };
 
-        if (this.token) {
-            options.headers = {
-                'x-authorization': `Bearer ${this.token}`,
-            };
-        }
-
         if (params) {
             endpoint = endpoint.replace(/{(\w+)}/g, (match, name) => {
                 const value = params[name];
@@ -180,9 +170,18 @@ export class ApiService {
             }
         }
 
-        return this.client
-            .request(method, ApiService.URL + endpoint, options)
+        return this.storage.getToken()
             .pipe(
+                take(1),
+                mergeMap((token: string) => {
+                    if (token) {
+                        options.headers = {
+                            'x-authorization': `Bearer ${token}`,
+                        };
+                    }
+
+                    return this.client.request(method, ApiService.URL + endpoint, options);
+                }),
                 timeout(ApiService.TIMEOUT),
                 tap(
                     async (result: any) => {
@@ -190,7 +189,7 @@ export class ApiService {
                             loader.dismiss();
                         }
 
-                        this.toastService.show(result && result.message)
+                        this.toastService.show(result && result.message);
                     },
                     async (error: HttpErrorResponse) => {
                         if(loader) {
@@ -198,7 +197,7 @@ export class ApiService {
                         }
 
                         if (error.status === 401) {
-                            this.token = null;
+                            await this.storage.setToken(null).toPromise();
                             await this.toastService.show(`Une autre session est déjà ouverte, vous avez été déconnecté`);
                             await this.nav.setRoot(NavService.LOGIN);
                         } else {

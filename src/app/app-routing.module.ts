@@ -45,11 +45,11 @@ const routes: Routes = [
     },
     {
         path: 'preparations',
-        loadChildren: () => import('./pages/preparation/list/list.module').then(m => m.ListPageModule)
+        loadChildren: () => import('./pages/preparation/preparation-list/preparation-list.module').then(m => m.PreparationListPageModule)
     },
     {
         path: 'crates-to-prepare',
-        loadChildren: () => import('./pages/preparation/crates-to-prepare/crates-to-prepare.module').then(m => m.CrateToPreparePageModule)
+        loadChildren: () => import('./pages/preparation/preparation-crates-to-prepare/preparation-crates-to-prepare.module').then(m => m.PreparationCrateToPreparePageModule)
     },
     {
         path: 'pick-everything',
@@ -61,11 +61,11 @@ const routes: Routes = [
     },
     {
         path: 'box-picking',
-        loadChildren: () => import('./pages/preparation/box-picking/box-picking.module').then(m => m.BoxPickingPageModule)
+        loadChildren: () => import('./pages/preparation/preparation-box-picking/preparation-box-picking.module').then(m => m.PreparationBoxPickingPageModule)
     },
     {
         path: 'crate-picking',
-        loadChildren: () => import('./pages/preparation/crate-picking/crate-picking.module').then(m => m.CratePickingPageModule)
+        loadChildren: () => import('./pages/preparation/preparation-crate-picking/preparation-crate-picking.module').then(m => m.PreparationCratePickingPageModule)
     },
     {
         path: 'pick-everything',
@@ -81,7 +81,7 @@ const routes: Routes = [
   },
   {
     path: 'crate-content',
-    loadChildren: () => import('./pages/preparation/crate-content/crate-content.module').then( m => m.CrateContentPageModule)
+    loadChildren: () => import('./pages/preparation/preparation-crate-content/preparation-crate-content.module').then( m => m.PreparationCrateContentPageModule)
   },
 
 

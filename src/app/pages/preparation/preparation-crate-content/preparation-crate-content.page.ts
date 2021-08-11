@@ -4,11 +4,11 @@ import {NavService} from '@app/services/nav.service';
 import {ToastService} from '@app/services/toast.service';
 
 @Component({
-    selector: 'bx-crate-content',
-    templateUrl: './crate-content.page.html',
-    styleUrls: ['./crate-content.page.scss'],
+    selector: 'bx-preparation-crate-content',
+    templateUrl: './preparation-crate-content.page.html',
+    styleUrls: ['./preparation-crate-content.page.scss'],
 })
-export class CrateContentPage implements ViewWillEnter {
+export class PreparationCrateContentPage implements ViewWillEnter {
 
     public type: string;
 
@@ -31,7 +31,7 @@ export class CrateContentPage implements ViewWillEnter {
     public delete(box) {
         const index = this.containedBoxes.indexOf(box);
 
-        if(index !== -1) {
+        if (index !== -1) {
             const movementToDelete = this.movements.findIndex(m => m.box === box);
 
             this.movements.splice(movementToDelete, 1);

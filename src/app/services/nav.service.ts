@@ -1,9 +1,6 @@
 import {Injectable} from '@angular/core';
 import {NavController, Platform} from '@ionic/angular';
 import {from, Observable} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
-import {ScannerService} from "@app/services/scanner.service";
-import {PhotoService} from "@app/services/photo.service";
 import {Router, NavigationStart} from '@angular/router';
 
 @Injectable({

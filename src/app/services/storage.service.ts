@@ -17,7 +17,7 @@ export class StorageService {
 
     private readonly token: Subject<string>;
 
-    constructor(private sqlite: SQLiteService) {
+    public constructor(private sqlite: SQLiteService) {
         this.token = new ReplaySubject<string>(1);
 
         Storage.get({key: 'token'}).then(result => {

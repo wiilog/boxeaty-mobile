@@ -2,8 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {Form} from '@app/utils/form';
 import {ApiService} from '@app/services/api.service';
 import {NavService} from '@app/services/nav.service';
-import configuration from '../../../config/credentials.json';
-import {StorageService} from "@app/services/storage.service";
+import configuration from '@config/credentials.json';
+import {StorageService} from '@app/services/storage.service';
 
 @Component({
     selector: 'bx-login',

@@ -5,11 +5,11 @@ import {ApiService} from '@app/services/api.service';
 import {ToastService} from '@app/services/toast.service';
 
 @Component({
-    selector: 'bx-crate-picking',
-    templateUrl: './crate-picking.page.html',
-    styleUrls: ['./crate-picking.page.scss'],
+    selector: 'bx-preparation-crate-picking',
+    templateUrl: './preparation-crate-picking.page.html',
+    styleUrls: ['./preparation-crate-picking.page.scss'],
 })
-export class CratePickingPage implements ViewWillEnter {
+export class PreparationCratePickingPage implements ViewWillEnter {
 
     public type: string;
     public preparation: string;

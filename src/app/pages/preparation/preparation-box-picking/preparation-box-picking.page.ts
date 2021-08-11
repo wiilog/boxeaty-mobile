@@ -6,11 +6,11 @@ import {ToastService} from '@app/services/toast.service';
 import {Stream} from '@app/utils/stream';
 
 @Component({
-    selector: 'bx-box-picking',
-    templateUrl: './box-picking.page.html',
-    styleUrls: ['./box-picking.page.scss'],
+    selector: 'bx-preparation-box-picking',
+    templateUrl: './preparation-box-picking.page.html',
+    styleUrls: ['./preparation-box-picking.page.scss'],
 })
-export class BoxPickingPage implements ViewWillEnter, OnInit {
+export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
 
     public crateNumber: string;
     public preparation: string;
@@ -40,7 +40,7 @@ export class BoxPickingPage implements ViewWillEnter, OnInit {
         if (this.containedBoxes && this.type) {
             const scannedBoxesToChange = this.scannedBoxes.find((b) => b.type === this.type);
 
-            if(this.containedBoxes.length === 0) {
+            if (this.containedBoxes.length === 0) {
                 const index = this.scannedBoxes.findIndex((b) => b.type === this.type);
                 this.scannedBoxes.splice(index, 1);
             } else {

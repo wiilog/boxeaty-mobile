@@ -2,12 +2,7 @@ const fs = require('fs');
 
 cp(`android/app/src/main/assets/capacitor.config.json.dist`, `android/app/src/main/assets/capacitor.config.json`);
 cp(`capacitor.config.json.dist`, `capacitor.config.json`);
-cp(`credentials.json`, `src/config/credentials.json`, {
-    autoConnect: true,
-    username: "MatteoHevin",
-    password: "3BCyEa6FNoX4p5T$",
-    email: "matteo.hevin@wiilog.fr"
-});
+cp(`credentials.json`, `src/config/credentials.json`, {autoConnect: false, email: '', password: ''});
 
 require(`./generate-api-host`);
 

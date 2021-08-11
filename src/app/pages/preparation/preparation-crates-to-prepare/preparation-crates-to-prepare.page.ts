@@ -4,11 +4,11 @@ import {LoadingController, ViewWillEnter} from '@ionic/angular';
 import {NavService} from '@app/services/nav.service';
 
 @Component({
-    selector: 'bx-crates-to-prepare',
-    templateUrl: './crates-to-prepare.page.html',
-    styleUrls: ['./crates-to-prepare.page.scss'],
+    selector: 'bx-preparation-crates-to-prepare',
+    templateUrl: './preparation-crates-to-prepare.page.html',
+    styleUrls: ['./preparation-crates-to-prepare.page.scss'],
 })
-export class CratesToPreparePage implements ViewWillEnter, OnInit {
+export class PreparationCratesToPreparePage implements ViewWillEnter, OnInit {
 
     public preparation: string;
 
@@ -25,7 +25,7 @@ export class CratesToPreparePage implements ViewWillEnter, OnInit {
         if (crate && type) {
             const preparedCrate = this.pendingCrates.findIndex((c) => c.type === type)[0];
             this.pendingCrates.splice(preparedCrate, 1);
-            this.preparedCrates.push({number: crate, type: type});
+            this.preparedCrates.push({number: crate, type});
         }
     }
 

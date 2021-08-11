@@ -4,18 +4,32 @@ import {Depository} from '@app/entities/depository';
 import {ApiService} from '@app/services/api.service';
 import {LoadingController, ViewWillEnter} from '@ionic/angular';
 import {NavService} from '@app/services/nav.service';
-import {ToastService} from "@app/services/toast.service";
+import {ToastService} from '@app/services/toast.service';
 
 @Component({
-    selector: 'bx-list',
-    templateUrl: './list.page.html',
-    styleUrls: ['./list.page.scss'],
+    selector: 'bx-preparation-list',
+    templateUrl: './preparation-list.page.html',
+    styleUrls: ['./preparation-list.page.scss'],
 })
-export class ListPage implements ViewWillEnter {
+export class PreparationListPage implements ViewWillEnter {
 
     public depositories: Array<{ label: string; value: number }> = undefined;
-    public toPrepare: Array<{ id: number; client: string; crateAmount: number; tokenAmount: number; orderNumber: string; operator: string }> = [];
-    public preparing: Array<{ id: number; client: string; crateAmount: number; tokenAmount: number; orderNumber: string; operator: string }> = [];
+    public toPrepare: Array<{
+        id: number;
+        client: string;
+        crateAmount: number;
+        tokenAmount: number;
+        orderNumber: string;
+        operator: string;
+    }> = [];
+    public preparing: Array<{
+        id: number;
+        client: string;
+        crateAmount: number;
+        tokenAmount: number;
+        orderNumber: string;
+        operator: string;
+    }> = [];
 
     constructor(private storage: StorageService, private api: ApiService,
                 private loader: LoadingController, private navService: NavService,
@@ -33,7 +47,7 @@ export class ListPage implements ViewWillEnter {
         this.getPreparations();
     }
 
-    public getPreparations(depository = undefined): void {
+    public getPreparations(depository?): void {
         this.api.request(ApiService.PREPARATIONS, {
             depository
         }, `Chargement des préparations en cours...`)
