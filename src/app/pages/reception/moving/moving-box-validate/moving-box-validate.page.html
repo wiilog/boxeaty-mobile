@@ -1,0 +1,19 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">
+            <bx-header>Identification des Box</bx-header>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <bx-section>CHANGEMENT DE QUALITÉ</bx-section>
+    <bx-selectable ngDefaultControl [(ngModel)]="selectedQuality" [type]="QUALITY_SELECTABLE" [placeholder]="'Qualité....'" ></bx-selectable>
+    <bx-section>CHANGEMENT D'EMPLACEMENT</bx-section>
+    <bx-selectable ngDefaultControl [(ngModel)]="selectedLocation" [type]="LOCATION_SELECTABLE" [placeholder]="'Emplacement...'"></bx-selectable>
+</ion-content>
+
+<ion-footer>
+    <bx-button label="Flasher emplacement" icon="scan.svg" (scan)="locationScan($event)" [scanner]="true"></bx-button>
+    <bx-button label="Terminer" icon="checked.svg" (click)="validate()" [disabled]="!selectedQuality && !selectedLocation"></bx-button>
+</ion-footer>

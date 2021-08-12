@@ -1,13 +1,13 @@
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {CommonModule as BxModule} from '../../../common.module';
+import {CommonModule as BxModule} from '../../../../common.module';
 import {FormsModule} from '@angular/forms';
 
 import {IonicModule} from '@ionic/angular';
 
-import {ReceptionBoxEditPageRoutingModule} from './reception-box-edit-routing.module';
+import {ReceptionBoxEditPageRoutingModule} from './reverse-tracking-box-validate-routing.module';
 
-import {ReceptionBoxEditPage} from './reception-box-edit.page';
+import {ReverseTrackingBoxValidatePage} from './reverse-tracking-box-validate.page';
 
 @NgModule({
     imports: [
@@ -17,7 +17,7 @@ import {ReceptionBoxEditPage} from './reception-box-edit.page';
         BxModule,
         ReceptionBoxEditPageRoutingModule
     ],
-    declarations: [ReceptionBoxEditPage]
+    declarations: [ReverseTrackingBoxValidatePage]
 })
 export class ReceptionBoxEditPageModule {
 }

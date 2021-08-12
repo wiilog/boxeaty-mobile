@@ -119,6 +119,11 @@ export class ApiService {
         endpoint: '/end-preparation',
     };
 
+    public static readonly MOVING = {
+        method: 'POST',
+        endpoint: '/moving',
+    }
+
     private static readonly TIMEOUT: number = 15000;
 
     public constructor(private storage: StorageService,

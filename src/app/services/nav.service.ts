@@ -20,13 +20,15 @@ export class NavService {
     public static readonly COLLECTS = 'collects';
     public static readonly COLLECT_NEW = 'collect_new';
     public static readonly RECEPTIONS = 'reception_menu';
-    public static readonly RECEPTION_CRATE = 'reception_crate';
-    public static readonly RECEPTION_BOX_SCAN = 'reception_box_scan';
-    public static readonly RECEPTION_BOX_EDIT = 'reception_box_edit';
+    public static readonly REVERSE_TRACKING_CRATE = 'reverse_tracking_crate';
+    public static readonly REVERSE_TRACKING_BOX_SCAN = 'reverse_tracking_box_scan';
+    public static readonly REVERSE_TRACKING_BOX_VALIDATE = 'reverse_tracking_box_validate';
     public static readonly CRATE_TO_PREPARE = 'crates_to_prepare';
     public static readonly CRATE_PICKING = 'crate_picking';
     public static readonly BOX_PICKING = 'box_picking';
     public static readonly CRATE_CONTENT = 'crate_content';
+    public static readonly MOVING_BOX_SCAN = 'moving_box_scan';
+    public static readonly MOVING_BOX_VALIDATE = 'moving_box_validate';
 
     private static readonly ROUTES = {
         login: '/login',
@@ -40,14 +42,16 @@ export class NavService {
         collects: '/collects',
         collect_new: '/collect-new',
         reception_menu: '/reception-menu',
-        reception_crate: '/reception-crate',
-        reception_box_scan: '/reception-box-scan',
-        reception_box_edit: '/reception-box-edit',
+        reverse_tracking_crate: '/reverse-tracking-crate',
+        reverse_tracking_box_scan: '/reverse-tracking-box-scan',
+        reverse_tracking_box_validate: '/reverse-tracking-box-validate',
         preparations: '/preparations',
         crates_to_prepare: '/crates-to-prepare',
         crate_picking: '/crate-picking',
         box_picking: '/box-picking',
-        crate_content: '/crate-content'
+        crate_content: '/crate-content',
+        moving_box_scan: '/moving-box-scan',
+        moving_box_validate: '/moving-box-validate',
     };
 
     private paramStack: Array<{ route: string, params: any }> = [];

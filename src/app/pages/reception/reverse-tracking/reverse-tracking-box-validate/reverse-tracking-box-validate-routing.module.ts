@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ReceptionBoxEditPage } from './reception-box-edit.page';
+import { ReverseTrackingBoxValidatePage } from './reverse-tracking-box-validate.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ReceptionBoxEditPage
+    component: ReverseTrackingBoxValidatePage
   }
 ];
 

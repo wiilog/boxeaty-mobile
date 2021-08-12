@@ -4,11 +4,11 @@ import {ApiService} from '@app/services/api.service';
 import {LoadingController} from '@ionic/angular';
 
 @Component({
-    selector: 'app-reception-box-edit',
-    templateUrl: './reception-box-edit.page.html',
-    styleUrls: ['./reception-box-edit.page.scss'],
+    selector: 'app-reverse-tracking-box-validate',
+    templateUrl: './reverse-tracking-box-validate.page.html',
+    styleUrls: ['./reverse-tracking-box-validate.page.scss'],
 })
-export class ReceptionBoxEditPage implements OnInit {
+export class ReverseTrackingBoxValidatePage implements OnInit {
 
     public crate: string;
 
@@ -20,13 +20,13 @@ export class ReceptionBoxEditPage implements OnInit {
     readonly LOCATION_SELECTABLE = 'location';
     readonly QUALITY_SELECTABLE = 'quality';
 
-    constructor(private navService: NavService, private api: ApiService, private loader: LoadingController) {
+    constructor(private navService: NavService, private api: ApiService) {
     }
 
-    ngOnInit() {
+    public ngOnInit() {
     }
 
-    ionViewWillEnter() {
+    public ionViewWillEnter() {
         this.boxes = this.navService.param<string>(`boxes`).split(`,`);
         this.crate = this.navService.param<string>(`crate`);
     }

@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ReceptionBoxEditPage } from './reception-box-edit.page';
+import { ReverseTrackingCratePage } from './reverse-tracking-crate.page';
 
-describe('ReceptionBoxEditPage', () => {
-  let component: ReceptionBoxEditPage;
-  let fixture: ComponentFixture<ReceptionBoxEditPage>;
+describe('ReceptionCratePage', () => {
+  let component: ReverseTrackingCratePage;
+  let fixture: ComponentFixture<ReverseTrackingCratePage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReceptionBoxEditPage ],
+      declarations: [ ReverseTrackingCratePage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ReceptionBoxEditPage);
+    fixture = TestBed.createComponent(ReverseTrackingCratePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { CommonModule as BxModule } from '../../../common.module';
+import { CommonModule as BxModule } from '../../../../common.module';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ReceptionBoxScanPageRoutingModule } from './reception-box-scan-routing.module';
+import { ReceptionBoxScanPageRoutingModule } from './reverse-tracking-box-scan-routing.module';
 
-import { ReceptionBoxScanPage } from './reception-box-scan.page';
+import { ReverseTrackingBoxScanPage } from './reverse-tracking-box-scan.page';
 
 @NgModule({
   imports: [
@@ -17,6 +17,6 @@ import { ReceptionBoxScanPage } from './reception-box-scan.page';
       BxModule,
     ReceptionBoxScanPageRoutingModule
   ],
-  declarations: [ReceptionBoxScanPage]
+  declarations: [ReverseTrackingBoxScanPage]
 })
 export class ReceptionBoxScanPageModule {}

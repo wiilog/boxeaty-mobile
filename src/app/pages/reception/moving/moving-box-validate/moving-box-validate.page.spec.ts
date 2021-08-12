@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { IonicModule } from '@ionic/angular';
 
-import { ReceptionBoxScanPage } from './reception-box-scan.page';
+import { MovingBoxValidatePage } from './moving-box-validate.page';
 
-describe('ReceptionBoxScanPage', () => {
-  let component: ReceptionBoxScanPage;
-  let fixture: ComponentFixture<ReceptionBoxScanPage>;
+describe('MovingBoxValidatePage', () => {
+  let component: MovingBoxValidatePage;
+  let fixture: ComponentFixture<MovingBoxValidatePage>;
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ ReceptionBoxScanPage ],
+      declarations: [ MovingBoxValidatePage ],
       imports: [IonicModule.forRoot()]
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ReceptionBoxScanPage);
+    fixture = TestBed.createComponent(MovingBoxValidatePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   }));

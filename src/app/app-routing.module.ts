@@ -24,16 +24,16 @@ const routes: Routes = [
         loadChildren: () => import('./pages/reception/reception-menu/reception-menu.module').then(m => m.ReceptionMenuPageModule)
     },
     {
-        path: 'reception-crate',
-        loadChildren: () => import('./pages/reception/reception-crate/reception-crate.module').then(m => m.ReceptionCratePageModule)
+        path: 'reverse-tracking-crate',
+        loadChildren: () => import('./pages/reception/reverse-tracking/reverse-tracking-crate/reverse-tracking-crate.module').then(m => m.ReceptionCratePageModule)
     },
     {
-        path: 'reception-box-scan',
-        loadChildren: () => import('./pages/reception/reception-box-scan/reception-box-scan.module').then(m => m.ReceptionBoxScanPageModule)
+        path: 'reverse-tracking-box-scan',
+        loadChildren: () => import('./pages/reception/reverse-tracking/reverse-tracking-box-scan/reverse-tracking-box-scan.module').then(m => m.ReceptionBoxScanPageModule)
     },
     {
-        path: 'reception-box-edit',
-        loadChildren: () => import('./pages/reception/reception-box-edit/reception-box-edit.module').then(m => m.ReceptionBoxEditPageModule)
+        path: 'reverse-tracking-box-validate',
+        loadChildren: () => import('./pages/reception/reverse-tracking/reverse-tracking-box-validate/reverse-tracking-box-validate.module').then(m => m.ReceptionBoxEditPageModule)
     },
     {
         path: 'delivery-rounds',
@@ -83,6 +83,15 @@ const routes: Routes = [
     path: 'crate-content',
     loadChildren: () => import('./pages/preparation/preparation-crate-content/preparation-crate-content.module').then( m => m.PreparationCrateContentPageModule)
   },
+  {
+    path: 'moving-box-validate',
+    loadChildren: () => import('./pages/reception/moving/moving-box-validate/moving-box-validate.module').then( m => m.MovingBoxValidatePageModule)
+  },
+  {
+    path: 'moving-box-scan',
+    loadChildren: () => import('./pages/reception/moving/moving-box-scan/moving-box-scan.module').then( m => m.MovingBoxScanPageModule)
+  },
+
 
 
 

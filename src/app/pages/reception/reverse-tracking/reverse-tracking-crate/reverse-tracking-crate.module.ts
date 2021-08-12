@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CommonModule as BxModule } from '../../../common.module';
+import { CommonModule as BxModule } from '../../../../common.module';
 import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { ReceptionCratePageRoutingModule } from './reception-crate-routing.module';
+import { ReceptionCratePageRoutingModule } from './reverse-tracking-crate-routing.module';
 
-import { ReceptionCratePage } from './reception-crate.page';
+import { ReverseTrackingCratePage } from './reverse-tracking-crate.page';
 
 @NgModule({
   imports: [
@@ -17,6 +17,6 @@ import { ReceptionCratePage } from './reception-crate.page';
       ReceptionCratePageRoutingModule,
       BxModule
   ],
-    declarations: [ReceptionCratePage]
+    declarations: [ReverseTrackingCratePage]
 })
 export class ReceptionCratePageModule {}

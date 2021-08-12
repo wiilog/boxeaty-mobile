@@ -1,0 +1,24 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">
+            <bx-header>Identification des box</bx-header>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <div *ngIf="scannedBoxesAndCrates.length > 0; else noScannedBoxesAndCrates">
+        <bx-card-wrapper *ngFor="let object of scannedBoxesAndCrates; let index = index" [hideTitle]="true">
+            <bx-item [leftLabel]="object.number + ' - ' + object.type" icon="trash.svg"
+                     (action)="delete(index)"></bx-item>
+        </bx-card-wrapper>
+    </div>
+    <ng-template #noScannedBoxesAndCrates>
+        <bx-empty label="Aucune Box / Caisse" icon="loading.svg" class="h-100"></bx-empty>
+    </ng-template>
+</ion-content>
+
+<ion-footer>
+    <bx-button label="Flasher Box / Caisse" icon="scan.svg" (scan)="scan($event)" [scanner]="true"></bx-button>
+    <bx-button label="Suivant" icon="next.svg" (click)="next()" [disabled]="scannedBoxesAndCrates.length === 0" iconWidth="15px"></bx-button>
+</ion-footer>

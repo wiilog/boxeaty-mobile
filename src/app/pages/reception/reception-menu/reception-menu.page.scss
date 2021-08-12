@@ -1,20 +1,38 @@
 @import "../../../../style/variables";
 
 .main-menu {
-    padding: 10px;
+    padding: 15px 10px;
     height: 100%;
+
     button {
         img {
             width: 50%;
             height: 50%;
             display: block;
             margin: 0 auto;
+
+            &:last-of-type {
+                width: 30%;
+            }
         }
-        height: 40%;
+
+        h3 {
+            font-weight: 400;
+        }
+
+        height: 30%;
         width: 100%;
-        background-color: $orange-light;
         color: white;
         border-radius: 5px;
         text-align: center;
+
+        &:first-of-type {
+            background-color: $orange-light;
+        }
+
+        &:last-of-type {
+            margin-top: 10px;
+            background-color: $blue-light;
+        }
     }
 }

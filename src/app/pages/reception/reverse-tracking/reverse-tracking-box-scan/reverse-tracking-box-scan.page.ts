@@ -5,10 +5,10 @@ import {ToastService} from '@app/services/toast.service';
 
 @Component({
     selector: 'app-reception-box-scan',
-    templateUrl: './reception-box-scan.page.html',
-    styleUrls: ['./reception-box-scan.page.scss'],
+    templateUrl: './reverse-tracking-box-scan.page.html',
+    styleUrls: ['./reverse-tracking-box-scan.page.scss'],
 })
-export class ReceptionBoxScanPage implements OnInit {
+export class ReverseTrackingBoxScanPage implements OnInit {
 
     public crate: string;
     public boxes: Array<{ boxNumber: string; boxType: string; boxId: number }>;
@@ -50,7 +50,7 @@ export class ReceptionBoxScanPage implements OnInit {
                 }, []).join(','),
                 crate: this.crate
             };
-            this.navService.push(NavService.RECEPTION_BOX_EDIT, params);
+            this.navService.push(NavService.REVERSE_TRACKING_BOX_VALIDATE, params);
         } else {
             this.toast.show('Veuillez ajouter au moins une box.');
         }

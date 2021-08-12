@@ -1,12 +1,12 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { ReceptionBoxScanPage } from './reception-box-scan.page';
+import { ReverseTrackingCratePage } from './reverse-tracking-crate.page';
 
 const routes: Routes = [
   {
     path: '',
-    component: ReceptionBoxScanPage
+    component: ReverseTrackingCratePage
   }
 ];
 
@@ -14,4 +14,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
 })
-export class ReceptionBoxScanPageRoutingModule {}
+export class ReceptionCratePageRoutingModule {}

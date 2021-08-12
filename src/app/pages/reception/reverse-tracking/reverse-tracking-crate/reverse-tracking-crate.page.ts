@@ -7,10 +7,10 @@ import {ToastService} from '@app/services/toast.service';
 
 @Component({
   selector: 'app-reception-crate',
-  templateUrl: './reception-crate.page.html',
-  styleUrls: ['./reception-crate.page.scss'],
+  templateUrl: './reverse-tracking-crate.page.html',
+  styleUrls: ['./reverse-tracking-crate.page.scss'],
 })
-export class ReceptionCratePage implements OnInit {
+export class ReverseTrackingCratePage implements OnInit {
 
     @Input()
     public preparing: string;
@@ -21,7 +21,7 @@ export class ReceptionCratePage implements OnInit {
     constructor(private storage: StorageService, private api: ApiService, private nav: NavService, private toast: ToastService) {
     }
 
-    ionViewWillEnter() {
+    public ionViewWillEnter() {
         this.storage.get<Depository>('depository').then(depositories => {
             this.depositories = depositories.map(depository => ({
                 value: depository.id,
@@ -30,19 +30,19 @@ export class ReceptionCratePage implements OnInit {
         });
     }
 
-    ngOnInit() {
+    public ngOnInit() {
     }
 
-    depositoryChanged(depository) {
+    public depositoryChanged(depository) {
         this.api.request(ApiService.CRATES, {depository}).subscribe((crates) => {
             this.crates = crates;
         });
     }
 
-    goToCrate(crateNumber: string) {
+    public goToCrate(crateNumber: string) {
         const crate = this.crates.find((c) => c.crateNumber === crateNumber);
         if (crate) {
-            this.nav.push(NavService.RECEPTION_BOX_SCAN, {crateNumber});
+            this.nav.push(NavService.REVERSE_TRACKING_BOX_SCAN, {crateNumber});
         } else {
             this.toast.show('La caisse flashée n\'existe pas dans la liste actuelle.');
         }

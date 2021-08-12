@@ -8,7 +8,8 @@ import {NavService} from "@app/services/nav.service";
 })
 export class ReceptionMenuPage implements OnInit {
 
-    readonly RECEPTION_CRATE = NavService.RECEPTION_CRATE;
+    readonly RECEPTION_CRATE = NavService.REVERSE_TRACKING_CRATE;
+    readonly MOVING_BOX_SCAN = NavService.MOVING_BOX_SCAN;
 
     constructor(public navService: NavService) {
     }
