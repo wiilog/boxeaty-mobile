@@ -35,7 +35,6 @@ export class MovingBoxValidatePage implements ViewWillEnter, OnInit {
                 const scannedLocation = locations.find(l => l.name === location);
                 if (scannedLocation) {
                     this.selectedLocation = {id: scannedLocation.id, name: scannedLocation.name};
-                    console.log(this.selectedLocation);
                 } else {
                     this.toast.show(`Cet emplacement n'existe pas`)
                 }

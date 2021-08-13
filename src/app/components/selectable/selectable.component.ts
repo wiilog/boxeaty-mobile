@@ -1,10 +1,8 @@
 import {Component, Input, OnDestroy, OnInit, ViewChild, EventEmitter, Output} from '@angular/core';
 import {IonicSelectableComponent} from 'ionic-selectable';
-import {ApiService} from '@app/services/api.service';
 import {Subscription} from 'rxjs';
-import {StorageService} from "../../services/storage.service";
-import {Entity} from "../../entities/entity";
-import {$e} from "@angular/compiler/src/chars";
+import {StorageService} from "@app/services/storage.service";
+import {Entity} from "@app/entities/entity";
 
 @Component({
     selector: 'bx-selectable',
