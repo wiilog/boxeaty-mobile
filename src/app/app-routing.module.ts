@@ -71,28 +71,38 @@ const routes: Routes = [
         path: 'pick-everything',
         loadChildren: () => import('./pages/delivery/pick-everything/pick-everything.module').then(m => m.PickEverythingPageModule)
     },
-  {
-    path: 'delivery-sign',
-    loadChildren: () => import('./pages/delivery/delivery-sign/delivery-sign.module').then( m => m.DeliverySignPageModule)
-  },
-  {
-    path: 'sign-modal',
-    loadChildren: () => import('./modals/sign-modal/sign-modal.module').then( m => m.SignModalPageModule)
-  },
-  {
-    path: 'crate-content',
-    loadChildren: () => import('./pages/preparation/preparation-crate-content/preparation-crate-content.module').then( m => m.PreparationCrateContentPageModule)
-  },
-  {
-    path: 'moving-box-validate',
-    loadChildren: () => import('./pages/reception/moving/moving-box-validate/moving-box-validate.module').then( m => m.MovingBoxValidatePageModule)
-  },
-  {
-    path: 'moving-box-scan',
-    loadChildren: () => import('./pages/reception/moving/moving-box-scan/moving-box-scan.module').then( m => m.MovingBoxScanPageModule)
-  },
-
-
+    {
+        path: 'delivery-sign',
+        loadChildren: () => import('./pages/delivery/delivery-sign/delivery-sign.module').then(m => m.DeliverySignPageModule)
+    },
+    {
+        path: 'sign-modal',
+        loadChildren: () => import('./modals/sign-modal/sign-modal.module').then(m => m.SignModalPageModule)
+    },
+    {
+        path: 'crate-content',
+        loadChildren: () => import('./pages/preparation/preparation-crate-content/preparation-crate-content.module').then(m => m.PreparationCrateContentPageModule)
+    },
+    {
+        path: 'moving-box-validate',
+        loadChildren: () => import('./pages/reception/moving/moving-box-validate/moving-box-validate.module').then(m => m.MovingBoxValidatePageModule)
+    },
+    {
+        path: 'moving-box-scan',
+        loadChildren: () => import('./pages/reception/moving/moving-box-scan/moving-box-scan.module').then(m => m.MovingBoxScanPageModule)
+    },
+    {
+        path: 'collects',
+        loadChildren: () => import('./pages/collect/collect-list/collect-list.module').then(m => m.CollectListPageModule)
+    },
+    {
+        path: 'collect-details',
+        loadChildren: () => import('./pages/collect/collect-details/collect-details.module').then(m => m.CollectDetailsPageModule)
+    },
+    {
+        path: 'collect-validate',
+        loadChildren: () => import('./pages/collect/collect-validate/collect-validate.module').then(m => m.CollectValidatePageModule)
+    },
 
 
 ];

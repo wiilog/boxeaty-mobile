@@ -14,6 +14,7 @@ export const tablesDefinitions: Array<TableDefinition> = [
         attributes: {
             id: 'INTEGER PRIMARY KEY',
             name: 'TEXT NOT NULL',
+            type: 'INTEGER'
         }
     },
     {

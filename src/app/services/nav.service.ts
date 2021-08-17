@@ -19,6 +19,8 @@ export class NavService {
     public static readonly DELIVERY_SIGN = 'delivery_sign';
     public static readonly COLLECTS = 'collects';
     public static readonly COLLECT_NEW = 'collect_new';
+    public static readonly COLLECT_DETAILS = 'collect_details';
+    public static readonly COLLECT_VALIDATE = 'collect_validate';
     public static readonly RECEPTIONS = 'reception_menu';
     public static readonly REVERSE_TRACKING_CRATE = 'reverse_tracking_crate';
     public static readonly REVERSE_TRACKING_BOX_SCAN = 'reverse_tracking_box_scan';
@@ -41,6 +43,8 @@ export class NavService {
         delivery_sign: '/delivery-sign',
         collects: '/collects',
         collect_new: '/collect-new',
+        collect_details: '/collect-details',
+        collect_validate: '/collect-validate',
         reception_menu: '/reception-menu',
         reverse_tracking_crate: '/reverse-tracking-crate',
         reverse_tracking_box_scan: '/reverse-tracking-box-scan',

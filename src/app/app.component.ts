@@ -53,7 +53,7 @@ export class AppComponent {
     }
 
     navigateCollects() {
-        this.navService.push(NavService.HOME);
+        this.navService.push(NavService.COLLECTS);
         this.current = this.COLLECTS;
     }
 

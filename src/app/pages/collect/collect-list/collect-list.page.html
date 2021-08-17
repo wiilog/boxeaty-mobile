@@ -1,0 +1,24 @@
+<ion-content>
+    <div class="content">
+        <div class="crates" *ngIf="pendingCollects.length; else noPendingCollects">
+            <bx-card-order-detail *ngFor="let pendingCollect of pendingCollects"
+                                   [title]="pendingCollect.client"
+                                   status="En transit"
+                                   [label]="'Dépôt ' + pendingCollect.depository"
+                                   [round]="pendingCollect.number"
+                                   [crateAmount]="pendingCollect.crate_amount"
+                                   [tokenAmount]="pendingCollect.token_amount"
+                                   (click)="treat(pendingCollect.id)">
+
+        </bx-card-order-detail>
+        </div>
+    </div>
+</ion-content>
+
+<ng-template #noPendingCollects>
+    <bx-empty label="Aucune collecte à traiter" icon="loading.svg" class="h-100"></bx-empty>
+</ng-template>
+
+<ion-footer class="no-border">
+    <bx-button icon="add.svg" (click)="new()" [roundCenteredButton]="true" type=""></bx-button>
+</ion-footer>

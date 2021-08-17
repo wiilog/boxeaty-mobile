@@ -14,7 +14,7 @@ export class PhotoService {
             saveToGallery: false,
         });
 
-        return image.webPath;
+        return image.dataUrl;
     }
 
 }

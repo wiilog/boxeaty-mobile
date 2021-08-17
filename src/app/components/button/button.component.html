@@ -1,4 +1,5 @@
-<div (click)="handleClick($event)" class="button" [class]="type" [class.disabled]="disabled">
+<div (click)="handleClick($event)" class="button" [class]="type"
+     [class.disabled]="disabled" [class.round-centered-button]="roundCenteredButton">
     <span class="label">{{ label }}</span><img *ngIf="icon" src="assets/{{ icon }}" alt="{{ label }}"
                                                style="{{ iconWidth ? ('width: ' + iconWidth) : '' }}">
 </div>

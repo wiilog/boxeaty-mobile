@@ -1,0 +1,41 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">
+            <bx-header>Point de dépose</bx-header>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="overflow-auto">
+    <bx-selectable ngDefaultControl [(ngModel)]="selectedLocation" [item]="selectedLocation"
+                   [type]="LOCATION_SELECTABLE" placeholder="Emplacement..." locationType="1"></bx-selectable>
+
+    <bx-section>POINT DE COLLECTE</bx-section>
+    <bx-card-client *ngIf="collect" [title]="collect.pick_location"
+                    [address]="collect.address"
+                    [deliverer]="collect.main_contact"
+                    [phoneNumber]="collect.phone_number">
+        <strong>{{ collect.client }}</strong>
+    </bx-card-client>
+    <bx-card-wrapper leftTitle="Contenu">
+        <bx-card-content *ngIf="collect" [center]="false"
+                         [crateAmount]="collect.crate_amount"
+                         [tokenAmount]="collect.token_amount"></bx-card-content>
+    </bx-card-wrapper>
+
+    <bx-section>SIGNATURE ET COMMENTAIRE</bx-section>
+
+    <div class="fields-container">
+        <div class="split">
+            <bx-field [form]="form" name="signature" label="Signer*"></bx-field>
+            <bx-field [form]="form" name="photo" label="Prendre une photo"></bx-field>
+        </div>
+
+        <bx-field [form]="form" name="comment" label="Commentaire" lines=2
+                  placeholder="Écrivez ici..."></bx-field>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <bx-button label="Clôturer" icon="checked.svg" (click)="validate()"></bx-button>
+</ion-footer>

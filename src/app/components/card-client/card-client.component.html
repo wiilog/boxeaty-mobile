@@ -2,5 +2,5 @@
     <ng-content></ng-content>
     <div class="client" *ngIf="name">{{ name }}</div>
     <div class="address" *ngIf="address">{{ address }}</div>
-    <div class="deliverer">{{ deliverer }} - {{ phoneNumber }}</div>
+    <div class="deliverer" *ngIf="deliverer && phoneNumber">{{ deliverer }} - {{ phoneNumber }}</div>
 </bx-card-wrapper>

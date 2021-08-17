@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">
+            <bx-header>En transit</bx-header>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="overflow-auto">
+    <bx-card-client *ngIf="collect" [title]="collect.pick_location"
+                    [address]="collect.address">
+        <strong>{{ collect.client }}</strong>
+    </bx-card-client>
+
+    <div class="field-container">
+        <bx-field [form]="form" name="collectedTokens" label="Nombre de jetons collectés" placeholder="0"
+                  required></bx-field>
+    </div>
+
+    <bx-section>Sélection des caisses</bx-section>
+    <bx-card-wrapper *ngFor="let crate of crates" [leftTitle]="crate.number">
+        <bx-item [leftLabel]="crate.type" [bolderLeftLabel]="true"></bx-item>
+    </bx-card-wrapper>
+</ion-content>
+
+<ion-footer>
+    <bx-button label="Suivant" icon="next.svg" (click)="next()" iconWidth="15px"></bx-button>
+</ion-footer>

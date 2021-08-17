@@ -144,3 +144,11 @@ a {
 .h-100 {
     height: 100%;
 }
+
+ion-footer.no-border:before {
+    height: 0;
+}
+
+.overflow-auto {
+    overflow-y: auto;
+}

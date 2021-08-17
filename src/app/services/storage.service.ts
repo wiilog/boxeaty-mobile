@@ -43,11 +43,11 @@ export class StorageService {
     }
 
     public async get<T extends Entity>(table: string, search: { [key: string]: any } = {}): Promise<Array<T>> {
-        let query = `SELECT *
-                     FROM ${table}`;
+        let query = `SELECT * FROM ${table}`;
+
         const values = [];
 
-        if (search && search.length) {
+        if (search) {
             query += ` WHERE 1=1`;
             for (const [field, value] of Object.entries(search)) {
                 query += ` AND ${field} LIKE ?`;

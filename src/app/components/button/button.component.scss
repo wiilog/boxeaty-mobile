@@ -1,6 +1,6 @@
 @import "~style/variables";
 
-div.button {
+div.button:not(.round-centered-button) {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -17,6 +17,15 @@ div.button {
 
     &.disabled {
         filter: grayscale(1) brightness(110%);
+    }
+}
+
+.round-centered-button {
+    text-align: center;
+    margin-bottom: 5px;
+
+    img {
+        width: 50px;
     }
 }
 

@@ -20,6 +20,9 @@ export class SelectableComponent implements OnInit, OnDestroy {
     @Input()
     public placeholder: string;
 
+    @Input()
+    public locationType: string;
+
     @Input() ngModel: string;
     @Output() ngModelChange = new EventEmitter<string>();
 
@@ -35,7 +38,7 @@ export class SelectableComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit() {
-        this.storage.get<Entity>(this.type).then(results => {
+        this.storage.get<Entity>(this.type, {type: parseInt(this.locationType)}).then(results => {
             this.items = results;
             this.ready = true;
         });

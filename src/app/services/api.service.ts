@@ -122,7 +122,22 @@ export class ApiService {
     public static readonly MOVING = {
         method: 'POST',
         endpoint: '/moving',
-    }
+    };
+
+    public static readonly PENDING_COLLECTS = {
+        method: 'GET',
+        endpoint: '/pending-collects',
+    };
+
+    public static readonly COLLECT_CRATES = {
+        method: 'GET',
+        endpoint: '/collect-crates/{collect}',
+    };
+
+    public static readonly COLLECT_VALIDATE = {
+        method: 'POST',
+        endpoint: '/collect-validate',
+    };
 
     private static readonly TIMEOUT: number = 15000;
 

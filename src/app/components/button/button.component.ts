@@ -29,6 +29,9 @@ export class ButtonComponent implements OnInit, OnDestroy {
     @Input()
     public scanner: boolean;
 
+    @Input()
+    roundCenteredButton: boolean;
+
     @Output()
     public click = new EventEmitter<void>();
 
