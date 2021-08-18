@@ -6,20 +6,23 @@
     </ion-toolbar>
 </ion-header>
 <ion-content>
-    <div class="content">
+    <div class="content" *ngIf="crateType">
         <span>Sélection d'une caisse</span>
-        <span>{{ type }}</span>
+        <span>{{ crateType.type }}</span>
     </div>
-    <bx-section>Caisse{{ (availableCrates|length) > 1 ? 's' : '' }} disponible{{ (availableCrates|length) > 1 ? 's' : '' }}</bx-section>
-    <div class="crate-container" *ngFor="let crates of availableCrates | keyvalue">
-        <bx-card-wrapper [leftTitle]="'Emplacement ' + crates.key">
-            <bx-item [leftLabel]="type" [bolderLeftLabel]="true"
-                     [rightLabel]="'x' + (crates.value | length)" [bolderRightLabel]="true">
+    <bx-section>{{ pageSubtitle }}</bx-section>
+    <div class="crate-container" *ngFor="let crateData of availableCrates">
+        <bx-card-wrapper [leftTitle]="'Emplacement ' + crateData.location">
+            <bx-item [leftLabel]="crateType.type"
+                     [bolderLeftLabel]="true"
+                     [rightLabel]="'x ' + (crateData.crates | length)"
+                     [bolderRightLabel]="true">
             </bx-item>
         </bx-card-wrapper>
         <div class="wrapped-cards">
-            <bx-card-wrapper *ngFor="let crate of crates.value" [hideTitle]="true" class="wrapped">
-                <bx-item [leftLabel]="crate" icon="checked-grey.svg"
+            <bx-card-wrapper *ngFor="let crate of crateData.crates" [hideTitle]="true" class="wrapped">
+                <bx-item [leftLabel]="crate.number"
+                         icon="checked-grey.svg"
                          (action)="treatCrate(crate)">
                 </bx-item>
             </bx-card-wrapper>

@@ -15,7 +15,7 @@
 
     .bolder {
         font-weight: 600;
-        font-size: 22px;
+        font-size: 20px;
     }
 }
 
@@ -27,7 +27,7 @@
     .labels {
         display: flex;
         justify-content: space-between;
-        width: 100%;
+        flex: 1;
 
         span {
             overflow: hidden;
@@ -42,8 +42,11 @@
         }
     }
 
-    img {
+    .icon-container {
         width: 40px;
-        height: 40px;
+        display: flex;
+        img {
+            flex: 1;
+        }
     }
 }

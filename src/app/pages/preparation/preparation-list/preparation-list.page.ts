@@ -5,6 +5,7 @@ import {ApiService} from '@app/services/api.service';
 import {LoadingController, ViewWillEnter} from '@ionic/angular';
 import {NavService} from '@app/services/nav.service';
 import {ToastService} from '@app/services/toast.service';
+import {Preparation} from '@app/pages/preparation/preparation';
 
 @Component({
     selector: 'bx-preparation-list',
@@ -16,6 +17,7 @@ export class PreparationListPage implements ViewWillEnter {
     public depositories: Array<{ label: string; value: number }> = undefined;
     public toPrepare: Array<{
         id: number;
+        editable: boolean;
         client: string;
         crateAmount: number;
         tokenAmount: number;
@@ -24,6 +26,7 @@ export class PreparationListPage implements ViewWillEnter {
     }> = [];
     public preparing: Array<{
         id: number;
+        editable: boolean;
         client: string;
         crateAmount: number;
         tokenAmount: number;
@@ -31,9 +34,11 @@ export class PreparationListPage implements ViewWillEnter {
         operator: string;
     }> = [];
 
-    constructor(private storage: StorageService, private api: ApiService,
-                private loader: LoadingController, private navService: NavService,
-                private toast: ToastService) {
+    public constructor(private storage: StorageService,
+                       private api: ApiService,
+                       private loader: LoadingController,
+                       private navService: NavService,
+                       private toastService: ToastService) {
     }
 
     public ionViewWillEnter(): void {
@@ -48,9 +53,10 @@ export class PreparationListPage implements ViewWillEnter {
     }
 
     public getPreparations(depository?): void {
-        this.api.request(ApiService.PREPARATIONS, {
-            depository
-        }, `Chargement des préparations en cours...`)
+        const params = depository
+            ? {depository}
+            : {};
+        this.api.request(ApiService.PREPARATIONS, params, `Chargement des préparations en cours...`)
             .subscribe(
                 ({toPrepare, preparing}) => {
                     this.toPrepare = toPrepare;
@@ -58,11 +64,14 @@ export class PreparationListPage implements ViewWillEnter {
                 });
     }
 
-    public cratesToPrepare(preparation): void {
-        this.navService.push(NavService.CRATE_TO_PREPARE, {preparation});
-    }
-
-    public blocked(): void {
-        this.toast.show(`Cette préparation est déjà en cours de traitement par un autre opérateur.`);
+    public onPreparationClicked(preparation: any): void {
+        if (!preparation.editable) {
+            this.toastService.show(`Cette préparation est déjà en cours de traitement par un autre opérateur.`);
+        }
+        else {
+            this.navService.push(NavService.PREPARATION_CRATE_TO_PREPARE, {
+                preparation: preparation.id
+            });
+        }
     }
 }

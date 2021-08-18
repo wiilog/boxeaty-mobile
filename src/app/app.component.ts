@@ -38,7 +38,7 @@ export class AppComponent {
     }
 
     navigatePreparations() {
-        this.navService.push(NavService.PREPARATIONS);
+        this.navService.push(NavService.PREPARATION_LIST);
         this.current = this.PREPARATIONS;
     }
 

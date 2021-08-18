@@ -5,9 +5,10 @@
             class="counter">{{ toPrepare.length > 0 ? '(' + toPrepare.length + ')' : '' }}</span></bx-section>
         <div *ngFor="let preparation of toPrepare">
             <bx-card-wrapper [leftTitle]="preparation.client">
-                <bx-card-order [crateAmount]="preparation.crateAmount" [tokenAmount]="preparation.tokenAmount"
+                <bx-card-order [crateAmount]="preparation.crateAmount"
+                               [tokenAmount]="preparation.tokenAmount"
                                [orderNumber]="preparation.orderNumber"
-                               (click)="cratesToPrepare(preparation.id)"></bx-card-order>
+                               (click)="onPreparationClicked(preparation)"></bx-card-order>
             </bx-card-wrapper>
         </div>
     </div>
@@ -20,9 +21,10 @@
             {{ preparing.length > 0 ? '(' + preparing.length + ')' : '' }}</span></bx-section>
         <div *ngFor="let preparation of preparing">
             <bx-card-wrapper [leftTitle]="preparation.client">
-                <bx-card-order [crateAmount]="preparation.crateAmount" [tokenAmount]="preparation.tokenAmount"
+                <bx-card-order [crateAmount]="preparation.crateAmount"
+                               [tokenAmount]="preparation.tokenAmount"
                                [orderNumber]="preparation.orderNumber"
-                               (click)="blocked()"></bx-card-order>
+                               (click)="onPreparationClicked(preparation)"></bx-card-order>
                 <bx-item [leftLabel]="'Débutée par ' +  preparation.operator" [subtitle]="true"></bx-item>
             </bx-card-wrapper>
         </div>

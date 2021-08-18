@@ -1,11 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 
 @Component({
-  selector: 'bx-card-order',
-  templateUrl: './card-order.component.html',
-  styleUrls: ['./card-order.component.scss'],
+    selector: 'bx-card-order',
+    templateUrl: './card-order.component.html',
+    styleUrls: ['./card-order.component.scss'],
 })
-export class CardOrderComponent implements OnInit {
+export class CardOrderComponent {
 
     @Input()
     public client: string;
@@ -21,9 +21,5 @@ export class CardOrderComponent implements OnInit {
 
     @Input()
     public operator: string;
-
-  constructor() { }
-
-  ngOnInit() {}
 
 }
