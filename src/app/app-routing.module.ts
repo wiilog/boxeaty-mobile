@@ -103,6 +103,18 @@ const routes: Routes = [
         path: 'collect-validate',
         loadChildren: () => import('./pages/collect/collect-validate/collect-validate.module').then(m => m.CollectValidatePageModule)
     },
+    {
+        path: 'collect-new-details',
+        loadChildren: () => import('./pages/collect/collect-new-details/collect-new-details.module').then(m => m.CollectNewDetailsPageModule)
+    },
+    {
+        path: 'collect-new-validate',
+        loadChildren: () => import('./pages/collect/collect-new-validate/collect-new-validate.module').then(m => m.CollectNewValidatePageModule)
+    },
+    {
+        path: 'collect-new-pick-location',
+        loadChildren: () => import('./pages/collect/collect-new-pick-location/collect-new-pick-location.module').then(m => m.CollectNewPickLocationPageModule)
+    },
 
 
 ];

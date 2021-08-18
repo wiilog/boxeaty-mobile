@@ -28,7 +28,9 @@ export class MovingBoxScanPage implements ViewWillEnter, OnInit {
         if(index === -1) {
             this.api.request(ApiService.BOX_INFORMATIONS, {
                 box: object
-            }, 'Ajout de la Box / Caisse en cours...').subscribe(({number, type}) => {
+            }, 'Ajout de la Box / Caisse en cours...').subscribe((result) => {
+                const number = result.data.number;
+                const type = result.data.type;
                 if(number && type) {
                     this.scannedBoxesAndCrates.push({number, type});
                 } else {

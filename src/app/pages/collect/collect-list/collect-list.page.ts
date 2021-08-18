@@ -28,7 +28,7 @@ export class CollectListPage implements ViewWillEnter, OnInit {
     }
 
     public new() {
-
+        this.nav.push(NavService.COLLECT_NEW_PICK_LOCATION);
     }
 
     public treat(id) {

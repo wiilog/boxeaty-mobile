@@ -98,12 +98,13 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
     private async addBox(number) {
         const alreadyNumber = this.scannedBoxes.find((b) => b.number === number);
         if (!alreadyNumber) {
-            const box = await this.api.request(ApiService.BOX_INFORMATIONS, {
+            const result = await this.api.request(ApiService.BOX_INFORMATIONS, {
                 box: number,
                 crate: this.crateNumber
             }, `Récupération des informations de la Box...`).toPromise();
 
             let success = true;
+            const box = result.data;
             const already = this.scannedBoxes.find((b) => b.type === box.type);
             if (already) {
                 const alreadyIndex = this.scannedBoxes.indexOf(already);

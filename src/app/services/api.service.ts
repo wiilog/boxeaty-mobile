@@ -139,6 +139,16 @@ export class ApiService {
         endpoint: '/collect-validate',
     };
 
+    public static readonly LOCATION = {
+        method: 'GET',
+        endpoint: '/location',
+    };
+
+    public static readonly COLLECT_NEW_VALIDATE = {
+        method: 'POST',
+        endpoint: '/collect-new-validate'
+    }
+
     private static readonly TIMEOUT: number = 15000;
 
     public constructor(private storage: StorageService,

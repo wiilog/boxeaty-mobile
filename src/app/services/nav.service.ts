@@ -21,6 +21,9 @@ export class NavService {
     public static readonly COLLECT_NEW = 'collect_new';
     public static readonly COLLECT_DETAILS = 'collect_details';
     public static readonly COLLECT_VALIDATE = 'collect_validate';
+    public static readonly COLLECT_NEW_PICK_LOCATION = 'collect_new_pick_location';
+    public static readonly COLLECT_NEW_DETAILS = 'collect_new_details';
+    public static readonly COLLECT_NEW_VALIDATE = 'collect_new_validate';
     public static readonly RECEPTIONS = 'reception_menu';
     public static readonly REVERSE_TRACKING_CRATE = 'reverse_tracking_crate';
     public static readonly REVERSE_TRACKING_BOX_SCAN = 'reverse_tracking_box_scan';
@@ -45,6 +48,9 @@ export class NavService {
         collect_new: '/collect-new',
         collect_details: '/collect-details',
         collect_validate: '/collect-validate',
+        collect_new_pick_location: '/collect-new-pick-location',
+        collect_new_details: '/collect-new-details',
+        collect_new_validate: '/collect-new-validate',
         reception_menu: '/reception-menu',
         reverse_tracking_crate: '/reverse-tracking-crate',
         reverse_tracking_box_scan: '/reverse-tracking-box-scan',

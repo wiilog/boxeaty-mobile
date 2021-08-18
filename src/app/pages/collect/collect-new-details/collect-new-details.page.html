@@ -1,0 +1,35 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">
+            <bx-header>Point de collecte</bx-header>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="overflow-auto">
+    <bx-card-client *ngIf="location" [title]="location.name"
+                    [address]="location.address">
+        <strong>{{ location.client }}</strong>
+    </bx-card-client>
+
+    <div class="field-container">
+        <bx-field [form]="form" name="collectedTokens" label="Nombre de jetons collectés" placeholder="0"
+                  required></bx-field>
+    </div>
+
+    <bx-section>Sélection des caisses</bx-section>
+    <div *ngIf="crates.length > 0; else noCrates">
+        <bx-card-wrapper *ngFor="let crate of crates" [leftTitle]="crate.number">
+            <bx-item [leftLabel]="crate.type" [bolderLeftLabel]="true" icon="trash.svg"
+                     (action)="delete(crate.number)"></bx-item>
+        </bx-card-wrapper>
+    </div>
+    <ng-template #noCrates>
+        <bx-empty label="Aucune caisse" icon="loading.svg"></bx-empty>
+    </ng-template>
+</ion-content>
+
+<ion-footer>
+    <bx-button label="Flasher caisse" icon="scan.svg" (scan)="scanCrate($event)" [scanner]="true"></bx-button>
+    <bx-button label="Suivant" icon="next.svg" (click)="next()" iconWidth="15px" [disabled]="crates.length === 0"></bx-button>
+</ion-footer>

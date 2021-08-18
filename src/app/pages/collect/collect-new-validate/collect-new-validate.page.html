@@ -1,0 +1,37 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">
+            <bx-header>Point de collecte</bx-header>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="overflow-auto">
+    <bx-card-client *ngIf="location" [title]="location.name"
+                    [address]="location.address"
+                    [deliverer]="location.main_contact"
+                    [phoneNumber]="location.phone_number">
+        <strong>{{ location.client }}</strong>
+    </bx-card-client>
+    <bx-card-wrapper leftTitle="Contenu">
+        <bx-card-content *ngIf="crates && tokenAmount" [center]="false"
+                         [crateAmount]="crates.length"
+                         [tokenAmount]="tokenAmount"></bx-card-content>
+    </bx-card-wrapper>
+
+    <bx-section>SIGNATURE ET COMMENTAIRE</bx-section>
+
+    <div class="fields-container">
+        <div class="split">
+            <bx-field [form]="form" name="signature" label="Signer*"></bx-field>
+            <bx-field [form]="form" name="photo" label="Prendre une photo"></bx-field>
+        </div>
+
+        <bx-field [form]="form" name="comment" label="Commentaire" lines=2
+                  placeholder="Écrivez ici..."></bx-field>
+    </div>
+</ion-content>
+
+<ion-footer>
+    <bx-button label="Collecter" icon="checked.svg" (click)="validate()"></bx-button>
+</ion-footer>

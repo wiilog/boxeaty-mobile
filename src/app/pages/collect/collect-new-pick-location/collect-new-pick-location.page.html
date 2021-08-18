@@ -1,0 +1,17 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title class="ion-text-center">
+            <bx-header>Sélection du point de collecte</bx-header>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="overflow-auto">
+    <bx-selectable ngDefaultControl [(ngModel)]="selectedLocation" [item]="selectedLocation"
+                   [type]="LOCATION_SELECTABLE" placeholder="Emplacement..." locationType="4"
+                   (ngModelChange)="locationScan(selectedLocation.name)"></bx-selectable>
+</ion-content>
+
+<ion-footer>
+    <bx-button label="Flasher emplacement" icon="scan.svg" (scan)="locationScan($event)" [scanner]="true"></bx-button>
+</ion-footer>
