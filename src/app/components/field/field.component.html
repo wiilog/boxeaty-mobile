@@ -1,5 +1,6 @@
 <label [class]="class" [class.error]="form.errors[name]">
     {{ label }}
+    <span class="counter" *ngIf="type == 'photo'"> ({{ counter || '0' }}/{{ maxCounter || '-' }})</span>
 
     <ng-container *ngIf="!['textarea', 'photo', 'signature'].includes(type)">
         <input *ngIf="form.errors[name]" type="text" [value]="form.errors[name]" (click)="clearErrors()" readonly>

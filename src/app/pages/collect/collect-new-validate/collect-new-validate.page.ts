@@ -17,6 +17,7 @@ export class CollectNewValidatePage implements ViewWillEnter, OnInit {
     public crates: Array<{ number: string, type: string }> = [];
 
     public tokenAmount: number;
+    public counter: number;
 
     public form = Form.create({
         signature: Form.signature(true),

@@ -20,7 +20,7 @@ export class CardOrderDetailComponent {
     public label: string;
 
     @Input()
-    public round: string;
+    public number: string;
 
     @Input()
     public crateAmount: number;

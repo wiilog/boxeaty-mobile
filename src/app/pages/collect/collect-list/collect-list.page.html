@@ -5,7 +5,7 @@
                                    [title]="pendingCollect.client"
                                    status="En transit"
                                    [label]="'Dépôt ' + pendingCollect.depository"
-                                   [round]="pendingCollect.number"
+                                   [number]="'Collecte N°' + pendingCollect.number"
                                    [crateAmount]="pendingCollect.crate_amount"
                                    [tokenAmount]="pendingCollect.token_amount"
                                    (click)="treat(pendingCollect.id)">

@@ -26,3 +26,14 @@
 ionic-selectable {
     position: relative;
 }
+
+.icon {
+    background: url('~assets/search.svg') center no-repeat, $orange;
+    background-size: 15px 15px;
+    display: flex;
+    align-self: center;
+    height: 50px;
+    width: 40px;
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+}

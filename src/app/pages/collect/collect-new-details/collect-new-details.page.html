@@ -18,7 +18,7 @@
     </div>
 
     <bx-section>Sélection des caisses</bx-section>
-    <div *ngIf="crates.length > 0; else noCrates">
+    <div *ngIf="crates.length > 0; else noCrates" class="crate-container">
         <bx-card-wrapper *ngFor="let crate of crates" [leftTitle]="crate.number">
             <bx-item [leftLabel]="crate.type" [bolderLeftLabel]="true" icon="trash.svg"
                      (action)="delete(crate.number)"></bx-item>

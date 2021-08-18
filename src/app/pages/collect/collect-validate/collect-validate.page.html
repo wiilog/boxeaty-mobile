@@ -28,7 +28,8 @@
     <div class="fields-container">
         <div class="split">
             <bx-field [form]="form" name="signature" label="Signer*"></bx-field>
-            <bx-field [form]="form" name="photo" label="Prendre une photo"></bx-field>
+            <bx-field [form]="form" name="photo" label="Prendre une photo"
+                      [counter]="form.controls.photo.control.value ? 1 : 0" [maxCounter]="1"></bx-field>
         </div>
 
         <bx-field [form]="form" name="comment" label="Commentaire" lines=2

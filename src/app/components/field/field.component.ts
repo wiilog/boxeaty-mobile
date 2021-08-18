@@ -24,6 +24,12 @@ export class FieldComponent implements OnInit {
     public label: string;
 
     @Input()
+    public counter: number;
+
+    @Input()
+    public maxCounter: number;
+
+    @Input()
     public placeholder: string = ``;
 
     @Input()

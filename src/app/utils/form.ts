@@ -100,6 +100,9 @@ export class Form {
                     errors[name] = `Ce champ est requis`;
                 } else if (control.errors.email) {
                     errors[name] = `Ce champ doit être une adresse email valide`;
+                } else if (control.errors.min) {
+                    const min = control.errors.min.min;
+                    errors[name] = `La valeur ne peut être inférieure à ${min}`;
                 }
             } else {
                 data[name] = control.value;
