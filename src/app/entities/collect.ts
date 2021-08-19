@@ -1,4 +1,4 @@
-import {Entity} from "@app/entities/entity";
+import {Entity} from '@app/entities/entity';
 
 export interface Collect extends Entity {
 
