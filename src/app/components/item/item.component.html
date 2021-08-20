@@ -4,6 +4,8 @@
             <span [class.bolder]="bolderLeftLabel" [class.subtitle]="subtitle">{{ leftLabel }}</span>
             <span [class.bolder]="bolderRightLabel">{{ rightLabel }}</span>
         </div>
-        <img src="../assets/{{ icon }}" *ngIf="icon" (click)="onImageClick()">
+        <div class="icon-container" *ngIf="icon">
+            <img src="../assets/{{ icon }}" (click)="onImageClick()"/>
+        </div>
     </div>
 </div>

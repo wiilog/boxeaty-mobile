@@ -7,7 +7,7 @@ import {ToastService} from '@app/services/toast.service';
 import {LoadingController} from '@ionic/angular';
 
 import API_HOST from '@config/api-host';
-import {StorageService} from "@app/services/storage.service";
+import {StorageService} from '@app/services/storage.service';
 
 @Injectable({
     providedIn: 'root'
@@ -89,9 +89,14 @@ export class ApiService {
         endpoint: `/preparations`,
     };
 
-    public static readonly CRATES_TO_PREPARE = {
+    public static readonly GET_PREPARATION_CONTENT = {
         method: `GET`,
-        endpoint: `/crates-to-prepare`,
+        endpoint: `/preparations/{preparation}`,
+    };
+
+    public static readonly PATCH_PREPARATION = {
+        method: 'PATCH',
+        endpoint: '/preparations/{preparation}',
     };
 
     public static readonly AVAILABLE_CRATES = {
@@ -101,22 +106,7 @@ export class ApiService {
 
     public static readonly AVAILABLE_BOXES = {
         method: `GET`,
-        endpoint: `/available-boxes`,
-    };
-
-    public static readonly BOX_INFORMATIONS = {
-        method: 'GET',
-        endpoint: '/box-informations',
-    };
-
-    public static readonly CREATE_BOX_PICK_TRACKING_MOVEMENT = {
-        method: 'POST',
-        endpoint: '/create-box-pick-tracking-movement',
-    };
-
-    public static readonly END_PREPARATION = {
-        method: 'POST',
-        endpoint: '/end-preparation',
+        endpoint: `/boxes`,
     };
 
     public static readonly MOVING = {
@@ -167,7 +157,7 @@ export class ApiService {
 
     public request({method, endpoint}: { method: string, endpoint: string }, params = null, loading: string = null): Observable<any> {
         let loader = null;
-        if(loading) {
+        if (loading) {
             this.loader.create({message: loading}).then(l => {
                 loader = l;
                 loader.present();
@@ -215,14 +205,14 @@ export class ApiService {
                 timeout(ApiService.TIMEOUT),
                 tap(
                     async (result: any) => {
-                        if(loader) {
+                        if (loader) {
                             loader.dismiss();
                         }
 
                         this.toastService.show(result && result.message);
                     },
                     async (error: HttpErrorResponse) => {
-                        if(loader) {
+                        if (loader) {
                             loader.dismiss();
                         }
 

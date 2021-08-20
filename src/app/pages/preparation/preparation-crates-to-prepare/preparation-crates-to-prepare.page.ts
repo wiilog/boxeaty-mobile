@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {ApiService} from '@app/services/api.service';
 import {LoadingController, ViewWillEnter} from '@ionic/angular';
 import {NavService} from '@app/services/nav.service';
+import {Preparation, PreparationCrate} from '@app/pages/preparation/preparation';
 
 @Component({
     selector: 'bx-preparation-crates-to-prepare',
@@ -10,52 +11,90 @@ import {NavService} from '@app/services/nav.service';
 })
 export class PreparationCratesToPreparePage implements ViewWillEnter, OnInit {
 
-    public preparation: string;
+    public preparation: Preparation;
 
-    public preparedCrates: Array<{ number: string; type: string }> = [];
-    public pendingCrates: Array<{ number: string; type: string }> = [];
-
-    constructor(private loader: LoadingController, private api: ApiService, private nav: NavService) {
+    public constructor(private loader: LoadingController,
+                       private api: ApiService,
+                       private nav: NavService) {
     }
 
     public ionViewWillEnter(): void {
-        const crate = this.nav.param<string>('number');
-        const type = this.nav.param<string>('type');
+        const boxPicking = this.nav.param<{ crate: PreparationCrate }>('boxPicking');
 
-        if (crate && type) {
-            const preparedCrate = this.pendingCrates.findIndex((c) => c.type === type)[0];
-            this.pendingCrates.splice(preparedCrate, 1);
-            this.preparedCrates.push({number: crate, type});
+        if (boxPicking && boxPicking.crate) {
+            const treatedIndex = this.preparation.treatedCrates.findIndex(({number}) => (boxPicking.crate.number === number));
+            if (treatedIndex === -1) {
+                const untreatedIndex = this.preparation.untreatedCrates.findIndex(({type}) => (boxPicking.crate.type === type));
+                if (untreatedIndex > -1) {
+                    this.preparation.treatedCrates.push(boxPicking.crate);
+                    this.preparation.untreatedCrates.splice(untreatedIndex, 1);
+                }
+            }
         }
     }
 
     public ngOnInit() {
-        this.preparation = this.nav.param<string>(`preparation`);
-        this.getPendingCrates(this.preparation);
+        const preparation = this.nav.param<number>(`preparation`);
+        this.getServerPreparation(preparation);
     }
 
-    public treatCrate(type): void {
-        this.nav.push(NavService.CRATE_PICKING, {
-            type,
+    public treatCrate(crate: PreparationCrate): void {
+        this.nav.push(NavService.PREPARATION_CRATE_PICKING, {
+            crate,
             preparation: this.preparation
         });
     }
 
     public endCratesPreparation(): void {
-        this.api.request(ApiService.END_PREPARATION, {
-            preparation: this.preparation
-        }, `Finalisation de la préparation en cours...`).subscribe(() => {
-            this.nav.pop(NavService.PREPARATIONS);
-        });
+        if (this.allCratesPrepared) {
+            this.api.request(ApiService.PATCH_PREPARATION, {
+                preparation: this.preparation.id,
+                crates: this.preparation.treatedCrates
+            }, `Finalisation de la préparation en cours...`).subscribe(() => {
+                this.nav.pop(NavService.PREPARATION_LIST);
+            });
+        }
     }
 
-    private getPendingCrates(preparation?: string) {
-        this.api.request(ApiService.CRATES_TO_PREPARE, {
-            preparation
-        }, `Chargement des caisses en cours...`)
-            .subscribe((crates) => {
-                this.pendingCrates = crates;
+    public get allCratesPrepared(): boolean {
+        return (
+            this.preparation
+            && this.preparation.untreatedCrates.length === 0
+        );
+    }
+
+    public get treatedCrates(): Array<PreparationCrate> {
+        return this.preparation
+            ? this.preparation.treatedCrates
+            : [];
+    }
+
+    public get untreatedCrates(): Array<PreparationCrate> {
+        return this.preparation
+            ? this.preparation.untreatedCrates
+            : [];
+    }
+
+    private getServerPreparation(preparationId?: number) {
+        this.api
+            .request(ApiService.GET_PREPARATION_CONTENT, {preparation: preparationId}, `Chargement des caisses en cours...`)
+            .subscribe(({success, crates}) => {
+                if (success) {
+                    this.preparation = {
+                        id: preparationId,
+                        treatedCrates: [],
+                        untreatedCrates: crates.map(({boxes, ...crate}) => ({
+                            ...crate,
+                            boxes: boxes.map((box) => ({
+                                ...box,
+                                selected: []
+                            }))
+                        }))
+                    };
+                }
+                else {
+                    this.nav.pop(NavService.PREPARATION_LIST);
+                }
             });
     }
-
 }

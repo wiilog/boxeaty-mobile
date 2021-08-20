@@ -44,11 +44,11 @@ const routes: Routes = [
         loadChildren: () => import('./pages/delivery/select-delivery/select-delivery.module').then(m => m.SelectDeliveryPageModule)
     },
     {
-        path: 'preparations',
+        path: 'preparation-list',
         loadChildren: () => import('./pages/preparation/preparation-list/preparation-list.module').then(m => m.PreparationListPageModule)
     },
     {
-        path: 'crates-to-prepare',
+        path: 'preparation-crates-to-prepare',
         loadChildren: () => import('./pages/preparation/preparation-crates-to-prepare/preparation-crates-to-prepare.module').then(m => m.PreparationCrateToPreparePageModule)
     },
     {
@@ -60,11 +60,11 @@ const routes: Routes = [
         loadChildren: () => import('./pages/delivery/deposit-boxes/deposit-boxes.module').then(m => m.DepositBoxesPageModule)
     },
     {
-        path: 'box-picking',
+        path: 'preparation-box-picking',
         loadChildren: () => import('./pages/preparation/preparation-box-picking/preparation-box-picking.module').then(m => m.PreparationBoxPickingPageModule)
     },
     {
-        path: 'crate-picking',
+        path: 'preparation-crate-picking',
         loadChildren: () => import('./pages/preparation/preparation-crate-picking/preparation-crate-picking.module').then(m => m.PreparationCratePickingPageModule)
     },
     {

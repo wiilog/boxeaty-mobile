@@ -11,7 +11,6 @@ export class NavService {
     public static readonly LOGIN = 'login';
     public static readonly HOME = 'home';
     public static readonly LOADING = 'loading';
-    public static readonly PREPARATIONS = 'preparations';
     public static readonly DELIVERY_ROUNDS = 'delivery_rounds';
     public static readonly SELECT_DELIVERY = 'select_delivery';
     public static readonly PICK_EVERYTHING = 'pick_everything';
@@ -34,6 +33,13 @@ export class NavService {
     public static readonly CRATE_CONTENT = 'crate_content';
     public static readonly MOVING_BOX_SCAN = 'moving_box_scan';
     public static readonly MOVING_BOX_VALIDATE = 'moving_box_validate';
+    public static readonly RECEPTION_CRATE = 'reception_crate';
+    public static readonly RECEPTION_BOX_SCAN = 'reception_box_scan';
+    public static readonly RECEPTION_BOX_EDIT = 'reception_box_edit';
+    public static readonly PREPARATION_LIST = 'preparation_list';
+    public static readonly PREPARATION_CRATE_TO_PREPARE = 'preparation_crates_to_prepare';
+    public static readonly PREPARATION_CRATE_PICKING = 'preparation_crate_picking';
+    public static readonly PREPARATION_BOX_PICKING = 'preparation_box_picking';
 
     private static readonly ROUTES = {
         login: '/login',
@@ -62,6 +68,10 @@ export class NavService {
         crate_content: '/crate-content',
         moving_box_scan: '/moving-box-scan',
         moving_box_validate: '/moving-box-validate',
+        preparation_list: '/preparation-list',
+        preparation_crates_to_prepare: '/preparation-crates-to-prepare',
+        preparation_crate_picking: '/preparation-crate-picking',
+        preparation_box_picking: '/preparation-box-picking',
     };
 
     private paramStack: Array<{ route: string, params: any }> = [];
@@ -69,8 +79,8 @@ export class NavService {
 
     public constructor(private platform: Platform, private navController: NavController, private router: Router) {
         this.router.events.subscribe(event => {
-            if(event instanceof NavigationStart) {
-                if(!this.justNavigated && this.paramStack.length) {
+            if (event instanceof NavigationStart) {
+                if (!this.justNavigated && this.paramStack.length) {
                     this.paramStack.pop();
                 }
 
@@ -93,7 +103,7 @@ export class NavService {
     public pop(route: string = null, params: any = {}): Observable<void> {
         this.justNavigated = true;
 
-        if(route === null) {
+        if (route === null) {
             this.paramStack.pop();
             return from(this.navController.pop());
         } else {
@@ -101,21 +111,21 @@ export class NavService {
             reversedParamStack.shift();
 
             let index = null;
-            for(let i = 0; i < reversedParamStack.length; i++) {
-                if(reversedParamStack[i].route === route) {
+            for (let i = 0; i < reversedParamStack.length; i++) {
+                if (reversedParamStack[i].route === route) {
                     index = i + 1;
                     break;
                 }
             }
 
-            if(index === null) {
+            if (index === null) {
                 throw new Error(`Could not find route ${route}`);
             }
 
             this.paramStack.splice(this.paramStack.length - index, index);
 
             const currentParams = this.paramStack[this.paramStack.length - 1].params;
-            for(const [key, value] of Object.entries(params)) {
+            for (const [key, value] of Object.entries(params)) {
                 currentParams[key] = value;
             }
 

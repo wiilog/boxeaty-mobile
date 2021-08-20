@@ -1,51 +1,89 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {NavService} from '@app/services/nav.service';
 import {LoadingController, ViewWillEnter} from '@ionic/angular';
 import {ApiService} from '@app/services/api.service';
 import {ToastService} from '@app/services/toast.service';
+import {Stream} from '@app/utils/stream';
+import {PreparationCrate, Preparation} from '@app/pages/preparation/preparation';
 
 @Component({
     selector: 'bx-preparation-crate-picking',
     templateUrl: './preparation-crate-picking.page.html',
     styleUrls: ['./preparation-crate-picking.page.scss'],
 })
-export class PreparationCratePickingPage implements ViewWillEnter {
+export class PreparationCratePickingPage implements OnInit, ViewWillEnter {
 
-    public type: string;
-    public preparation: string;
+    public crateType: PreparationCrate;
+    public preparation: Preparation;
 
-    public availableCrates: {[key: string]: Array<string>} = {};
+    public availableCrates: Array<{location: string; crates: Array<PreparationCrate>}> = [];
 
-    constructor(private nav: NavService, private api: ApiService,
-                private loader: LoadingController, private toastService: ToastService) {
+    constructor(private nav: NavService,
+                private api: ApiService,
+                private loader: LoadingController,
+                private toastService: ToastService) {
+    }
+
+    public ngOnInit(): void {
+        this.crateType = this.nav.param<PreparationCrate>(`crate`);
+        this.preparation = this.nav.param<Preparation>(`preparation`);
+        this.getAvailableCrates(this.crateType);
     }
 
     public ionViewWillEnter(): void {
-        this.type = this.nav.param<string>(`type`);
-        this.preparation = this.nav.param<string>(`preparation`);
-        this.getAvailableCrates(this.type);
+        this.preparation = this.nav.param<any>(`preparation`);
     }
 
-    public treatCrate(crate): void {
+    public treatCrate(crate: PreparationCrate|string): void {
         const values = Object.values(this.availableCrates);
-        const crates = [].concat.apply([], values);
-        if (crates.includes(crate)) {
-            this.nav.push(NavService.BOX_PICKING, {
-                crate,
-                preparation: this.preparation,
-                type: this.type
+        const crates = Stream.flatten(values);
+
+        const selectedCrate = (typeof crate === 'string')
+            ? crates.find(({number}) => (number === crate))
+            : crate;
+
+        if (selectedCrate) {
+            this.nav.push(NavService.PREPARATION_BOX_PICKING, {
+                crate: {
+                    ...this.crateType,
+                    number: selectedCrate.number,
+                    id: selectedCrate.id
+                },
+                preparation: this.preparation
             });
         } else {
             this.toastService.show(`La caisse <strong>${crate}</strong> n'est pas disponible`);
         }
     }
 
-    private getAvailableCrates(type) {
-        this.api.request(ApiService.AVAILABLE_CRATES, {
-            type
-        }, `Chargement des caisses disponibles en cours...`)
-            .subscribe((availableCrates) => {
-                this.availableCrates = availableCrates;
+    public get pageSubtitle(): string {
+        const availableCratesLength = Object.keys(this.availableCrates).length;
+        const sAvailableCrates = availableCratesLength > 1 ? 's' : '';
+        return availableCratesLength > 0
+            ? `Caisse${sAvailableCrates} disponible${sAvailableCrates}`
+            : `Aucune caisse disponible`;
+    }
+
+    private getAvailableCrates(crateType: PreparationCrate) {
+        const ignoredIds = this.preparation.treatedCrates.map(({id}) => id);
+        this.api
+            .request(ApiService.AVAILABLE_CRATES, {type: crateType.type}, `Chargement des caisses disponibles en cours...`)
+            .subscribe((availableCrates: Array<PreparationCrate & { location: string; }>) => {
+                const availableCratesGrouped = availableCrates
+                    .filter(({id}) => ignoredIds.indexOf(id) === -1)
+                    .reduce((acc, {location, ...crate}) => {
+                        if (!acc[location]) {
+                            acc[location] = [];
+                        }
+                        acc[location].push(crate);
+                        return acc;
+                    }, {});
+
+                this.availableCrates = Object.keys(availableCratesGrouped)
+                    .map((location) => ({
+                        location,
+                        crates: availableCratesGrouped[location]
+                    }));
             });
     }
 

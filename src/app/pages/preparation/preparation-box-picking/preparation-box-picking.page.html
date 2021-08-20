@@ -5,35 +5,49 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content>
+<ion-content *ngIf="crate && preparation">
     <div class="content">
-        <span>Caisse {{ crateNumber }}</span>
+        <span>Caisse {{ crate.number }}</span>
         <div class="progress-bar-container">
-            <ion-progress-bar class="progress-bar" value="{{ progress || 0 }}" color="success"></ion-progress-bar>
-            <span>{{ current || '-' }}/{{ total || '-' }}</span>
+            <ion-progress-bar class="progress-bar" value="{{ (selectedPreparationBoxes / preparationBoxesAmount) || 0 }}" color="success"></ion-progress-bar>
+            <span>{{ selectedPreparationBoxes || '-' }}/{{ preparationBoxesAmount || '-' }}</span>
         </div>
     </div>
     <div class="scanned-boxes">
-        <bx-card-wrapper *ngFor="let box of scannedBoxes" [hideTitle]="true">
-            <bx-item [leftLabel]="'Type ' + box.type" [rightLabel]="box.quantity + '/' + typeQuantity[box.type].quantity"
-                     icon="{{ box.quantity === typeQuantity[box.type] ? 'checked-green.svg' : 'checked-grey.svg' }}"
-                     (click)="crateContent(box.subs, box.type)"></bx-item>
+        <bx-card-wrapper *ngFor="let preparedType of preparedTypes"
+                         [hideTitle]="true">
+            <bx-item [leftLabel]="'Type ' + preparedType.type"
+                     [rightLabel]="preparedType.preparedQuantity + '/' + preparedType.requestedQuantity"
+                     icon="{{ preparedType.preparedQuantity === preparedType.requestedQuantity ? 'checked-green.svg' : 'checked-grey.svg' }}"
+                     (click)="onPreparedTypeClicked(preparedType.type)"></bx-item>
         </bx-card-wrapper>
     </div>
     <bx-section>Box disponibles</bx-section>
-    <div class="crate-container" *ngFor="let types of availableBoxes|keyvalue">
-        <bx-card-wrapper [leftTitle]="'Type ' + types.key">
-            <bx-item *ngFor="let locations of types.value|keyvalue"
-                     [leftLabel]="'Emplacement ' + locations.key" [bolderLeftLabel]="true"
-                     [rightLabel]="'x' + (locations.value|length)" [bolderRightLabel]="true"></bx-item>
-        </bx-card-wrapper>
-    </div>
+    <ng-container *ngIf="availableBoxes">
+        <div class="crate-container"
+             *ngFor="let types of availableBoxes|keyvalue">
+            <bx-card-wrapper [leftTitle]="'Type ' + types.key">
+                <bx-item *ngFor="let locations of types.value|keyvalue"
+                         [leftLabel]="'Emplacement ' + locations.key"
+                         [bolderLeftLabel]="true"
+                         [rightLabel]="'x ' + (locations.value|length)"
+                         [bolderRightLabel]="true">
+                </bx-item>
+            </bx-card-wrapper>
+        </div>
+    </ng-container>
 </ion-content>
 <ion-footer>
-    <bx-button label="Flasher Box" icon="scan.svg" (scan)="scanBox($event)"
-               [scanner]="true" [disabled]="progress === 1">
+    <bx-button label="Flasher Box"
+               icon="scan.svg"
+               (scan)="scanBox($event)"
+               [scanner]="true"
+               [disabled]="selectedPreparationBoxes === preparationBoxesAmount">
     </bx-button>
-    <bx-button type="outline" label="Terminer" icon="checked-orange.svg"
-               (click)="endPicking()" [disabled]="progress !== 1">
+    <bx-button type="outline"
+               label="Terminer"
+               icon="checked-orange.svg"
+               (click)="endPicking()"
+               [disabled]="selectedPreparationBoxes < preparationBoxesAmount">
     </bx-button>
 </ion-footer>
