@@ -1,17 +1,16 @@
-import {Component, OnInit} from '@angular/core';
-import {Location} from "@app/entities/location";
-import {Form} from "@app/utils/form";
-import {ViewWillEnter} from "@ionic/angular";
-import {NavService} from "@app/services/nav.service";
-import {ApiService} from "@app/services/api.service";
-import {ToastService} from "@app/services/toast.service";
+import {Component} from '@angular/core';
+import {Location} from '@app/entities/location';
+import {Form} from '@app/utils/form';
+import {ViewWillEnter} from '@ionic/angular';
+import {NavService} from '@app/services/nav.service';
+import {ApiService} from '@app/services/api.service';
 
 @Component({
     selector: 'app-collect-new-validate',
     templateUrl: './collect-new-validate.page.html',
     styleUrls: ['./collect-new-validate.page.scss'],
 })
-export class CollectNewValidatePage implements ViewWillEnter, OnInit {
+export class CollectNewValidatePage implements ViewWillEnter {
 
     public location: Location = undefined;
     public crates: Array<{ number: string, type: string }> = [];
@@ -24,14 +23,13 @@ export class CollectNewValidatePage implements ViewWillEnter, OnInit {
         comment: Form.textarea(),
     });
 
-    constructor(private nav: NavService, private api: ApiService, private toast: ToastService) {
-    }
+    private order?: number;
 
-    ngOnInit() {
+    public constructor(private nav: NavService, private api: ApiService) {
     }
 
     public ionViewWillEnter() {
-        this.location = this.nav.param<Location>('location')
+        this.location = this.nav.param<Location>('location');
         this.crates = this.nav.param<Array<{ number: string, type: string }>>('crates');
         this.tokenAmount = this.nav.param<number>('token_amount');
     }
@@ -40,13 +38,24 @@ export class CollectNewValidatePage implements ViewWillEnter, OnInit {
         const data = this.form.process() as any;
 
         if (data) {
-            this.api.request(ApiService.COLLECT_NEW_VALIDATE, {
-                data: data,
+            const apiParams: any = {
+                data,
                 location: this.location,
                 crates: this.crates,
                 token_amount: this.tokenAmount
-            }, `Validation de la collecte en cours...`).subscribe(() => {
-                this.nav.pop(NavService.COLLECTS);
+            };
+
+            if (this.order) {
+                apiParams.order = this.order;
+            }
+
+            this.api.request(ApiService.POST_COLLECT, apiParams, `Validation de la collecte en cours...`).subscribe(() => {
+                if (this.order) {
+                    this.nav.pop(NavService.DELIVERY_ROUNDS);
+                }
+                else {
+                    this.nav.pop(NavService.COLLECT_LIST);
+                }
             });
         }
     }

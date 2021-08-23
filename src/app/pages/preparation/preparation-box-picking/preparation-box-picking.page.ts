@@ -103,7 +103,7 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
                 ...requestedBoxes.selected
             ], []);
 
-        this.nav.push(NavService.CRATE_CONTENT, {
+        this.nav.push(NavService.PREPARATION_CRATE_CONTENT, {
             containedBoxes,
             type: clickedType
         });
@@ -111,7 +111,7 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
 
     public endPicking() {
         if (this.preparationBoxesAmount === this.selectedPreparationBoxes) {
-            this.nav.pop(NavService.PREPARATION_CRATE_TO_PREPARE, {
+            this.nav.pop(NavService.PREPARATION_CRATES_TO_PREPARE, {
                 boxPicking: {
                     crate: this.crate
                 }
@@ -144,7 +144,7 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
     }
 
     private getAvailableBoxes(): void {
-        this.api.request(ApiService.AVAILABLE_BOXES, {
+        this.api.request(ApiService.GET_BOXES, {
             preparation: this.preparation.id
         }, `Chargement des Box disponibles en cours...`)
             .subscribe(({availableBoxes}) => {

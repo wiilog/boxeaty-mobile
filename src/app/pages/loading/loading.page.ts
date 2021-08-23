@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {NavService} from '@app/services/nav.service';
 import {ApiService} from '@app/services/api.service';
 import {Depository} from '@app/entities/depository';
@@ -11,17 +11,12 @@ import {Entity} from '@app/entities/entity';
     templateUrl: './loading.page.html',
     styleUrls: ['./loading.page.scss'],
 })
-export class LoadingPage implements OnInit, ViewWillEnter {
+export class LoadingPage implements ViewWillEnter {
 
     constructor(private navService: NavService,
                 private api: ApiService,
                 private storage: StorageService,
                 private platform: Platform) {
-    }
-
-
-    ngOnInit() {
-
     }
 
     async ionViewWillEnter() {

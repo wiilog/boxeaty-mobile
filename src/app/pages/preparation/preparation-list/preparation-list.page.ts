@@ -69,7 +69,7 @@ export class PreparationListPage implements ViewWillEnter {
             this.toastService.show(`Cette préparation est déjà en cours de traitement par un autre opérateur.`);
         }
         else {
-            this.navService.push(NavService.PREPARATION_CRATE_TO_PREPARE, {
+            this.navService.push(NavService.PREPARATION_CRATES_TO_PREPARE, {
                 preparation: preparation.id
             });
         }

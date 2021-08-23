@@ -50,7 +50,7 @@ export class MovingBoxValidatePage implements ViewWillEnter, OnInit {
 
         this.api.request(ApiService.MOVING, params, `Envoi des données en cours...`)
             .subscribe(() => {
-                this.nav.pop(NavService.RECEPTIONS);
+                this.nav.pop(NavService.RECEPTION_MENU);
             });
     }
 

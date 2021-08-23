@@ -37,27 +37,27 @@ export class AppComponent {
         });
     }
 
-    navigatePreparations() {
+    public navigatePreparations() {
         this.navService.push(NavService.PREPARATION_LIST);
         this.current = this.PREPARATIONS;
     }
 
-    navigateDeliveries() {
+    public navigateDeliveries() {
         this.navService.push(NavService.DELIVERY_ROUNDS);
         this.current = this.DELIVERIES;
     }
 
-    navigateReceptions() {
-        this.navService.push(NavService.RECEPTIONS);
+    public navigateReceptions() {
+        this.navService.push(NavService.RECEPTION_MENU);
         this.current = this.RECEPTIONS;
     }
 
-    navigateCollects() {
-        this.navService.push(NavService.COLLECTS);
+    public navigateCollects() {
+        this.navService.push(NavService.COLLECT_LIST);
         this.current = this.COLLECTS;
     }
 
-    logout() {
+    public logout() {
         this.navService.setRoot(NavService.LOGIN);
     }
 

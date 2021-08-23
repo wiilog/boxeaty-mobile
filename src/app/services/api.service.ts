@@ -49,6 +49,11 @@ export class ApiService {
         endpoint: `/crates`,
     };
 
+    public static readonly BOX_INFORMATIONS = {
+        method: 'GET',
+        endpoint: '/box-informations',
+    };
+
     public static readonly AVAILABLE_DELIVERY_ROUNDS = {
         method: `GET`,
         endpoint: `/delivery-rounds`,
@@ -104,7 +109,7 @@ export class ApiService {
         endpoint: `/available-crates`,
     };
 
-    public static readonly AVAILABLE_BOXES = {
+    public static readonly GET_BOXES = {
         method: `GET`,
         endpoint: `/boxes`,
     };
@@ -114,9 +119,9 @@ export class ApiService {
         endpoint: '/moving',
     };
 
-    public static readonly PENDING_COLLECTS = {
+    public static readonly GET_COLLECTS = {
         method: 'GET',
-        endpoint: '/pending-collects',
+        endpoint: '/collects',
     };
 
     public static readonly COLLECT_CRATES = {
@@ -124,9 +129,9 @@ export class ApiService {
         endpoint: '/collect-crates/{collect}',
     };
 
-    public static readonly COLLECT_VALIDATE = {
-        method: 'POST',
-        endpoint: '/collect-validate',
+    public static readonly PATCH_COLLECT = {
+        method: 'PATCH',
+        endpoint: '/collects/{collect}',
     };
 
     public static readonly LOCATION = {
@@ -134,10 +139,10 @@ export class ApiService {
         endpoint: '/location',
     };
 
-    public static readonly COLLECT_NEW_VALIDATE = {
+    public static readonly POST_COLLECT = {
         method: 'POST',
-        endpoint: '/collect-new-validate'
-    }
+        endpoint: '/collects'
+    };
 
     private static readonly TIMEOUT: number = 15000;
 

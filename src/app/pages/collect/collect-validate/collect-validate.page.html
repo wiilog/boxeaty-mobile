@@ -8,7 +8,7 @@
 
 <ion-content class="overflow-auto">
     <bx-selectable ngDefaultControl [(ngModel)]="selectedLocation" [item]="selectedLocation"
-                   [type]="LOCATION_SELECTABLE" placeholder="Emplacement..." locationType="1"></bx-selectable>
+                   [type]="LOCATION_SELECTABLE" placeholder="Emplacement..." [locationType]="LOCATION_TYPE_RECEPTION"></bx-selectable>
 
     <bx-section>POINT DE COLLECTE</bx-section>
     <bx-card-client *ngIf="collect" [title]="collect.pick_location"

@@ -4,11 +4,11 @@
             <bx-card-order-detail *ngFor="let pendingCollect of pendingCollects"
                                    [title]="pendingCollect.client"
                                    status="En transit"
-                                   [label]="'Dépôt ' + pendingCollect.depository"
+                                   [label]=" pendingCollect.depository ? ('Dépôt ' + pendingCollect.depository) : ''"
                                    [number]="'Collecte N°' + pendingCollect.number"
                                    [crateAmount]="pendingCollect.crate_amount"
                                    [tokenAmount]="pendingCollect.token_amount"
-                                   (click)="treat(pendingCollect.id)">
+                                   (click)="treat(pendingCollect)">
 
         </bx-card-order-detail>
         </div>

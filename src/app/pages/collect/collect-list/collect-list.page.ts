@@ -1,38 +1,37 @@
-import {Component, OnInit} from '@angular/core';
-import {ApiService} from "@app/services/api.service";
-import {ViewWillEnter} from "@ionic/angular";
-import {NavService} from "@app/services/nav.service";
-import {Collect} from "@app/entities/collect";
+import {Component} from '@angular/core';
+import {ApiService} from '@app/services/api.service';
+import {ViewWillEnter} from '@ionic/angular';
+import {NavService} from '@app/services/nav.service';
+import {Collect} from '@app/entities/collect';
 
 @Component({
     selector: 'bx-collect-list',
     templateUrl: './collect-list.page.html',
     styleUrls: ['./collect-list.page.scss'],
 })
-export class CollectListPage implements ViewWillEnter, OnInit {
+export class CollectListPage implements ViewWillEnter {
 
     public pendingCollects: Array<Collect> = [];
 
     constructor(private api: ApiService, private nav: NavService) {
     }
 
-    public ngOnInit() {
-
-    }
-
     public ionViewWillEnter() {
-        this.api.request(ApiService.PENDING_COLLECTS, {},
-            `Récupération des collectes en cours...`).subscribe((pendingCollects) => {
-            this.pendingCollects = pendingCollects;
-        });
+        this.api.request(
+            ApiService.GET_COLLECTS,
+            {},
+            `Récupération des collectes en cours...`
+        )
+            .subscribe((pendingCollects) => {
+                this.pendingCollects = pendingCollects;
+            });
     }
 
     public new() {
         this.nav.push(NavService.COLLECT_NEW_PICK_LOCATION);
     }
 
-    public treat(id) {
-        const collect = this.pendingCollects.find((c) => c.id === id);
+    public treat(collect: Collect) {
         this.nav.push(NavService.COLLECT_DETAILS, {collect});
     }
 

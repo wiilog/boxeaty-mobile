@@ -80,7 +80,7 @@ const routes: Routes = [
         loadChildren: () => import('./modals/sign-modal/sign-modal.module').then(m => m.SignModalPageModule)
     },
     {
-        path: 'crate-content',
+        path: 'preparation-crate-content',
         loadChildren: () => import('./pages/preparation/preparation-crate-content/preparation-crate-content.module').then(m => m.PreparationCrateContentPageModule)
     },
     {
@@ -92,7 +92,7 @@ const routes: Routes = [
         loadChildren: () => import('./pages/reception/moving/moving-box-scan/moving-box-scan.module').then(m => m.MovingBoxScanPageModule)
     },
     {
-        path: 'collects',
+        path: 'collect-list',
         loadChildren: () => import('./pages/collect/collect-list/collect-list.module').then(m => m.CollectListPageModule)
     },
     {

@@ -16,62 +16,52 @@ export class NavService {
     public static readonly PICK_EVERYTHING = 'pick_everything';
     public static readonly DEPOSIT_BOXES = 'deposit_boxes';
     public static readonly DELIVERY_SIGN = 'delivery_sign';
-    public static readonly COLLECTS = 'collects';
+    public static readonly COLLECT_LIST = 'collect_list';
     public static readonly COLLECT_NEW = 'collect_new';
     public static readonly COLLECT_DETAILS = 'collect_details';
     public static readonly COLLECT_VALIDATE = 'collect_validate';
     public static readonly COLLECT_NEW_PICK_LOCATION = 'collect_new_pick_location';
     public static readonly COLLECT_NEW_DETAILS = 'collect_new_details';
     public static readonly COLLECT_NEW_VALIDATE = 'collect_new_validate';
-    public static readonly RECEPTIONS = 'reception_menu';
+    public static readonly RECEPTION_MENU = 'reception_menu';
     public static readonly REVERSE_TRACKING_CRATE = 'reverse_tracking_crate';
     public static readonly REVERSE_TRACKING_BOX_SCAN = 'reverse_tracking_box_scan';
     public static readonly REVERSE_TRACKING_BOX_VALIDATE = 'reverse_tracking_box_validate';
-    public static readonly CRATE_TO_PREPARE = 'crates_to_prepare';
-    public static readonly CRATE_PICKING = 'crate_picking';
-    public static readonly BOX_PICKING = 'box_picking';
-    public static readonly CRATE_CONTENT = 'crate_content';
     public static readonly MOVING_BOX_SCAN = 'moving_box_scan';
     public static readonly MOVING_BOX_VALIDATE = 'moving_box_validate';
-    public static readonly RECEPTION_CRATE = 'reception_crate';
-    public static readonly RECEPTION_BOX_SCAN = 'reception_box_scan';
-    public static readonly RECEPTION_BOX_EDIT = 'reception_box_edit';
     public static readonly PREPARATION_LIST = 'preparation_list';
-    public static readonly PREPARATION_CRATE_TO_PREPARE = 'preparation_crates_to_prepare';
+    public static readonly PREPARATION_CRATES_TO_PREPARE = 'preparation_crates_to_prepare';
     public static readonly PREPARATION_CRATE_PICKING = 'preparation_crate_picking';
     public static readonly PREPARATION_BOX_PICKING = 'preparation_box_picking';
+    public static readonly PREPARATION_CRATE_CONTENT = 'preparation_crate_content';
 
     private static readonly ROUTES = {
-        login: '/login',
-        home: '/home',
-        loading: '/loading',
-        delivery_rounds: '/delivery-rounds',
-        select_delivery: '/select-delivery',
-        pick_everything: '/pick-everything',
-        deposit_boxes: '/deposit-boxes',
-        delivery_sign: '/delivery-sign',
-        collects: '/collects',
-        collect_new: '/collect-new',
-        collect_details: '/collect-details',
-        collect_validate: '/collect-validate',
-        collect_new_pick_location: '/collect-new-pick-location',
-        collect_new_details: '/collect-new-details',
-        collect_new_validate: '/collect-new-validate',
-        reception_menu: '/reception-menu',
-        reverse_tracking_crate: '/reverse-tracking-crate',
-        reverse_tracking_box_scan: '/reverse-tracking-box-scan',
-        reverse_tracking_box_validate: '/reverse-tracking-box-validate',
-        preparations: '/preparations',
-        crates_to_prepare: '/crates-to-prepare',
-        crate_picking: '/crate-picking',
-        box_picking: '/box-picking',
-        crate_content: '/crate-content',
-        moving_box_scan: '/moving-box-scan',
-        moving_box_validate: '/moving-box-validate',
-        preparation_list: '/preparation-list',
-        preparation_crates_to_prepare: '/preparation-crates-to-prepare',
-        preparation_crate_picking: '/preparation-crate-picking',
-        preparation_box_picking: '/preparation-box-picking',
+        [NavService.LOGIN]: '/login',
+        [NavService.HOME]: '/home',
+        [NavService.LOADING]: '/loading',
+        [NavService.DELIVERY_ROUNDS]: '/delivery-rounds',
+        [NavService.SELECT_DELIVERY]: '/select-delivery',
+        [NavService.PICK_EVERYTHING]: '/pick-everything',
+        [NavService.DEPOSIT_BOXES]: '/deposit-boxes',
+        [NavService.DELIVERY_SIGN]: '/delivery-sign',
+        [NavService.COLLECT_LIST]: '/collect-list',
+        [NavService.COLLECT_NEW]: '/collect-new',
+        [NavService.COLLECT_DETAILS]: '/collect-details',
+        [NavService.COLLECT_VALIDATE]: '/collect-validate',
+        [NavService.COLLECT_NEW_PICK_LOCATION]: '/collect-new-pick-location',
+        [NavService.COLLECT_NEW_DETAILS]: '/collect-new-details',
+        [NavService.COLLECT_NEW_VALIDATE]: '/collect-new-validate',
+        [NavService.RECEPTION_MENU]: '/reception-menu',
+        [NavService.REVERSE_TRACKING_CRATE]: '/reverse-tracking-crate',
+        [NavService.REVERSE_TRACKING_BOX_SCAN]: '/reverse-tracking-box-scan',
+        [NavService.REVERSE_TRACKING_BOX_VALIDATE]: '/reverse-tracking-box-validate',
+        [NavService.MOVING_BOX_SCAN]: '/moving-box-scan',
+        [NavService.MOVING_BOX_VALIDATE]: '/moving-box-validate',
+        [NavService.PREPARATION_LIST]: '/preparation-list',
+        [NavService.PREPARATION_CRATES_TO_PREPARE]: '/preparation-crates-to-prepare',
+        [NavService.PREPARATION_CRATE_PICKING]: '/preparation-crate-picking',
+        [NavService.PREPARATION_BOX_PICKING]: '/preparation-box-picking',
+        [NavService.PREPARATION_CRATE_CONTENT]: '/preparation-crate-content',
     };
 
     private paramStack: Array<{ route: string, params: any }> = [];
