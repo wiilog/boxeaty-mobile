@@ -43,7 +43,7 @@ export class CollectValidatePage implements ViewWillEnter {
                     drop_location: this.selectedLocation.id,
                     collect: this.collect.id,
                     token_amount: this.collect.token_amount
-                }, `Validation de la collecte en cours...`).subscribe(() => {
+                }, `Validation de la collecte`).subscribe(() => {
                     this.nav.pop(NavService.COLLECT_LIST);
                 });
             }

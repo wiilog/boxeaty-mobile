@@ -24,7 +24,7 @@ export class CollectNewPickLocationPage implements ViewWillEnter {
 
     public locationScan(location) {
         this.api.request(ApiService.LOCATIONS, {},
-            `Vérification de l'emplacement en cours...`).subscribe((locations) => {
+            `Vérification de l'emplacement`).subscribe((locations) => {
                 const foundLocation = locations.findIndex((l) => (
                     l.name === location
                     && l.type === CollectNewPickLocationPage.LOCATION_TYPE_QUALITY

@@ -41,7 +41,7 @@ export class CollectNewDetailsPage implements ViewWillEnter {
             this.api.request(
                 ApiService.BOX_INFORMATIONS,
                 {box: number, isCrate: 1},
-                `Récupération des informations de la caisse en cours...`
+                `Récupération des informations de la caisse`
             ).subscribe((result) => {
                 if (result.success) {
                     const crate = result.data;

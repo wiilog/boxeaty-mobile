@@ -1,6 +1,6 @@
 import {TableDefinition} from './table-name';
 
-export const tablesDefinitions: Array<TableDefinition> = [
+export const TABLES_DEFINITION: Array<TableDefinition> = [
     {
         name: 'depository',
         attributes: {

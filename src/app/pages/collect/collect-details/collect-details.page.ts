@@ -26,7 +26,7 @@ export class CollectDetailsPage implements ViewWillEnter {
     public ionViewWillEnter() {
         this.collect = this.nav.param<Collect>('collect');
         this.api
-            .request(ApiService.COLLECT_CRATES, {collect: this.collect.id}, `Récupération des caisses en cours...`)
+            .request(ApiService.COLLECT_CRATES, {collect: this.collect.id}, `Récupération des caisses`)
             .subscribe((crates) => {
                 this.crates = crates;
             });

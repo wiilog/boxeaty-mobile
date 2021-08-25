@@ -144,9 +144,11 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
     }
 
     private getAvailableBoxes(): void {
-        this.api.request(ApiService.GET_BOXES, {
+        const params = {
             preparation: this.preparation.id
-        }, `Chargement des Box disponibles en cours...`)
+        };
+
+        this.api.request(ApiService.GET_BOXES, params, `Chargement des Box disponibles`)
             .subscribe(({availableBoxes}) => {
                 const requestedTypes = this.crate.boxes.map(({type}) => type);
                 this.flattenAvailableBoxes = availableBoxes;

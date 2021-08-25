@@ -20,7 +20,7 @@ export class CollectListPage implements ViewWillEnter {
         this.api.request(
             ApiService.GET_COLLECTS,
             {},
-            `Récupération des collectes en cours...`
+            `Récupération des collectes`
         )
             .subscribe((pendingCollects) => {
                 this.pendingCollects = pendingCollects;

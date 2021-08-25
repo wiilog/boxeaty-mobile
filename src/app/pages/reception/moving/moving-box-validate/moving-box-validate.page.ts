@@ -30,7 +30,7 @@ export class MovingBoxValidatePage implements ViewWillEnter, OnInit {
     }
 
     public locationScan(location) {
-        this.api.request(ApiService.LOCATIONS, {}, `Vérification de l'emplacement en cours...`)
+        this.api.request(ApiService.LOCATIONS, {}, `Vérification de l'emplacement`)
             .subscribe((locations) => {
                 const scannedLocation = locations.find(l => l.name === location);
                 if (scannedLocation) {
@@ -48,7 +48,7 @@ export class MovingBoxValidatePage implements ViewWillEnter, OnInit {
             location: this.selectedLocation.id,
         };
 
-        this.api.request(ApiService.MOVING, params, `Envoi des données en cours...`)
+        this.api.request(ApiService.MOVING, params, `Envoi des données`)
             .subscribe(() => {
                 this.nav.pop(NavService.RECEPTION_MENU);
             });

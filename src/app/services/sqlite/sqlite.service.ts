@@ -3,7 +3,7 @@ import {from, Observable, of, ReplaySubject, Subject, zip} from 'rxjs';
 import {mergeMap, map, take, tap} from 'rxjs/operators';
 import {SQLite, SQLiteObject} from '@ionic-native/sqlite/ngx';
 import {Platform} from '@ionic/angular';
-import {tablesDefinitions} from './table-definitions';
+import {TABLES_DEFINITION} from './table-definitions';
 import {TableName} from '@app/services/sqlite/table-name';
 
 @Injectable({
@@ -40,7 +40,7 @@ export class SQLiteService {
     }
 
     private static createTables(db: SQLiteObject): Observable<any> {
-        const createDatabaseRequests = tablesDefinitions.map(({name, attributes}) => {
+        const createDatabaseRequests = TABLES_DEFINITION.map(({name, attributes}) => {
             const attributesStr = Object
                 .keys(attributes)
                 .map((attr) => (`\`${attr}\` ${attributes[attr]}`))
@@ -51,7 +51,7 @@ export class SQLiteService {
     }
 
     private static dropTables(db: SQLiteObject): Observable<any> {
-        const dropDatabaseRequests = tablesDefinitions
+        const dropDatabaseRequests = TABLES_DEFINITION
             .map(({name}) => `DROP TABLE IF EXISTS \`${name}\`;`);
         return SQLiteService.executeQueryFlatMap(db, dropDatabaseRequests);
     }
@@ -90,7 +90,12 @@ export class SQLiteService {
     public openDatabase(dbName: string): void {
         // We wait sqlite plugin loading and we create the database
         from(this.platform.ready())
-            .pipe(mergeMap(() => this.sqlite.create({name: dbName, location: 'default'})),)
+            .pipe(
+                mergeMap(() => this.sqlite.create({name: dbName, location: 'default'})),
+                mergeMap((sqliteObject: SQLiteObject) => SQLiteService
+                    .createTables(sqliteObject)
+                    .pipe(map(() => sqliteObject)))
+            )
             .subscribe(
                 (sqliteObject: SQLiteObject) => {
                     this.sqliteObject$.next(sqliteObject);
@@ -100,7 +105,7 @@ export class SQLiteService {
     }
 
     public resetDatabase(): Observable<any> {
-        return zip(...tablesDefinitions.map(({name}) => this.resetTable(name)));
+        return zip(...TABLES_DEFINITION.map(({name}) => this.resetTable(name)));
     }
 
     public executeQuery(query: string, params: Array<string> = []): Observable<any> {
@@ -121,7 +126,7 @@ export class SQLiteService {
     }
 
     public createTable(table: TableName): Observable<any> {
-        const {attributes} = tablesDefinitions.find(({name}) => name === table);
+        const {attributes} = TABLES_DEFINITION.find(({name}) => name === table);
 
         const attributesStr = Object
             .keys(attributes)

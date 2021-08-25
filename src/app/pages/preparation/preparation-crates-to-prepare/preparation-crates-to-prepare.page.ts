@@ -50,7 +50,7 @@ export class PreparationCratesToPreparePage implements ViewWillEnter, OnInit {
             this.api.request(ApiService.PATCH_PREPARATION, {
                 preparation: this.preparation.id,
                 crates: this.preparation.treatedCrates
-            }, `Finalisation de la préparation en cours...`).subscribe(() => {
+            }, `Finalisation de la préparation`).subscribe(() => {
                 this.nav.pop(NavService.PREPARATION_LIST);
             });
         }
@@ -77,7 +77,7 @@ export class PreparationCratesToPreparePage implements ViewWillEnter, OnInit {
 
     private getServerPreparation(preparationId?: number) {
         this.api
-            .request(ApiService.GET_PREPARATION_CONTENT, {preparation: preparationId}, `Chargement des caisses en cours...`)
+            .request(ApiService.GET_PREPARATION_CONTENT, {preparation: preparationId}, `Chargement des caisses`)
             .subscribe(({success, crates}) => {
                 if (success) {
                     this.preparation = {

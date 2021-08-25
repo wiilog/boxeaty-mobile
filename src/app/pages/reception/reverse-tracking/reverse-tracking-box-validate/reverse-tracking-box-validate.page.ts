@@ -32,7 +32,7 @@ export class ReverseTrackingBoxValidatePage implements OnInit {
     }
 
     public locationScan(location) {
-        this.api.request(ApiService.LOCATIONS, {}, `Vérification de l'emplacement en cours...`)
+        this.api.request(ApiService.LOCATIONS, {}, `Vérification de l'emplacement`)
             .subscribe((locations) => {
                 const scannedLocation = locations.find(l => l.name === location);
                 if (scannedLocation) {

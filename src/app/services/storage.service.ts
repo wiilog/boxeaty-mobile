@@ -4,7 +4,7 @@ import {SQLiteService} from '@app/services/sqlite/sqlite.service';
 import {from, Observable, ReplaySubject, Subject} from 'rxjs';
 import {Entity} from '@app/entities/entity';
 import {TableName} from '@app/services/sqlite/table-name';
-import {tablesDefinitions} from '@app/services/sqlite/table-definitions';
+import {TABLES_DEFINITION} from '@app/services/sqlite/table-definitions';
 import {Platform} from '@ionic/angular';
 
 import {Storage} from '@capacitor/storage';
@@ -15,7 +15,7 @@ import {User} from '@app/entities/user';
 })
 export class StorageService {
 
-    private static readonly referential = `referential`;
+    private static readonly REFERENTIAL = `referential`;
 
     private readonly user: Subject<User>;
 
@@ -25,8 +25,6 @@ export class StorageService {
         Storage.get({key: `user`}).then(result => {
             this.user.next(JSON.parse(result.value));
         });
-
-        this.platform.ready().then(() => this.initialize(false));
     }
 
     public getUser(): Observable<User> {
@@ -44,9 +42,9 @@ export class StorageService {
 
     public async initialize(reset: boolean): Promise<void> {
         if(reset) {
-            await this.sqlite.createDatabase(StorageService.referential);
+            await this.sqlite.createDatabase(StorageService.REFERENTIAL);
         } else {
-            await this.sqlite.openDatabase(StorageService.referential);
+            await this.sqlite.openDatabase(StorageService.REFERENTIAL);
         }
     }
 
@@ -75,7 +73,7 @@ export class StorageService {
             await this.sqlite.executeQuery(`DELETE FROM ${table}`).toPromise();
         }
 
-        const tableDefinition = tablesDefinitions.find(({name}) => name === table);
+        const tableDefinition = TABLES_DEFINITION.find(({name}) => name === table);
         const columns = Object.keys(tableDefinition.attributes);
 
         for (const item of data) {

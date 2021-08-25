@@ -58,16 +58,21 @@ export class PreparationCratePickingPage implements OnInit, ViewWillEnter {
 
     public get pageSubtitle(): string {
         const availableCratesLength = Object.keys(this.availableCrates).length;
-        const sAvailableCrates = availableCratesLength > 1 ? 's' : '';
+        const s = availableCratesLength > 1 ? 's' : '';
         return availableCratesLength > 0
-            ? `Caisse${sAvailableCrates} disponible${sAvailableCrates}`
+            ? `Caisse${s} disponible${s}`
             : `Aucune caisse disponible`;
     }
 
     private getAvailableCrates(crateType: PreparationCrate) {
         const ignoredIds = this.preparation.treatedCrates.map(({id}) => id);
+        const params = {
+            preparation: this.preparation.id,
+            type: crateType.type
+        };
+
         this.api
-            .request(ApiService.AVAILABLE_CRATES, {type: crateType.type}, `Chargement des caisses disponibles en cours...`)
+            .request(ApiService.AVAILABLE_CRATES, params, `Chargement des caisses disponibles`)
             .subscribe((availableCrates: Array<PreparationCrate & { location: string; }>) => {
                 const availableCratesGrouped = availableCrates
                     .filter(({id}) => ignoredIds.indexOf(id) === -1)
