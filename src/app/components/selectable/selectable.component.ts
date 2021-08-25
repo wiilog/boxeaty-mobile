@@ -1,8 +1,8 @@
 import {Component, Input, OnDestroy, OnInit, ViewChild, EventEmitter, Output} from '@angular/core';
 import {IonicSelectableComponent} from 'ionic-selectable';
 import {Subscription} from 'rxjs';
-import {StorageService} from "@app/services/storage.service";
-import {Entity} from "@app/entities/entity";
+import {StorageService} from '@app/services/storage.service';
+import {Entity} from '@app/entities/entity';
 
 @Component({
     selector: 'bx-selectable',
@@ -21,10 +21,13 @@ export class SelectableComponent implements OnInit, OnDestroy {
     public placeholder: string;
 
     @Input()
-    public locationType: string;
+    public locationType: number|string;
 
-    @Input() ngModel: string;
-    @Output() ngModelChange = new EventEmitter<string>();
+    @Input()
+    public ngModel: string;
+
+    @Output()
+    public ngModelChange = new EventEmitter<string>();
 
     public items: Array<any> = [];
 
@@ -37,14 +40,14 @@ export class SelectableComponent implements OnInit, OnDestroy {
     constructor(private storage: StorageService) {
     }
 
-    ngOnInit() {
-        this.storage.get<Entity>(this.type, {type: parseInt(this.locationType)}).then(results => {
+    public ngOnInit() {
+        this.storage.get<Entity>(this.type, {type: this.locationType as number}).then(results => {
             this.items = results;
             this.ready = true;
         });
     }
 
-    ngOnDestroy() {
+    public ngOnDestroy() {
         if (this.subscription) {
             this.subscription.unsubscribe();
             this.subscription = undefined;
@@ -62,7 +65,7 @@ export class SelectableComponent implements OnInit, OnDestroy {
         return this._item;
     }
 
-    onChange($event) {
+    public onChange($event) {
         this.ngModelChange.emit($event.value);
     }
 
