@@ -8,7 +8,8 @@ import {Form} from '@app/utils/form';
 })
 export class HeaderComponent implements OnInit {
 
-    @ViewChild('wrapper') wrapper: ElementRef;
+    @ViewChild('wrapper')
+    public wrapper: ElementRef;
 
     @Input()
     public subtitle: string;

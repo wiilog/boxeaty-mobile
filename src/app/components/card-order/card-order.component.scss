@@ -1,11 +1,9 @@
 @import "~style/variables";
 
 .content {
-    height: 70px;
-
     .amount {
         display: flex;
-        padding: 10px 0 0 10px;
+        padding-left: 10px;
 
         img {
             width: 20px;

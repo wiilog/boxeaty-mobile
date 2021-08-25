@@ -2,12 +2,12 @@
     <ion-header *ngIf="this.router.url != LOGIN_PATH">
         <header>
             <div class="previous">
-                <!--<button><img src="../assets/previous.svg" alt="Icone précédent"></button>-->
+                <!--<button><img src="/assets/previous.svg" alt="Icone précédent"></button>-->
             </div>
-            <img src="../assets/logo.svg" class="logo">
+            <img src="/assets/logo.svg" class="logo">
             <div class="logout">
                 <button (click)="logout()">
-                    <img src="../assets/logout.svg" alt="Icone de déconnexion">
+                    <img src="/assets/logout.svg" alt="Icone de déconnexion">
                     Déconnexion
                 </button>
             </div>
@@ -19,20 +19,20 @@
     </ion-content>
 
     <footer *ngIf="showFooter && ![LOGIN_PATH, LOADING_PATH].includes(this.router.url)">
-        <button (click)="navigatePreparations()" [class.active]="current === PREPARATIONS">
+        <button *ngIf="user && user.rights.preparations" (click)="navigatePreparations()" [class.active]="current === PREPARATIONS">
             <img
                 [src]="'../assets/navigation/' + (current === PREPARATIONS ? 'active' : 'off') + '/preparation.svg'"
                 alt="Icone de préparation">
             Préparations
         </button>
-        <button (click)="navigateDeliveries()" [class.active]="current === DELIVERIES">
+        <button *ngIf="user && user.rights.deliveries" (click)="navigateDeliveries()" [class.active]="current === DELIVERIES">
             <img
                 [src]="'../assets/navigation/' + (current === DELIVERIES ? 'active' : 'off') + '/delivery.svg'"
                 alt="Icone de livraison">
             Livraisons
         </button>
 
-        <button (click)="navigateReceptions()" [class.active]="current === RECEPTIONS">
+        <button *ngIf="user && user.rights.receptions" (click)="navigateReceptions()" [class.active]="current === RECEPTIONS">
             <img [src]="'../assets/navigation/' + (current === RECEPTIONS ? 'active' : 'off') + '/reception.svg'"
                  alt="Icone de réception">
             Réceptions

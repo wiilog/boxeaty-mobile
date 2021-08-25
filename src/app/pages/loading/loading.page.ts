@@ -13,25 +13,53 @@ import {Entity} from '@app/entities/entity';
 })
 export class LoadingPage implements ViewWillEnter {
 
+    public content: string;
+
     constructor(private navService: NavService,
                 private api: ApiService,
                 private storage: StorageService,
                 private platform: Platform) {
     }
 
-    async ionViewWillEnter() {
-        await this.platform.ready();
-        await this.storage.initialize();
+    public async ionViewWillEnter() {
+        await this.load(`Initialisation de l'application`, async () => {
+            await this.platform.ready();
+            await this.storage.initialize(true);
+        });
 
-        const depositories = await this.api.request(ApiService.DEPOSITORIES).toPromise();
-        await this.storage.insert<Depository>('depository', depositories, true);
+        await this.load(`Chargement des dépôts`, async () => {
+            const depositories = await this.api.request(ApiService.DEPOSITORIES).toPromise();
+            await this.storage.insert<Depository>('depository', depositories, true);
+        });
 
-        const locations = await this.api.request(ApiService.LOCATIONS).toPromise();
-        await this.storage.insert<Entity>('location', locations, true);
+        await this.load(`Chargement des emplacements`, async () => {
+            const locations = await this.api.request(ApiService.LOCATIONS).toPromise();
+            await this.storage.insert<Entity>('location', locations, true);
+        });
 
-        const qualities = await this.api.request(ApiService.QUALITIES).toPromise();
-        await this.storage.insert<Entity>('quality', qualities, true);
+        await this.load(`Chargement des qualités`, async () => {
+            const qualities = await this.api.request(ApiService.QUALITIES).toPromise();
+            await this.storage.insert<Entity>('quality', qualities, true);
+        });
 
-        this.navService.setRoot(NavService.HOME);
+        this.storage.getUser().subscribe(user => {
+            if(user.rights.preparations) {
+                this.navService.push(NavService.PREPARATION_LIST);
+            } else if(user.rights.deliveries) {
+                this.navService.push(NavService.DELIVERY_ROUNDS);
+            } else if(user.rights.receptions) {
+                this.navService.push(NavService.RECEPTION_MENU);
+            } else {
+                this.navService.push(NavService.COLLECT_LIST);
+            }
+        });
     }
+
+    private async load(text: string, callback: () => void) {
+        this.content = text;
+        console.log(text);
+
+        await callback();
+    }
+
 }

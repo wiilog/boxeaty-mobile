@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component} from '@angular/core';
 import {Form} from '@app/utils/form';
 import {ApiService} from '@app/services/api.service';
 import {NavService} from '@app/services/nav.service';
@@ -10,7 +10,7 @@ import {StorageService} from '@app/services/storage.service';
     templateUrl: './login.page.html',
     styleUrls: ['./login.page.scss'],
 })
-export class LoginPage implements OnInit {
+export class LoginPage {
 
     public form = Form.create({
         email: Form.email(true),
@@ -25,16 +25,13 @@ export class LoginPage implements OnInit {
         }
     }
 
-    ngOnInit() {
-    }
-
-    async submit(configuration: {email: string; password: string} = null) {
-        const data = configuration || this.form.process();
+    public async submit(config: { email: string; password: string } = null) {
+        const data = config || this.form.process();
 
         if(data) {
             const result = await this.api.request(ApiService.LOGIN, data).toPromise();
             if(result.success) {
-                await this.storage.setToken(result.token).toPromise();
+                await this.storage.setUser(result.user).toPromise();
                 await this.navService.setRoot(NavService.LOADING);
             }
         }

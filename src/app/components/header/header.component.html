@@ -1,4 +1,4 @@
-<h1 class="vertical" [class.border]="border !== undefined" [class.shadow]="shadow !== undefined">
+<h1 class="vertical" [hidden]="!hasContent" [class.border]="border !== undefined" [class.shadow]="shadow !== undefined">
     <span #wrapper><ng-content></ng-content></span>
     <div *ngIf="subtitle" class="subtitle">{{ subtitle }}</div>
 </h1>

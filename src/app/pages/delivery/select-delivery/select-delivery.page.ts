@@ -1,11 +1,11 @@
 import {Component, ViewChild, ElementRef} from '@angular/core';
 import {ViewWillEnter, ViewDidEnter} from '@ionic/angular';
-import {DeliveryRound} from "@app/entities/delivery-round";
-import {NavService} from "@app/services/nav.service";
+import {DeliveryRound} from '@app/entities/delivery-round';
+import {NavService} from '@app/services/nav.service';
 import {Platform} from '@ionic/angular';
-import {Order} from "@app/entities/order";
-import {Map} from "@app/utils/map";
-import {ApiService} from "@app/services/api.service";
+import {Order} from '@app/entities/order';
+import {Map} from '@app/utils/map';
+import {ApiService} from '@app/services/api.service';
 
 @Component({
     selector: 'app-select-delivery',
@@ -14,16 +14,17 @@ import {ApiService} from "@app/services/api.service";
 })
 export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
 
-    @ViewChild('map') mapView: ElementRef;
-    private map: Map = null;
-
     public deliveryRound: DeliveryRound;
+
+    @ViewChild('map')
+    public mapView: ElementRef;
+    private map: Map = null;
 
     constructor(private nav: NavService, private api: ApiService, private platform: Platform) {
     }
 
-    ionViewWillEnter() {
-        this.deliveryRound = this.nav.param<DeliveryRound>("deliveryRound");
+    public ionViewWillEnter() {
+        this.deliveryRound = this.nav.param<DeliveryRound>('deliveryRound');
         for (const order of this.deliveryRound.orders) {
             order.taken = order.preparation.lines.filter(line => !line.taken).length === 0;
         }
@@ -36,8 +37,8 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
         }
     }
 
-    ionViewDidEnter() {
-        if(this.map === null) {
+    public ionViewDidEnter() {
+        if (this.map === null) {
             this.map = Map.create(`map`);
 
             for (const order of this.deliveryRound.orders) {
@@ -45,7 +46,7 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
                     title: order.client.name,
                     latitude: Number(order.client.latitude),
                     longitude: Number(order.client.longitude),
-                })
+                });
             }
 
             this.map.fitBounds();
@@ -59,7 +60,7 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
             this.nav.push(NavService.DEPOSIT_BOXES, {
                 order
             });
-        })
+        });
     }
 
     public navigate(order: Order) {

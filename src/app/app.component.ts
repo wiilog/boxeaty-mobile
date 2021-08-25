@@ -1,8 +1,9 @@
 import {Component, ChangeDetectorRef} from '@angular/core';
 import {Router} from '@angular/router';
 import {NavService} from './services/nav.service';
-import {Platform} from '@ionic/angular';
 import {Keyboard} from '@capacitor/keyboard';
+import {StorageService} from '@app/services/storage.service';
+import {Rights, User} from '@app/entities/user';
 
 @Component({
     selector: 'bx-root',
@@ -10,19 +11,22 @@ import {Keyboard} from '@capacitor/keyboard';
     styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-    readonly LOGIN_PATH = NavService.path(NavService.LOGIN);
-    readonly LOADING_PATH = NavService.path(NavService.LOADING);
 
-    readonly PREPARATIONS = `preparations`;
-    readonly DELIVERIES = `deliveries`;
-    readonly COLLECTS = `collects`;
-    readonly RECEPTIONS = `receptions`;
+    public readonly LOGIN_PATH = NavService.path(NavService.LOGIN);
+    public readonly LOADING_PATH = NavService.path(NavService.LOADING);
+
+    public readonly PREPARATIONS = `preparations`;
+    public readonly DELIVERIES = `deliveries`;
+    public readonly COLLECTS = `collects`;
+    public readonly RECEPTIONS = `receptions`;
 
     public current: string;
+    public user: User;
     public showFooter: boolean = true;
 
-    constructor(public router: Router, public navService: NavService, private detector: ChangeDetectorRef) {
-        window.screen.orientation.lock('portrait');
+    constructor(public router: Router, public navService: NavService,
+                private storage: StorageService, private detector: ChangeDetectorRef) {
+        window.screen.orientation.lock(`portrait`);
 
         Keyboard.hide();
 
@@ -35,6 +39,8 @@ export class AppComponent {
             this.showFooter = false;
             this.detector.detectChanges();
         });
+
+        this.storage.getUser().subscribe(user => this.user = user);
     }
 
     public navigatePreparations() {
@@ -58,6 +64,7 @@ export class AppComponent {
     }
 
     public logout() {
+        this.storage.setUser(null);
         this.navService.setRoot(NavService.LOGIN);
     }
 

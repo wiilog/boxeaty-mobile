@@ -1,13 +1,14 @@
 import {Injectable} from '@angular/core';
 import {HttpClient, HttpErrorResponse} from '@angular/common/http';
 import {Observable} from 'rxjs';
-import {mergeMap, take, tap, timeout} from 'rxjs/operators';
+import {tap, timeout} from 'rxjs/operators';
 import {NavService} from '@app/services/nav.service';
 import {ToastService} from '@app/services/toast.service';
 import {LoadingController} from '@ionic/angular';
 
 import API_HOST from '@config/api-host';
 import {StorageService} from '@app/services/storage.service';
+import {User} from '@app/entities/user';
 
 @Injectable({
     providedIn: 'root'
@@ -146,12 +147,16 @@ export class ApiService {
 
     private static readonly TIMEOUT: number = 15000;
 
+    private user: User = null;
+
     public constructor(private storage: StorageService,
                        private nav: NavService,
                        private client: HttpClient,
                        private toastService: ToastService,
                        private loader: LoadingController) {
+        this.storage.getUser().subscribe(user => this.user = user);
     }
+
 
     private static objectToURI(params: { [name: string]: string | number }): string {
         return Object.keys(params)
@@ -160,12 +165,16 @@ export class ApiService {
             .join(`&`);
     }
 
-    public request({method, endpoint}: { method: string, endpoint: string }, params = null, loading: string = null): Observable<any> {
+    public request({method, endpoint}: { method: string, endpoint: string },
+                   params = null, loading: string = null): Observable<any> {
         let loader = null;
-        if (loading) {
+        let finished = false;
+        if(loading) {
             this.loader.create({message: loading}).then(l => {
-                loader = l;
-                loader.present();
+                if(!finished) {
+                    loader = l;
+                    loader.present();
+                }
             });
         }
 
@@ -175,11 +184,17 @@ export class ApiService {
             withCredentials: false,
         };
 
-        if (params) {
+        if(this.user && this.user.token) {
+            options.headers = {
+                'x-authorization': `Bearer ${this.user.token}`,
+            };
+        }
+
+        if(params) {
             endpoint = endpoint.replace(/{(\w+)}/g, (match, name) => {
                 const value = params[name];
 
-                if (value !== undefined) {
+                if(value !== undefined) {
                     delete params[name];
                     return value;
                 } else {
@@ -188,48 +203,33 @@ export class ApiService {
             });
         }
 
-        if ((method === `GET` || method === `DELETE`) && params) {
+        if((method === `GET` || method === `DELETE`) && params) {
             const queryParams = ApiService.objectToURI(params);
-            if (queryParams) {
+            if(queryParams) {
                 endpoint += (endpoint.indexOf(`?`) !== -1 ? `&` : `?`) + queryParams;
             }
         }
 
-        return this.storage.getToken()
-            .pipe(
-                take(1),
-                mergeMap((token: string) => {
-                    if (token) {
-                        options.headers = {
-                            'x-authorization': `Bearer ${token}`,
-                        };
+        return this.client.request(method, ApiService.URL + endpoint, options).pipe(
+            timeout(ApiService.TIMEOUT),
+            tap(
+                async (result: any) => this.toastService.show(result && result.message),
+                async (error: HttpErrorResponse) => {
+                    if(error.status === 401) {
+                        await this.storage.setUser(null).toPromise();
+                        await this.toastService.show(`Une autre session est déjà ouverte, vous avez été déconnecté`);
+                        await this.nav.setRoot(NavService.LOGIN);
+                    } else {
+                        await this.toastService.show(`Une erreur est survenue lors de la communication avec le serveur, merci de contacter un responsable d'établissement`);
                     }
-
-                    return this.client.request(method, ApiService.URL + endpoint, options);
-                }),
-                timeout(ApiService.TIMEOUT),
-                tap(
-                    async (result: any) => {
-                        if (loader) {
-                            loader.dismiss();
-                        }
-
-                        this.toastService.show(result && result.message);
-                    },
-                    async (error: HttpErrorResponse) => {
-                        if (loader) {
-                            loader.dismiss();
-                        }
-
-                        if (error.status === 401) {
-                            await this.storage.setToken(null).toPromise();
-                            await this.toastService.show(`Une autre session est déjà ouverte, vous avez été déconnecté`);
-                            await this.nav.setRoot(NavService.LOGIN);
-                        } else {
-                            await this.toastService.show(`Une erreur est survenue lors de la communication avec le serveur, merci de contacter un responsable d'établissement`);
-                        }
-                    },
-                ));
+                },
+                async () => {
+                    finished = true;
+                    if(loader) {
+                        await loader.dismiss();
+                    }
+                }
+            ));
     }
 
 }

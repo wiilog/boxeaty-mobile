@@ -87,6 +87,18 @@ export class SQLiteService {
             );
     }
 
+    public openDatabase(dbName: string): void {
+        // We wait sqlite plugin loading and we create the database
+        from(this.platform.ready())
+            .pipe(mergeMap(() => this.sqlite.create({name: dbName, location: 'default'})),)
+            .subscribe(
+                (sqliteObject: SQLiteObject) => {
+                    this.sqliteObject$.next(sqliteObject);
+                },
+                e => console.log(e)
+            );
+    }
+
     public resetDatabase(): Observable<any> {
         return zip(...tablesDefinitions.map(({name}) => this.resetTable(name)));
     }

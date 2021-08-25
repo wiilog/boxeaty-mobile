@@ -5,8 +5,10 @@ import {from, Observable, ReplaySubject, Subject} from 'rxjs';
 import {Entity} from '@app/entities/entity';
 import {TableName} from '@app/services/sqlite/table-name';
 import {tablesDefinitions} from '@app/services/sqlite/table-definitions';
+import {Platform} from '@ionic/angular';
 
 import {Storage} from '@capacitor/storage';
+import {User} from '@app/entities/user';
 
 @Injectable({
     providedIn: 'root'
@@ -15,31 +17,37 @@ export class StorageService {
 
     private static readonly referential = `referential`;
 
-    private readonly token: Subject<string>;
+    private readonly user: Subject<User>;
 
-    public constructor(private sqlite: SQLiteService) {
-        this.token = new ReplaySubject<string>(1);
+    public constructor(private platform: Platform, private sqlite: SQLiteService) {
+        this.user = new ReplaySubject<User>(1);
 
-        Storage.get({key: 'token'}).then(result => {
-            this.token.next(result.value);
+        Storage.get({key: `user`}).then(result => {
+            this.user.next(JSON.parse(result.value));
         });
+
+        this.platform.ready().then(() => this.initialize(false));
     }
 
-    public getToken(): Observable<string> {
-        return this.token;
+    public getUser(): Observable<User> {
+        return this.user;
     }
 
-    public setToken(token: string): Observable<void> {
-        this.token.next(token);
+    public setUser(user: User): Observable<void> {
+        this.user.next(user);
 
         return from(Storage.set({
-            key: 'token',
-            value: token,
+            key: `user`,
+            value: JSON.stringify(user),
         })) as Observable<void>;
     }
 
-    public async initialize(): Promise<void> {
-        await this.sqlite.createDatabase(StorageService.referential);
+    public async initialize(reset: boolean): Promise<void> {
+        if(reset) {
+            await this.sqlite.createDatabase(StorageService.referential);
+        } else {
+            await this.sqlite.openDatabase(StorageService.referential);
+        }
     }
 
     public async get<T extends Entity>(table: string, search: { [key: string]: any } = {}): Promise<Array<T>> {
@@ -55,7 +63,7 @@ export class StorageService {
             }
         }
 
-        return (await this.sqlite.executeQuery(query, values).toPromise()) as Array<T>;
+        return await this.sqlite.executeQuery(query, values).toPromise() as Array<T>;
     }
 
     public async insert<T extends Entity>(table: TableName, data: T | Array<T>, empty = false): Promise<void> {
