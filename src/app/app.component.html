@@ -19,27 +19,27 @@
     </ion-content>
 
     <footer *ngIf="showFooter && ![LOGIN_PATH, LOADING_PATH].includes(this.router.url)">
-        <button *ngIf="user && user.rights.preparations" (click)="navigatePreparations()" [class.active]="current === PREPARATIONS">
+        <button *ngIf="user && user.rights.preparations" (click)="navigatePreparations()" [class.active]="navService.menu === PREPARATIONS">
             <img
-                [src]="'../assets/navigation/' + (current === PREPARATIONS ? 'active' : 'off') + '/preparation.svg'"
+                [src]="'../assets/navigation/' + (navService.menu === PREPARATIONS ? 'active' : 'off') + '/preparation.svg'"
                 alt="Icone de préparation">
             Préparations
         </button>
-        <button *ngIf="user && user.rights.deliveries" (click)="navigateDeliveries()" [class.active]="current === DELIVERIES">
+        <button *ngIf="user && user.rights.deliveries" (click)="navigateDeliveries()" [class.active]="navService.menu === DELIVERIES">
             <img
-                [src]="'../assets/navigation/' + (current === DELIVERIES ? 'active' : 'off') + '/delivery.svg'"
+                [src]="'../assets/navigation/' + (navService.menu === DELIVERIES ? 'active' : 'off') + '/delivery.svg'"
                 alt="Icone de livraison">
             Livraisons
         </button>
 
-        <button *ngIf="user && user.rights.receptions" (click)="navigateReceptions()" [class.active]="current === RECEPTIONS">
-            <img [src]="'../assets/navigation/' + (current === RECEPTIONS ? 'active' : 'off') + '/reception.svg'"
+        <button *ngIf="user && user.rights.receptions" (click)="navigateReceptions()" [class.active]="navService.menu === RECEPTIONS">
+            <img [src]="'../assets/navigation/' + (navService.menu === RECEPTIONS ? 'active' : 'off') + '/reception.svg'"
                  alt="Icone de réception">
             Réceptions
         </button>
-        <button (click)="navigateCollects()" [class.active]="current === COLLECTS">
+        <button (click)="navigateCollects()" [class.active]="navService.menu === COLLECTS">
             <img
-                [src]="'../assets/navigation/' + (current === COLLECTS ? 'active' : 'off') + '/collect.svg'"
+                [src]="'../assets/navigation/' + (navService.menu === COLLECTS ? 'active' : 'off') + '/collect.svg'"
                 alt="Icone de collecte">
             Collectes
         </button>

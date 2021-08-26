@@ -1,8 +1,8 @@
 import {Component} from '@angular/core';
 import {formatDate} from '@angular/common';
-import {ApiService} from "@app/services/api.service";
-import {DeliveryRound} from "@app/entities/delivery-round";
-import {NavService} from "@app/services/nav.service";
+import {ApiService} from '@app/services/api.service';
+import {DeliveryRound} from '@app/entities/delivery-round';
+import {NavService} from '@app/services/nav.service';
 import {ViewWillEnter} from '@ionic/angular';
 
 @Component({
@@ -23,29 +23,29 @@ export class DeliveryRoundsPage implements ViewWillEnter {
 
             for(const rounds of Object.values(this.deliveryRounds)) {
                 for(const round of rounds) {
-                    round.joined_clients = round.orders.map(order => order.client.name).join(', ')
+                    round.joined_clients = round.orders.map(order => order.client.name).join(', ');
                 }
             }
         });
     }
 
-    selectDeliveryRound(round: DeliveryRound) {
+    public selectDeliveryRound(round: DeliveryRound) {
         this.nav.push(NavService.SELECT_DELIVERY, {
             deliveryRound: round,
         });
     }
 
-    formatSection(stringDate) {
+    public formatSection(stringDate: string = null) {
         const day = 1000 * 60 * 60 * 24;
-        const date = new Date(Date.parse(stringDate));
+        const date = stringDate ? new Date(Date.parse(stringDate)) : new Date();
 
         const today = new Date();
-        if(date.getDate() == today.getDate() && date.getMonth() == today.getMonth() && date.getFullYear() == today.getFullYear()) {
+        if(date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
             return `Aujourd'hui <span class="silent">${formatDate(date, `d MMMM`, `fr`)}</span>`;
         }
 
         const tomorrow = new Date(today.getTime() + day);
-        if(date.getDate() == tomorrow.getDate() && date.getMonth() == tomorrow.getMonth() && date.getFullYear() == tomorrow.getFullYear()) {
+        if(date.getDate() === tomorrow.getDate() && date.getMonth() === tomorrow.getMonth() && date.getFullYear() === tomorrow.getFullYear()) {
             return `Demain <span class="silent">${formatDate(date, `d MMMM`, `fr`)}</span>`;
         }
 
