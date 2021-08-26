@@ -20,6 +20,8 @@ export class LoginPage {
         password: Form.password(true),
     });
 
+    private user: User = null;
+
     public constructor(private api: ApiService,
                        private storage: StorageService,
                        private navService: NavService) {
