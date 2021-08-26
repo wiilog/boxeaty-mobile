@@ -41,7 +41,13 @@ export class SelectableComponent implements OnInit, OnDestroy {
     }
 
     public ngOnInit() {
-        this.storage.get<Entity>(this.type, {type: this.locationType as number}).then(results => {
+        let search;
+        if (this.type === 'location') {
+            search = {
+                type: this.locationType as number
+            };
+        }
+        this.storage.get<Entity>(this.type, search).then(results => {
             this.items = results;
             this.ready = true;
         });

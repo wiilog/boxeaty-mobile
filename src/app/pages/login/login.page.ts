@@ -17,8 +17,10 @@ export class LoginPage {
         password: Form.password(true),
     });
 
-    constructor(private api: ApiService, private storage: StorageService, private navService: NavService) {
-        if(configuration.autoConnect && configuration.email && configuration.password) {
+    public constructor(private api: ApiService,
+                       private storage: StorageService,
+                       private navService: NavService) {
+        if (configuration.autoConnect && configuration.email && configuration.password) {
             this.submit(configuration).then(() => {
                 console.log(`Automatically logged in with ${configuration.email}`);
             });
@@ -28,7 +30,7 @@ export class LoginPage {
     public async submit(config: { email: string; password: string } = null) {
         const data = config || this.form.process();
 
-        if(data) {
+        if (data) {
             const result = await this.api.request(ApiService.LOGIN, data).toPromise();
             if(result.success) {
                 await this.storage.setUser(result.user).toPromise();
