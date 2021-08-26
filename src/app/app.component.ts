@@ -3,7 +3,7 @@ import {Router} from '@angular/router';
 import {NavService} from './services/nav.service';
 import {Keyboard} from '@capacitor/keyboard';
 import {StorageService} from '@app/services/storage.service';
-import {Rights, User} from '@app/entities/user';
+import {User} from '@app/entities/user';
 
 @Component({
     selector: 'bx-root',
@@ -12,15 +12,19 @@ import {Rights, User} from '@app/entities/user';
 })
 export class AppComponent {
 
+    public static readonly PREPARATIONS = `preparations`;
+    public static readonly DELIVERIES = `deliveries`;
+    public static readonly COLLECTS = `collects`;
+    public static readonly RECEPTIONS = `receptions`;
+
+    public readonly PREPARATIONS = AppComponent.PREPARATIONS;
+    public readonly DELIVERIES = AppComponent.DELIVERIES;
+    public readonly COLLECTS = AppComponent.COLLECTS;
+    public readonly RECEPTIONS = AppComponent.RECEPTIONS;
+
     public readonly LOGIN_PATH = NavService.path(NavService.LOGIN);
     public readonly LOADING_PATH = NavService.path(NavService.LOADING);
 
-    public readonly PREPARATIONS = `preparations`;
-    public readonly DELIVERIES = `deliveries`;
-    public readonly COLLECTS = `collects`;
-    public readonly RECEPTIONS = `receptions`;
-
-    public current: string;
     public user: User;
     public showFooter: boolean = true;
 
@@ -45,22 +49,22 @@ export class AppComponent {
 
     public navigatePreparations() {
         this.navService.push(NavService.PREPARATION_LIST);
-        this.current = this.PREPARATIONS;
+        this.navService.menu = AppComponent.PREPARATIONS;
     }
 
     public navigateDeliveries() {
         this.navService.push(NavService.DELIVERY_ROUNDS);
-        this.current = this.DELIVERIES;
+        this.navService.menu = AppComponent.DELIVERIES;
     }
 
     public navigateReceptions() {
         this.navService.push(NavService.RECEPTION_MENU);
-        this.current = this.RECEPTIONS;
+        this.navService.menu = AppComponent.RECEPTIONS;
     }
 
     public navigateCollects() {
         this.navService.push(NavService.COLLECT_LIST);
-        this.current = this.COLLECTS;
+        this.navService.menu = AppComponent.COLLECTS;
     }
 
     public logout() {

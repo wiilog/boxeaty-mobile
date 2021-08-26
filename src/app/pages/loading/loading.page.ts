@@ -5,6 +5,7 @@ import {Depository} from '@app/entities/depository';
 import {StorageService} from '@app/services/storage.service';
 import {Platform, ViewWillEnter} from '@ionic/angular';
 import {Entity} from '@app/entities/entity';
+import {AppComponent} from '@app/app.component';
 
 @Component({
     selector: 'bx-loading',
@@ -44,13 +45,17 @@ export class LoadingPage implements ViewWillEnter {
 
         this.storage.getUser().subscribe(user => {
             if(user.rights.preparations) {
-                this.navService.push(NavService.PREPARATION_LIST);
+                this.navService.setRoot(NavService.PREPARATION_LIST);
+                this.navService.menu = AppComponent.PREPARATIONS;
             } else if(user.rights.deliveries) {
-                this.navService.push(NavService.DELIVERY_ROUNDS);
+                this.navService.setRoot(NavService.DELIVERY_ROUNDS);
+                this.navService.menu = AppComponent.DELIVERIES;
             } else if(user.rights.receptions) {
-                this.navService.push(NavService.RECEPTION_MENU);
+                this.navService.setRoot(NavService.RECEPTION_MENU);
+                this.navService.menu = AppComponent.RECEPTIONS;
             } else {
-                this.navService.push(NavService.COLLECT_LIST);
+                this.navService.setRoot(NavService.COLLECT_LIST);
+                this.navService.menu = AppComponent.COLLECTS;
             }
         });
     }

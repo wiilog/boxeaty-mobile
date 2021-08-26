@@ -64,6 +64,8 @@ export class NavService {
         [NavService.PREPARATION_CRATE_CONTENT]: '/preparation-crate-content',
     };
 
+    public menu: string;
+
     private paramStack: Array<{ route: string, params: any }> = [];
     private justNavigated: boolean;
 

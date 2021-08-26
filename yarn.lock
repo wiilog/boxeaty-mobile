@@ -1238,6 +1238,11 @@
   resolved "https://registry.yarnpkg.com/@capacitor/app/-/app-1.0.2.tgz#920dbf7055aa8ba060932d6e8dcac6f8bbc821af"
   integrity sha512-P9PInUnUdkiqYk+7wzd51Oe6AzJ4KyKDRFVebDMGo7UgHFuK2ogDTDLabrv9XQUV1Zk2tXvpEoGmw46dd+2Img==
 
+"@capacitor/browser@^1.0.2":
+  version "1.0.2"
+  resolved "https://registry.yarnpkg.com/@capacitor/browser/-/browser-1.0.2.tgz#7defe6a66a234eb724450f302fc00cf591d1255f"
+  integrity sha512-XR2rVT5RndxD0392yeL/pnCZZ5/YcTCXVxhJ4f3MkXFjKJTx1esbeXs+xVX4t6K3OQOXtX9XKj0xusPRiOOsuA==
+
 "@capacitor/camera@^1.0.3":
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/@capacitor/camera/-/camera-1.0.3.tgz#50601cbe316d14ffac98c637f849394d77da7785"
@@ -6618,6 +6623,7 @@ minipass-fetch@^1.3.0, minipass-fetch@^1.3.2:
   resolved "https://registry.yarnpkg.com/minipass-fetch/-/minipass-fetch-1.3.3.tgz#34c7cea038c817a8658461bf35174551dce17a0a"
   integrity sha512-akCrLDWfbdAWkMLBxJEeWTdNsjML+dt5YgOI4gJ53vuO0vrmYQkUPxa6j6V65s9CcePIr2SSWqjT2EcrNseryQ==
   dependencies:
+    encoding "^0.1.12"
     minipass "^3.1.0"
     minipass-sized "^1.0.3"
     minizlib "^2.0.0"
