@@ -11,7 +11,7 @@ export interface PreparationCrate {
 
     // cart
     type: string;
-    boxes: Array<any>;
+    boxes: Array<PreparationBox>;
 }
 
 export interface PreparationBox {

@@ -70,21 +70,18 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
     public scanBox(boxNumber: string) {
         const box = this.flattenAvailableBoxes.find(({number}) => (number === boxNumber));
         const requestedPreparationBox: PreparationBox = (
-            box
-            && this.crate.boxes.find((preparationBox: PreparationBox) => preparationBox.type === box.type)
+            box &&
+            this.crate.boxes.find((preparationBox: PreparationBox) => preparationBox.type === box.type)
         );
+
         if (!box) {
             this.toastService.show(`La Box <strong>${boxNumber}</strong> n'est pas reconnue`);
-        }
-        else if (box.selected) {
+        } else if (box.selected) {
             this.toastService.show(`La Box <strong>${box.number}</strong> est déjà dans la caisse`);
-        }
-        else if (requestedPreparationBox) {
-            if (requestedPreparationBox.selected
-                && requestedPreparationBox.quantity === requestedPreparationBox.selected.length) {
-                this.toastService.show(`Un nombre suvisant de Box a été préparé pour le type <strong>${box.type}</strong>`);
-            }
-            else {
+        } else if (requestedPreparationBox) {
+            if (requestedPreparationBox.selected && requestedPreparationBox.quantity === requestedPreparationBox.selected.length) {
+                this.toastService.show(`Un nombre suffisant de Box a été préparé pour le type <strong>${box.type}</strong>`);
+            } else {
                 requestedPreparationBox.selected.push(box.number);
                 box.selected = true;
                 this.calculateProgress();
@@ -137,9 +134,7 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
                         this.nav.pop(NavService.PREPARATION_LIST);
                     }
                 },
-                () => {
-                    this.nav.pop(NavService.PREPARATION_LIST);
-                }
+                () => this.nav.pop(NavService.PREPARATION_LIST)
             );
     }
 
@@ -211,7 +206,7 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
                     const currentNumber = deletedBoxType.selected[selectedBoxIndex];
                     const index = unselectedBoxes.indexOf(currentNumber);
                     if (index > -1) {
-                        deletedBoxType.selected.splice(selectedBoxIndex, 1);
+                        deletedBoxType.selected.splice(Number(selectedBoxIndex), 1);
                         const availableBox = this.flattenAvailableBoxes.find(({number}) => (number === currentNumber));
                         if (availableBox) {
                             availableBox.selected = false;

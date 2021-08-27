@@ -23,6 +23,7 @@ export class PreparationListPage implements ViewWillEnter {
         orderNumber: string;
         operator: string;
     }> = [];
+
     public preparing: Array<{
         id: number;
         editable: boolean;
@@ -55,12 +56,14 @@ export class PreparationListPage implements ViewWillEnter {
         const params = depository ? {depository} : {};
 
         this.api.request(ApiService.PREPARATIONS, params, ApiService.LOADING_PREPARATIONS).subscribe(result => {
+            console.log(result);
             this.toPrepare = result.toPrepare;
             this.preparing = result.preparing;
         });
     }
 
     public onPreparationClicked(preparation: any): void {
+        console.log(preparation);
         if(!preparation.editable) {
             this.toastService.show(`Cette préparation est déjà en cours de traitement par un autre opérateur.`);
         } else {

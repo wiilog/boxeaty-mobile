@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {ViewWillEnter} from "@ionic/angular";
-import {ApiService} from "@app/services/api.service";
-import {NavService} from "@app/services/nav.service";
-import {ToastService} from "@app/services/toast.service";
+import {ViewWillEnter} from '@ionic/angular';
+import {ApiService} from '@app/services/api.service';
+import {NavService} from '@app/services/nav.service';
+import {ToastService} from '@app/services/toast.service';
 
 @Component({
     selector: 'app-moving-box-validate',
@@ -16,8 +16,8 @@ export class MovingBoxValidatePage implements ViewWillEnter, OnInit {
     public selectedQuality = null;
     public selectedLocation = null;
 
-    readonly LOCATION_SELECTABLE = 'location';
-    readonly QUALITY_SELECTABLE = 'quality';
+    public readonly LOCATION_SELECTABLE = 'location';
+    public readonly QUALITY_SELECTABLE = 'quality';
 
     constructor(private api: ApiService, private nav: NavService, private toast: ToastService) {
     }
@@ -36,7 +36,7 @@ export class MovingBoxValidatePage implements ViewWillEnter, OnInit {
                 if (scannedLocation) {
                     this.selectedLocation = {id: scannedLocation.id, name: scannedLocation.name};
                 } else {
-                    this.toast.show(`Cet emplacement n'existe pas`)
+                    this.toast.show(`Cet emplacement n'existe pas`);
                 }
             });
     }

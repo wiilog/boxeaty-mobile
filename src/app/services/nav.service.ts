@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {NavController, Platform} from '@ionic/angular';
 import {from, Observable} from 'rxjs';
 import {Router, NavigationStart} from '@angular/router';
+import {LoadingController} from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
@@ -69,7 +70,8 @@ export class NavService {
     private paramStack: Array<{ route: string, params: any }> = [];
     private justNavigated: boolean;
 
-    public constructor(private platform: Platform, private navController: NavController, private router: Router) {
+    public constructor(private platform: Platform, private loader: LoadingController,
+                       private navController: NavController, private router: Router) {
         this.router.events.subscribe(event => {
             if (event instanceof NavigationStart) {
                 if (!this.justNavigated && this.paramStack.length) {
@@ -86,6 +88,8 @@ export class NavService {
     }
 
     public push(route: string, params: any = {}): Observable<boolean> {
+        this.removeLoaders();
+
         this.justNavigated = true;
         this.paramStack.push({route, params});
 
@@ -93,6 +97,8 @@ export class NavService {
     }
 
     public pop(route: string = null, params: any = {}): Observable<void> {
+        this.removeLoaders();
+
         this.justNavigated = true;
 
         if (route === null) {
@@ -126,6 +132,8 @@ export class NavService {
     }
 
     public setRoot(route: string, params: any = {}): Observable<boolean> {
+        this.removeLoaders();
+
         this.justNavigated = true;
         this.paramStack = [params];
 
@@ -138,6 +146,10 @@ export class NavService {
 
     public param<T = any>(key: string): T {
         return this.paramStack[this.paramStack.length - 1].params[key];
+    }
+
+    private removeLoaders() {
+        this.loader.getTop().then(loader => this.loader.dismiss());
     }
 
 }

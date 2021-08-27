@@ -38,13 +38,14 @@
     </ng-container>
 </ion-content>
 <ion-footer>
-    <bx-button label="Flasher Box"
+    <bx-button [type]="selectedPreparationBoxes === preparationBoxesAmount ? 'outline': 'primary'"
+                label="Flasher Box"
                icon="scan.svg"
                (scan)="scanBox($event)"
                [scanner]="true"
                [disabled]="selectedPreparationBoxes === preparationBoxesAmount">
     </bx-button>
-    <bx-button type="outline"
+    <bx-button [type]="selectedPreparationBoxes === preparationBoxesAmount ? 'primary': 'outline'"
                label="Terminer"
                icon="checked-orange.svg"
                (click)="endPicking()"
