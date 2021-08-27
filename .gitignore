@@ -36,3 +36,5 @@ npm-debug.log*
 /capacitor.config.json
 /credentials.json
 /src/config/credentials.json
+/android/app/src/main/AndroidManifest.xml
+/android/app/src/main/AndroidManifest.xml.orig
