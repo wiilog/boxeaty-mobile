@@ -35,9 +35,13 @@ export class PreparationCratePickingPage implements OnInit, ViewWillEnter {
     }
 
     public treatCrate(crate: PreparationCrate|string): void {
-        const values = Object.values(this.availableCrates);
-        const crates = Stream.flatten(values);
-
+        const values = this.availableCrates.map((crate) => crate.crates)
+        const crates = [];
+        values.forEach((cratesIndex) => {
+            cratesIndex.forEach((sub) => {
+                crates.push(sub);
+            });
+        });
         const selectedCrate = (typeof crate === 'string')
             ? crates.find(({number}) => (number === crate))
             : crate;
