@@ -47,7 +47,6 @@ export class SelectableComponent implements OnInit, OnDestroy {
         }
 
         this.storage.get<Entity>(this.type, search).then(results => {
-            console.log(results);
             this.items = results;
             this.ready = true;
         });

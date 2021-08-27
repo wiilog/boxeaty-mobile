@@ -74,7 +74,7 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
             && this.crate.boxes.find((preparationBox: PreparationBox) => preparationBox.type === box.type)
         );
         if (!box) {
-            this.toastService.show(`La Box <strong>${box}</strong> n'est pas reconnue`);
+            this.toastService.show(`La Box <strong>${boxNumber}</strong> n'est pas reconnue`);
         }
         else if (box.selected) {
             this.toastService.show(`La Box <strong>${box.number}</strong> est déjà dans la caisse`);
