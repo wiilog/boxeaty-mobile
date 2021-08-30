@@ -4,7 +4,6 @@ import {NavService} from '@app/services/nav.service';
 import {ApiService} from '@app/services/api.service';
 import {ToastService} from '@app/services/toast.service';
 import {Preparation, PreparationBox, PreparationCrate} from '@app/pages/preparation/preparation';
-import {mergeMap} from 'rxjs/operators';
 
 @Component({
     selector: 'bx-preparation-box-picking',
@@ -143,7 +142,7 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
             preparation: this.preparation.id
         };
 
-        this.api.request(ApiService.GET_BOXES, params, `Chargement des Box disponibles`)
+        this.api.request(ApiService.AVAILABLE_BOXES, params, `Chargement des Box disponibles`)
             .subscribe(({availableBoxes}) => {
                 const requestedTypes = this.crate.boxes.map(({type}) => type);
                 this.flattenAvailableBoxes = availableBoxes;

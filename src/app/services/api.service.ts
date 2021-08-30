@@ -110,9 +110,9 @@ export class ApiService {
         endpoint: `/available-crates`,
     };
 
-    public static readonly GET_BOXES = {
+    public static readonly AVAILABLE_BOXES = {
         method: `GET`,
-        endpoint: `/boxes`,
+        endpoint: `/available-boxes`,
     };
 
     public static readonly MOVING = {
@@ -213,8 +213,20 @@ export class ApiService {
         return this.client.request(method, ApiService.URL + endpoint, options).pipe(
             timeout(ApiService.TIMEOUT),
             tap(
-                async (result: any) => this.toastService.show(result && result.message),
+                async (result: any) => {
+                    finished = true;
+                    if(loader) {
+                        await loader.dismiss();
+                    }
+
+                    await this.toastService.show(result && result.message);
+                },
                 async (error: HttpErrorResponse) => {
+                    finished = true;
+                    if(loader) {
+                        await loader.dismiss();
+                    }
+
                     if(error.status === 401) {
                         await this.storage.setUser(null).toPromise();
                         await this.toastService.show(`Une autre session est déjà ouverte, vous avez été déconnecté`);
@@ -223,12 +235,6 @@ export class ApiService {
                         await this.toastService.show(`Une erreur est survenue lors de la communication avec le serveur, merci de contacter un responsable d'établissement`);
                     }
                 },
-                async () => {
-                    finished = true;
-                    if(loader) {
-                        await loader.dismiss();
-                    }
-                }
             ));
     }
 
