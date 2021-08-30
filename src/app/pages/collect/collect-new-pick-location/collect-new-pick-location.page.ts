@@ -2,14 +2,16 @@ import {Component} from '@angular/core';
 import {ApiService} from '@app/services/api.service';
 import {ToastService} from '@app/services/toast.service';
 import {NavService} from '@app/services/nav.service';
-import {ViewWillEnter} from '@ionic/angular';
+import {ViewWillEnter, ViewWillLeave} from '@ionic/angular';
+import {ScannerService} from '@app/services/scanner.service';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-collect-new-pick-location',
     templateUrl: './collect-new-pick-location.page.html',
     styleUrls: ['./collect-new-pick-location.page.scss'],
 })
-export class CollectNewPickLocationPage implements ViewWillEnter {
+export class CollectNewPickLocationPage implements ViewWillEnter, ViewWillLeave {
 
     public static readonly LOCATION_TYPE_QUALITY: number = 4;
 
@@ -19,10 +21,28 @@ export class CollectNewPickLocationPage implements ViewWillEnter {
 
     private order?: number;
 
-    public constructor(private api: ApiService, private toast: ToastService, private nav: NavService) {
+    private scanSubscription: Subscription;
+
+    public constructor(private api: ApiService,
+                       private scannerService: ScannerService,
+                       private toast: ToastService,
+                       private nav: NavService) {
     }
 
-    public locationScan(location) {
+    public ionViewWillEnter(): void {
+        this.order = this.nav.param<number>('order');
+
+        this.unsubscribeScan();
+        this.scanSubscription = this.scannerService.scan$.subscribe(({barCode}) => {
+            this.locationScan(barCode);
+        });
+    }
+
+    public ionViewWillLeave(): void {
+        this.unsubscribeScan();
+    }
+
+    public locationScan(location: string): void {
         this.api.request(ApiService.LOCATIONS, {},
             `Vérification de l'emplacement`).subscribe((locations) => {
                 const foundLocation = locations.findIndex((l) => (
@@ -37,8 +57,11 @@ export class CollectNewPickLocationPage implements ViewWillEnter {
         });
     }
 
-    public ionViewWillEnter(): void {
-        this.order = this.nav.param<number>('order');
+    private unsubscribeScan(): void {
+        if (this.scanSubscription && !this.scanSubscription.closed) {
+            this.scanSubscription.unsubscribe();
+            this.scanSubscription = undefined;
+        }
     }
 
 }

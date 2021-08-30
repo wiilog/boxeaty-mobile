@@ -1,17 +1,19 @@
 import {Component, OnInit} from '@angular/core';
-import {LoadingController, ViewWillEnter} from '@ionic/angular';
+import {LoadingController, ViewWillEnter, ViewWillLeave} from '@ionic/angular';
 import {NavService} from '@app/services/nav.service';
 import {ApiService} from '@app/services/api.service';
 import {ToastService} from '@app/services/toast.service';
 import {Preparation, PreparationBox, PreparationCrate} from '@app/pages/preparation/preparation';
 import {mergeMap} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
+import {ScannerService} from '@app/services/scanner.service';
 
 @Component({
     selector: 'bx-preparation-box-picking',
     templateUrl: './preparation-box-picking.page.html',
     styleUrls: ['./preparation-box-picking.page.scss'],
 })
-export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
+export class PreparationBoxPickingPage implements ViewWillEnter, ViewWillLeave, OnInit {
 
     public crate: PreparationCrate;
     public preparation: Preparation;
@@ -44,8 +46,11 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
         selected?: boolean;
     }> = [];
 
+    private scanSubscription: Subscription;
+
     public constructor(private nav: NavService,
                        private api: ApiService,
+                       private scannerService: ScannerService,
                        private loader: LoadingController,
                        private toastService: ToastService) {
     }
@@ -59,15 +64,24 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
         this.calculateProgress();
     }
 
-    public ionViewWillEnter() {
+    public ionViewWillEnter(): void {
         const crateContentPage = this.nav.param<any>(`crateContentPage`);
 
         if (crateContentPage && crateContentPage.type && crateContentPage.deletedBoxes) {
             this.unselectBoxes(crateContentPage);
         }
+
+        this.unsubscribeScan();
+        this.scanSubscription = this.scannerService.scan$.subscribe(({barCode}) => {
+            this.scanBox(barCode);
+        });
     }
 
-    public scanBox(boxNumber: string) {
+    public ionViewWillLeave(): void {
+        this.unsubscribeScan();
+    }
+
+    public scanBox(boxNumber: string): void {
         const box = this.flattenAvailableBoxes.find(({number}) => (number === boxNumber));
         const requestedPreparationBox: PreparationBox = (
             box
@@ -222,5 +236,12 @@ export class PreparationBoxPickingPage implements ViewWillEnter, OnInit {
         }
 
         this.calculateProgress();
+    }
+
+    private unsubscribeScan(): void {
+        if (this.scanSubscription && !this.scanSubscription.closed) {
+            this.scanSubscription.unsubscribe();
+            this.scanSubscription = undefined;
+        }
     }
 }

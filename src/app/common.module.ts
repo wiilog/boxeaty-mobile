@@ -20,9 +20,10 @@ import {EmptyComponent} from '@app/components/empty/empty.component';
 import {LengthPipe} from './pipes/length/length.pipe';
 import {EntriesPipe} from './pipes/entries/entries.pipe';
 import {ValuesPipe} from './pipes/values/values.pipe';
-import {CardDeliveryComponent} from "@app/components/card-delivery/card-delivery.component";
-import {SignComponent} from "@app/components/sign/sign.component";
-import {PhotoComponent} from "@app/components/photo/photo.component";
+import {CardDeliveryComponent} from '@app/components/card-delivery/card-delivery.component';
+import {SignComponent} from '@app/components/sign/sign.component';
+import {PhotoComponent} from '@app/components/photo/photo.component';
+import {WebIntent} from '@ionic-native/web-intent/ngx';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,9 @@ import {PhotoComponent} from "@app/components/photo/photo.component";
         CardDeliveryComponent,
         SignComponent,
         PhotoComponent,
+    ],
+    providers: [
+        WebIntent
     ],
     imports: [
         AngularCommonModule,

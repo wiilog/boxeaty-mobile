@@ -1,17 +1,19 @@
 import {Component} from '@angular/core';
-import {ViewWillEnter} from '@ionic/angular';
+import {ViewWillEnter, ViewWillLeave} from '@ionic/angular';
 import {ApiService} from '@app/services/api.service';
 import {ToastService} from '@app/services/toast.service';
 import {NavService} from '@app/services/nav.service';
 import {Form} from '@app/utils/form';
 import {Location} from '@app/entities/location';
+import {ScannerService} from '@app/services/scanner.service';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'app-collect-new-details',
     templateUrl: './collect-new-details.page.html',
     styleUrls: ['./collect-new-details.page.scss'],
 })
-export class CollectNewDetailsPage implements ViewWillEnter {
+export class CollectNewDetailsPage implements ViewWillEnter, ViewWillLeave {
 
     public location: Location;
     public crates: Array<{ number: string, type: string }> = [];
@@ -22,20 +24,35 @@ export class CollectNewDetailsPage implements ViewWillEnter {
 
     private order?: number;
 
-    public constructor(private api: ApiService, private toast: ToastService, private nav: NavService) {
+    private scanSubscription: Subscription;
+
+    public constructor(private api: ApiService,
+                       private scannerService: ScannerService,
+                       private toast: ToastService,
+                       private navService: NavService) {
     }
 
-    public ionViewWillEnter() {
-        this.order = this.nav.param<number>('order');
+    public ionViewWillEnter(): void {
+        this.order = this.navService.param<number>('order');
 
-        const locationId = this.nav.param<number>('location');
-        this.api.request(ApiService.LOCATION, {location: locationId},
-            `Chargement des informations du point de collecte...`).subscribe((location) => {
-            this.location = location;
+        const locationId = this.navService.param<number>('location');
+        this.api
+            .request(ApiService.LOCATION, {location: locationId}, `Chargement des informations du point de collecte...`)
+            .subscribe((location) => {
+                this.location = location;
+            });
+
+        this.unsubscribeScan();
+        this.scanSubscription = this.scannerService.scan$.subscribe(({barCode}) => {
+            this.scanCrate(barCode);
         });
     }
 
-    public scanCrate(number) {
+    public ionViewWillLeave(): void {
+        this.unsubscribeScan();
+    }
+
+    public scanCrate(number: string) {
         const index = this.crates.findIndex((c) => c.number === number);
         if (index === -1) {
             this.api.request(
@@ -64,11 +81,18 @@ export class CollectNewDetailsPage implements ViewWillEnter {
     public next() {
         const data = this.form.process() as any;
         if (data) {
-            this.nav.push(NavService.COLLECT_NEW_VALIDATE, {
+            this.navService.push(NavService.COLLECT_NEW_VALIDATE, {
                 location: this.location,
                 crates: this.crates,
                 token_amount: data.collectedTokens
             });
+        }
+    }
+
+    private unsubscribeScan(): void {
+        if (this.scanSubscription && !this.scanSubscription.closed) {
+            this.scanSubscription.unsubscribe();
+            this.scanSubscription = undefined;
         }
     }
 

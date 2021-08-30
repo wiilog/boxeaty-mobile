@@ -19,6 +19,6 @@
 </ion-content>
 
 <ion-footer>
-    <bx-button label="Flasher Box / Caisse" icon="scan.svg" (scan)="scan($event)" [scanner]="true"></bx-button>
+    <bx-button label="Flasher Box / Caisse" icon="scan.svg" [scanner]="true"></bx-button>
     <bx-button label="Suivant" icon="next.svg" (click)="next()" [disabled]="scannedBoxesAndCrates.length === 0" iconWidth="15px"></bx-button>
 </ion-footer>

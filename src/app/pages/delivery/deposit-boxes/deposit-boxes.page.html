@@ -19,7 +19,7 @@
     </bx-card-wrapper>
 </ion-content>
 <ion-footer>
-    <bx-button label="Flasher caisse" icon="scan.svg" [scanner]="true" (scan)="scanCrate($event)"></bx-button>
+    <bx-button label="Flasher caisse" icon="scan.svg" [scanner]="true"></bx-button>
     <bx-button label="Terminer" type="outline" icon="checked-orange.svg" [disabled]="!!toDeposit.length"
                (click)="finish()"></bx-button>
 </ion-footer>

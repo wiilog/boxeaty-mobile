@@ -14,6 +14,6 @@
 </ion-content>
 
 <ion-footer>
-    <bx-button label="Flasher emplacement" icon="scan.svg" (scan)="locationScan($event)" [scanner]="true"></bx-button>
+    <bx-button label="Flasher emplacement" icon="scan.svg" [scanner]="true"></bx-button>
     <bx-button label="Terminer" icon="checked.svg" (click)="validate()" [disabled]="!selectedQuality || !selectedLocation"></bx-button>
 </ion-footer>

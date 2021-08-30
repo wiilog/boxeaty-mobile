@@ -1,27 +1,31 @@
 import {Component, OnInit} from '@angular/core';
 import {NavService} from '@app/services/nav.service';
-import {LoadingController, ViewWillEnter} from '@ionic/angular';
+import {LoadingController, ViewWillEnter, ViewWillLeave} from '@ionic/angular';
 import {ApiService} from '@app/services/api.service';
 import {ToastService} from '@app/services/toast.service';
-import {Stream} from '@app/utils/stream';
 import {PreparationCrate, Preparation} from '@app/pages/preparation/preparation';
+import {ScannerService} from '@app/services/scanner.service';
+import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'bx-preparation-crate-picking',
     templateUrl: './preparation-crate-picking.page.html',
     styleUrls: ['./preparation-crate-picking.page.scss'],
 })
-export class PreparationCratePickingPage implements OnInit, ViewWillEnter {
+export class PreparationCratePickingPage implements OnInit, ViewWillEnter, ViewWillLeave {
 
     public crateType: PreparationCrate;
     public preparation: Preparation;
 
     public availableCrates: Array<{location: string; crates: Array<PreparationCrate>}> = [];
 
-    constructor(private nav: NavService,
-                private api: ApiService,
-                private loader: LoadingController,
-                private toastService: ToastService) {
+    private scanSubscription: Subscription;
+
+    public constructor(private nav: NavService,
+                       private api: ApiService,
+                       private scannerService: ScannerService,
+                       private loader: LoadingController,
+                       private toastService: ToastService) {
     }
 
     public ngOnInit(): void {
@@ -32,10 +36,19 @@ export class PreparationCratePickingPage implements OnInit, ViewWillEnter {
 
     public ionViewWillEnter(): void {
         this.preparation = this.nav.param<any>(`preparation`);
+
+        this.unsubscribeScan();
+        this.scanSubscription = this.scannerService.scan$.subscribe(({barCode}) => {
+            this.treatCrate(barCode);
+        });
+    }
+
+    public ionViewWillLeave(): void {
+        this.unsubscribeScan();
     }
 
     public treatCrate(crate: PreparationCrate|string): void {
-        const values = this.availableCrates.map((crate) => crate.crates)
+        const values = this.availableCrates.map((saved) => saved.crates);
         const crates = [];
         values.forEach((cratesIndex) => {
             cratesIndex.forEach((sub) => {
@@ -94,6 +107,13 @@ export class PreparationCratePickingPage implements OnInit, ViewWillEnter {
                         crates: availableCratesGrouped[location]
                     }));
             });
+    }
+
+    private unsubscribeScan(): void {
+        if (this.scanSubscription && !this.scanSubscription.closed) {
+            this.scanSubscription.unsubscribe();
+            this.scanSubscription = undefined;
+        }
     }
 
 }
