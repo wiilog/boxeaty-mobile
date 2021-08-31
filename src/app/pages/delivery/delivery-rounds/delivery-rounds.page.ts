@@ -12,6 +12,7 @@ import {ViewWillEnter} from '@ionic/angular';
 })
 export class DeliveryRoundsPage implements ViewWillEnter {
 
+    public anyDeliveries: boolean = false;
     public deliveryRounds: { [key: string]: Array<DeliveryRound> };
 
     constructor(private api: ApiService, private nav: NavService) {
@@ -26,6 +27,8 @@ export class DeliveryRoundsPage implements ViewWillEnter {
                     round.joined_clients = round.orders.map(order => order.client.name).join(', ');
                 }
             }
+
+            this.anyDeliveries = Boolean(Object.keys(this.deliveryRounds).length);
         });
     }
 
@@ -49,7 +52,7 @@ export class DeliveryRoundsPage implements ViewWillEnter {
             return `Demain <span class="silent">${formatDate(date, `d MMMM`, `fr`)}</span>`;
         }
 
-        return formatDate(date, `EEEE d MMMM`, `fr`)
+        return formatDate(date, `EEEE d MMMM`, `fr`);
     }
 
 }

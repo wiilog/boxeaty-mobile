@@ -20,7 +20,7 @@
         <bx-section>en cours de préparation <span class="counter">
             {{ preparing.length > 0 ? '(' + preparing.length + ')' : '' }}</span></bx-section>
         <div *ngFor="let preparation of preparing">
-            <bx-card-wrapper [leftTitle]="preparation.client">
+            <bx-card-wrapper [disabled]="!preparation.editable" [leftTitle]="preparation.client">
                 <bx-card-order [crateAmount]="preparation.crateAmount"
                                [tokenAmount]="preparation.tokenAmount"
                                [orderNumber]="preparation.orderNumber"

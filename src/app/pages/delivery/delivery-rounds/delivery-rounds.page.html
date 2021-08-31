@@ -1,4 +1,4 @@
-<main *ngIf="deliveryRounds && deliveryRounds.length">
+<main *ngIf="anyDeliveries">
     <div *ngFor="let rounds of deliveryRounds | keyvalue">
         <bx-section><span [innerHTML]="formatSection(rounds.key)"></span></bx-section>
         <bx-card-order-detail *ngFor="let round of rounds.value"
@@ -15,7 +15,7 @@
     </div>
 </main>
 
-<main *ngIf="!deliveryRounds || !deliveryRounds.length">
+<main *ngIf="!anyDeliveries">
     <bx-section><span [innerHTML]="formatSection()"></span></bx-section>
     <bx-empty label="Aucune livraison" icon="loading.svg" class="h-100"></bx-empty>
 </main>
