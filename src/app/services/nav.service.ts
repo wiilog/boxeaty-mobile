@@ -18,7 +18,6 @@ export class NavService {
     public static readonly DEPOSIT_BOXES = 'deposit_boxes';
     public static readonly DELIVERY_SIGN = 'delivery_sign';
     public static readonly COLLECT_LIST = 'collect_list';
-    public static readonly COLLECT_NEW = 'collect_new';
     public static readonly COLLECT_DETAILS = 'collect_details';
     public static readonly COLLECT_VALIDATE = 'collect_validate';
     public static readonly COLLECT_NEW_PICK_LOCATION = 'collect_new_pick_location';
@@ -46,7 +45,6 @@ export class NavService {
         [NavService.DEPOSIT_BOXES]: '/deposit-boxes',
         [NavService.DELIVERY_SIGN]: '/delivery-sign',
         [NavService.COLLECT_LIST]: '/collect-list',
-        [NavService.COLLECT_NEW]: '/collect-new',
         [NavService.COLLECT_DETAILS]: '/collect-details',
         [NavService.COLLECT_VALIDATE]: '/collect-validate',
         [NavService.COLLECT_NEW_PICK_LOCATION]: '/collect-new-pick-location',
@@ -149,7 +147,11 @@ export class NavService {
     }
 
     private removeLoaders() {
-        this.loader.getTop().then(loader => this.loader.dismiss());
+        this.loader.getTop().then(loader => {
+            if(loader) {
+                this.loader.dismiss();
+            }
+        });
     }
 
 }

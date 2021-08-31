@@ -17,11 +17,11 @@ export class SignModalPage implements ViewWillEnter {
     constructor(private modalController: ModalController) {
     }
 
-    ionViewWillEnter() {
+    public ionViewWillEnter() {
         this.pad = new SignaturePad(this.element.nativeElement);
     }
 
-    validate() {
+    public validate() {
         this.modalController.dismiss(this.pad.toDataURL());
     }
 

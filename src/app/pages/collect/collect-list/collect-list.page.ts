@@ -16,14 +16,14 @@ export class CollectListPage implements ViewWillEnter {
     constructor(private api: ApiService, private nav: NavService) {
     }
 
-    public ionViewWillEnter() {
-        this.api.request(
-            ApiService.GET_COLLECTS,
-            {},
-            `Récupération des collectes`
-        )
+    public ionViewWillEnter(event = null) {
+        this.api.request(ApiService.GET_COLLECTS, {}, !event ? `Récupération des collectes` : null)
             .subscribe((pendingCollects) => {
                 this.pendingCollects = pendingCollects;
+
+                if(event) {
+                    event.target.complete();
+                }
             });
     }
 

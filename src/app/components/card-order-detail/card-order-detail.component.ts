@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Input, Output, EventEmitter} from '@angular/core';
 
 @Component({
     selector: 'bx-card-order-detail',
@@ -27,4 +27,16 @@ export class CardOrderDetailComponent {
 
     @Input()
     public tokenAmount: number;
+
+    @Output()
+    public click = new EventEmitter<void>();
+
+    public handleClick(event: Event) {
+        if(!this.disabled) {
+            this.click.emit();
+        } else {
+            event.stopPropagation();
+        }
+    }
+
 }

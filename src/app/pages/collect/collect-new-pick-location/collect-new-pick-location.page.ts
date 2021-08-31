@@ -50,7 +50,10 @@ export class CollectNewPickLocationPage implements ViewWillEnter, ViewWillLeave 
                     && l.type === CollectNewPickLocationPage.LOCATION_TYPE_QUALITY
                 ));
                 if (foundLocation > -1) {
-                    this.nav.push(NavService.COLLECT_NEW_DETAILS, {location});
+                    this.nav.push(NavService.COLLECT_NEW_DETAILS, {
+                        order: this.order,
+                        location
+                    });
                 } else {
                     this.toast.show(`Cet emplacement n'existe pas ou n'est pas du bon type`);
                 }

@@ -43,10 +43,10 @@ export class CardDeliveryComponent implements OnInit {
     constructor() {
     }
 
-    ngOnInit() {
+    public ngOnInit() {
     }
 
-    handleClick(event) {
+    public handleClick(event) {
         if(this.disabled) {
             event.stopPropagation();
         }

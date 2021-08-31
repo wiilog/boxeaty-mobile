@@ -12,23 +12,24 @@ import {ViewWillEnter} from '@ionic/angular';
 })
 export class DeliveryRoundsPage implements ViewWillEnter {
 
+    public today: string;
     public anyDeliveries: boolean = false;
     public deliveryRounds: { [key: string]: Array<DeliveryRound> };
 
     constructor(private api: ApiService, private nav: NavService) {
     }
 
-    public ionViewWillEnter(): void {
-        this.api.request(ApiService.AVAILABLE_DELIVERY_ROUNDS, null, ApiService.LOADING_DELIVERIES).subscribe(result => {
+    public ionViewWillEnter(event = null): void {
+        const today = new Date();
+        this.today = `${today.getFullYear()}-${today.getMonth()}-${today.getDate()}`;
+
+        this.api.request(ApiService.AVAILABLE_DELIVERY_ROUNDS, null, !event ? ApiService.LOADING_DELIVERIES : null).subscribe(result => {
             this.deliveryRounds = result;
-
-            for(const rounds of Object.values(this.deliveryRounds)) {
-                for(const round of rounds) {
-                    round.joined_clients = round.orders.map(order => order.client.name).join(', ');
-                }
-            }
-
             this.anyDeliveries = Boolean(Object.keys(this.deliveryRounds).length);
+
+            if(event) {
+                event.target.complete();
+            }
         });
     }
 

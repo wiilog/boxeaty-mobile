@@ -4,6 +4,7 @@ import {Order} from '@app/entities/order';
 import {NavService} from '@app/services/nav.service';
 import {Form} from '@app/utils/form';
 import {ApiService} from '@app/services/api.service';
+import {ToastService} from '@app/services/toast.service';
 
 @Component({
     selector: 'app-delivery-sign',
@@ -21,7 +22,7 @@ export class DeliverySignPage implements ViewWillEnter {
         distance: Form.number(1, null, true),
     });
 
-    constructor(private nav: NavService, private api: ApiService) {
+    constructor(private nav: NavService, private api: ApiService, private toastService: ToastService) {
     }
 
     public ionViewWillEnter() {
@@ -29,33 +30,30 @@ export class DeliverySignPage implements ViewWillEnter {
         this.form.get(`comment`).setValue(this.order.comment);
     }
 
-    public saveAndBackToDeliveries(collectRedirection?: () => void): void {
+    public finish(collectRedirection: boolean = false): void {
         const data = this.form.process() as any;
-        if (data) {
+        if(data) {
             data.order = this.order.id;
 
-            this.api.request(ApiService.DELIVERY_FINISH, data).subscribe(() => {
+            this.api.request(ApiService.DELIVERY_FINISH, data).subscribe(result => {
                 this.order.delivered = true;
-                this.nav.pop(NavService.SELECT_DELIVERY)
-                    .subscribe(() => {
-                        if (collectRedirection) {
-                            this.nav.push(NavService.COLLECT_NEW_PICK_LOCATION, {
-                                order: this.order.id
-                            });
-                        }
-                    });
+
+                let route = NavService.SELECT_DELIVERY;
+                if(result.round_finished) {
+                    route = NavService.DELIVERY_ROUNDS;
+                    this.toastService.show(`Vous avez terminé votre tournée`);
+                }
+
+                this.nav.pop(route).subscribe(() => {
+                    if(collectRedirection) {
+                        this.nav.push(NavService.COLLECT_NEW_PICK_LOCATION, {
+                            order: this.order.id
+                        });
+                    }
+                });
             });
         }
     }
 
-    public finish() {
-        this.saveAndBackToDeliveries();
-    }
-
-    public finishAndCollect() {
-        this.nav.push(NavService.COLLECT_NEW, {
-            callback: this.saveAndBackToDeliveries,
-        });
-    }
 
 }

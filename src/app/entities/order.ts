@@ -30,6 +30,7 @@ export interface Order extends Entity {
     delivered: boolean;
     crate_amount: number;
     token_amount: number;
+    collect_required: boolean;
     preparation: Preparation;
     client: Client;
     comment: string;

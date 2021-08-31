@@ -1,4 +1,4 @@
-<bx-card-wrapper [leftTitle]="title" [disabled]="disabled">
+<bx-card-wrapper [leftTitle]="title" [disabled]="disabled" (click)="handleClick($event)">
     <div class="container" [class.disabled]="disabled">
         <div class="client">
             <div class="state">{{ status || '-' }}</div>

@@ -1,10 +1,11 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import {StorageService} from '@app/services/storage.service';
 import {Depository} from '@app/entities/depository';
 import {ApiService} from '@app/services/api.service';
 import {LoadingController, ViewWillEnter} from '@ionic/angular';
 import {NavService} from '@app/services/nav.service';
 import {ToastService} from '@app/services/toast.service';
+import {HeaderComponent} from '@app/components/header/header.component';
 
 @Component({
     selector: 'bx-preparation-list',
@@ -12,6 +13,9 @@ import {ToastService} from '@app/services/toast.service';
     styleUrls: ['./preparation-list.page.scss'],
 })
 export class PreparationListPage implements ViewWillEnter {
+
+    @ViewChild('depositorySelector')
+    public depositorySelector: HeaderComponent;
 
     public depositories: Array<{ label: string; value: number }> = undefined;
     public toPrepare: Array<{
@@ -41,7 +45,7 @@ export class PreparationListPage implements ViewWillEnter {
                        private toastService: ToastService) {
     }
 
-    public ionViewWillEnter(): void {
+    public ionViewWillEnter(event = null): void {
         this.storage.get<Depository>(`depository`).then(depositories => {
             this.depositories = depositories.map(depository => ({
                 value: depository.id,
@@ -49,16 +53,19 @@ export class PreparationListPage implements ViewWillEnter {
             }));
         });
 
-        this.getPreparations();
+        this.getPreparations(event);
     }
 
-    public getPreparations(depository?): void {
-        const params = depository ? {depository} : {};
+    public getPreparations(event = null): void {
+        const params = this.depositorySelector.value ? {depository: this.depositorySelector.value} : {};
 
-        this.api.request(ApiService.PREPARATIONS, params, ApiService.LOADING_PREPARATIONS).subscribe(result => {
-            console.log(result);
+        this.api.request(ApiService.PREPARATIONS, params, !event ? ApiService.LOADING_PREPARATIONS : null).subscribe(result => {
             this.toPrepare = result.toPrepare;
             this.preparing = result.preparing;
+
+            if(event) {
+                event.target.complete();
+            }
         });
     }
 
