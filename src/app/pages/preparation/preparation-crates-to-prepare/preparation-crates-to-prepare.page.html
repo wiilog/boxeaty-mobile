@@ -25,7 +25,7 @@
     </div>
 </ion-content>
 <ion-footer>
-    <bx-button type="outline"
+    <bx-button [type]="treatedCrates.length > 0 ? 'primary': 'outline'"
                label="Terminer"
                icon="checked-orange.svg"
                (click)="endCratesPreparation()"
