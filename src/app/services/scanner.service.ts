@@ -1,8 +1,9 @@
 import {Injectable, NgZone} from '@angular/core';
 import {BarcodeScanner} from '@capacitor-community/barcode-scanner';
-import {Subject} from 'rxjs';
+import {Subject, Subscription} from 'rxjs';
 import {ToastService} from '@app/services/toast.service';
 import {WebIntent} from '@ionic-native/web-intent/ngx';
+import {Platform} from '@ionic/angular';
 
 @Injectable({
     providedIn: 'root'
@@ -19,9 +20,12 @@ export class ScannerService {
 
     private ngZone: NgZone;
 
+    private backButtonSubscription: Subscription;
+
     private body;
 
     public constructor(private toastService: ToastService,
+                       private platform: Platform,
                        private webIntent: WebIntent) {
         this.scan$ = new Subject();
 
@@ -64,6 +68,7 @@ export class ScannerService {
     public stop() {
         BarcodeScanner.stopScan();
         this.hide();
+        this.unsubscribeBackButton();
     }
 
     public hide() {
@@ -72,6 +77,10 @@ export class ScannerService {
 
     public show() {
         this.setOpacity(0);
+        this.unsubscribeBackButton();
+        this.backButtonSubscription = this.platform.backButton.subscribeWithPriority(10, () => {
+            this.stop();
+        });
     }
 
     public setOpacity(value: number): void {
@@ -100,6 +109,13 @@ export class ScannerService {
                         });
                     });
                 });
+        }
+    }
+
+    private unsubscribeBackButton(): void {
+        if (this.backButtonSubscription && !this.backButtonSubscription.closed) {
+            this.backButtonSubscription.unsubscribe();
+            this.backButtonSubscription = undefined;
         }
     }
 

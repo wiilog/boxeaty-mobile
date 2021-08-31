@@ -1,13 +1,10 @@
-import { NgModule } from '@angular/core';
-import { CommonModule as AngularCommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
+import {NgModule} from '@angular/core';
+import {CommonModule as AngularCommonModule} from '@angular/common';
 
-import { IonicModule } from '@ionic/angular';
+import {PickEverythingPageRoutingModule} from './pick-everything-routing.module';
 
-import { PickEverythingPageRoutingModule } from './pick-everything-routing.module';
-
-import { PickEverythingPage } from './pick-everything.page';
-import {CommonModule} from "@app/common.module";
+import {PickEverythingPage} from './pick-everything.page';
+import {CommonModule} from '@app/common.module';
 
 @NgModule({
     imports: [
@@ -15,6 +12,7 @@ import {CommonModule} from "@app/common.module";
         PickEverythingPageRoutingModule,
         CommonModule
     ],
-  declarations: [PickEverythingPage]
+    declarations: [PickEverythingPage]
 })
-export class PickEverythingPageModule {}
+export class PickEverythingPageModule {
+}

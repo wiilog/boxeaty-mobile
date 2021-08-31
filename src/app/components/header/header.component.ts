@@ -1,5 +1,4 @@
 import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
-import {Form} from '@app/utils/form';
 
 @Component({
     selector: 'bx-header',

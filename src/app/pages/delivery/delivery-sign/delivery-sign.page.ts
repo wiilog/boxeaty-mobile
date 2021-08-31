@@ -1,10 +1,9 @@
 import {Component} from '@angular/core';
 import {ViewWillEnter} from '@ionic/angular';
-import {Order} from "@app/entities/order";
-import {NavService} from "@app/services/nav.service";
-import {Form} from "@app/utils/form";
-import {ApiService} from "@app/services/api.service";
-import {mergeMap} from 'rxjs/operators';
+import {Order} from '@app/entities/order';
+import {NavService} from '@app/services/nav.service';
+import {Form} from '@app/utils/form';
+import {ApiService} from '@app/services/api.service';
 
 @Component({
     selector: 'app-delivery-sign',

@@ -1,15 +1,12 @@
-import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {ScannerService} from '@app/services/scanner.service';
-import {ToastService} from '@app/services/toast.service';
-import {Platform} from '@ionic/angular';
-import {Subscription} from 'rxjs';
 
 @Component({
     selector: 'bx-button',
     templateUrl: './button.component.html',
     styleUrls: ['./button.component.scss'],
 })
-export class ButtonComponent implements OnInit, OnDestroy {
+export class ButtonComponent {
 
     @Input()
     public type: string = `primary`;
@@ -37,26 +34,7 @@ export class ButtonComponent implements OnInit, OnDestroy {
 
     public scanning: boolean = false;
 
-    public scanSubscription: Subscription;
-
-    public constructor(private scannerService: ScannerService,
-                       private toastService: ToastService,
-                       private platform: Platform) {
-
-    }
-
-    public ngOnInit(): void {
-        this.scanSubscription = this.platform.backButton.subscribeWithPriority(10, () => {
-            this.scannerService.stop();
-            this.scanSubscription.unsubscribe();
-        });
-    }
-
-    ngOnDestroy() {
-        if (this.scanSubscription) {
-            this.scanSubscription.unsubscribe();
-        }
-    }
+    public constructor(private scannerService: ScannerService) {}
 
     public startScan(): void {
         if (this.scanner) {
@@ -65,7 +43,7 @@ export class ButtonComponent implements OnInit, OnDestroy {
         }
     }
 
-    handleClick(event) {
+    public handleClick(event): void {
         if(this.disabled) {
             event.stopPropagation();
             return;

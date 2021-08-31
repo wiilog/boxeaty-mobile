@@ -4,7 +4,6 @@ import {NavService} from '@app/services/nav.service';
 import {ApiService} from '@app/services/api.service';
 import {ToastService} from '@app/services/toast.service';
 import {Preparation, PreparationBox, PreparationCrate} from '@app/pages/preparation/preparation';
-import {mergeMap} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {ScannerService} from '@app/services/scanner.service';
 
