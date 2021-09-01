@@ -1,5 +1,5 @@
 import {Component, Output, EventEmitter} from '@angular/core';
-import {PhotoService} from "@app/services/photo.service";
+import {PhotoService} from '@app/services/photo.service';
 
 @Component({
     selector: 'bx-photo',
@@ -14,7 +14,7 @@ export class PhotoComponent {
     constructor(private photo: PhotoService) {
     }
 
-    async open() {
+    public async open() {
         this.done.emit(await this.photo.take());
     }
 

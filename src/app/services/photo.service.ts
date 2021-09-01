@@ -12,6 +12,9 @@ export class PhotoService {
             allowEditing: false,
             resultType: CameraResultType.DataUrl,
             saveToGallery: false,
+            promptLabelCancel: `Annuler`,
+            promptLabelPhoto: `Depuis la galerie`,
+            promptLabelPicture: `Prendre une photo`
         });
 
         return image.dataUrl;
