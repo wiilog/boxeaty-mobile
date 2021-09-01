@@ -14,8 +14,8 @@ export class CollectNewValidatePage implements ViewWillEnter {
 
     public location: Location = undefined;
     public crates: Array<{ number: string, type: string }> = [];
-
     public tokenAmount: number;
+    public order?: number;
 
     public form = Form.create({
         signature: Form.signature(true),
@@ -23,12 +23,11 @@ export class CollectNewValidatePage implements ViewWillEnter {
         comment: Form.textarea(),
     });
 
-    private order?: number;
-
     public constructor(private nav: NavService, private api: ApiService) {
     }
 
     public ionViewWillEnter() {
+        this.order = this.nav.param<number>('order');
         this.location = this.nav.param<Location>('location');
         this.crates = this.nav.param<Array<{ number: string, type: string }>>('crates');
         this.tokenAmount = this.nav.param<number>('token_amount');
@@ -52,8 +51,7 @@ export class CollectNewValidatePage implements ViewWillEnter {
             this.api.request(ApiService.POST_COLLECT, apiParams, `Validation de la collecte`).subscribe(() => {
                 if (this.order) {
                     this.nav.pop(NavService.SELECT_DELIVERY);
-                }
-                else {
+                } else {
                     this.nav.pop(NavService.COLLECT_LIST);
                 }
             });
