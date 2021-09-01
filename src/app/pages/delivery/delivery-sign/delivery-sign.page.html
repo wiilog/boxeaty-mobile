@@ -19,13 +19,12 @@
                       [counter]="form.controls.photo.control.value ? 1 : 0" [maxCounter]="1"></bx-field>
         </div>
 
-        <bx-field [form]="form" name="comment" label="Commentaire commande" lines=2
-                  placeholder="Écrivez ici..."></bx-field>
+        <bx-field [form]="form" name="comment" label="Commentaire commande" lines=2 placeholder="Écrivez ici..."></bx-field>
         <bx-field [form]="form" name="distance" label="Nombre de km réel" placeholder="0" required></bx-field>
 
         <br>
 
-        <bx-button label="Terminer" icon="checked-white.svg" (click)="finish()"></bx-button>
-        <bx-button label="Terminer et collecter" icon="collect.svg" (click)="finishAndCollect()"></bx-button>
+        <bx-button label="Terminer" icon="checked-white.svg" [hidden]="order.collect_required" (click)="finish()"></bx-button>
+        <bx-button label="Terminer et collecter" icon="collect.svg" (click)="finish(true)"></bx-button>
     </form>
 </ion-content>

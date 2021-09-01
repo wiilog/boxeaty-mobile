@@ -1,11 +1,11 @@
-import {Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
+import {Component, AfterViewInit, ChangeDetectorRef, Input, Output, EventEmitter, ViewChild, ElementRef} from '@angular/core';
 
 @Component({
     selector: 'bx-header',
     templateUrl: './header.component.html',
     styleUrls: ['./header.component.scss'],
 })
-export class HeaderComponent implements OnInit {
+export class HeaderComponent implements AfterViewInit {
 
     @ViewChild('wrapper')
     public wrapper: ElementRef;
@@ -25,19 +25,19 @@ export class HeaderComponent implements OnInit {
     @Output()
     public change = new EventEmitter<string|number>();
 
+    public hasContent: boolean = false;
+
     public value: string|number = null;
 
-    constructor() {
+    constructor(private detector: ChangeDetectorRef) {
     }
 
-    ngOnInit() {
+    public ngAfterViewInit() {
+        this.hasContent = this.wrapper && this.wrapper.nativeElement.childNodes.length > 0;
+        this.detector.detectChanges();
     }
 
-    get hasContent(): boolean {
-        return this.wrapper && this.wrapper.nativeElement.childNodes.length > 0;
-    }
-
-    select(value: string|number) {
+    public select(value: string|number) {
         this.value = value;
 
         if (this.change) {

@@ -15,6 +15,8 @@ import {ApiService} from '@app/services/api.service';
 export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
 
     public deliveryRound: DeliveryRound;
+    public currentOrder: number = null;
+    public everythingTaken: boolean = true;
 
     @ViewChild('map')
     public mapView: ElementRef;
@@ -25,15 +27,21 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
 
     public ionViewWillEnter() {
         this.deliveryRound = this.nav.param<DeliveryRound>('deliveryRound');
+        this.currentOrder = null;
         for (const order of this.deliveryRound.orders) {
             order.taken = order.preparation.lines.filter(line => !line.taken).length === 0;
+            if(this.currentOrder === null && order.taken && !order.delivered) {
+                this.currentOrder = order.id;
+            }
         }
 
         const ord = this.deliveryRound.order;
         this.deliveryRound.orders.sort((a, b) => ord[a.id] - ord[b.id]);
 
+        this.everythingTaken = true;
         for (const order of this.deliveryRound.orders) {
-            order.order = ord[order.id];
+            order.order = ord[order.id] + 1;
+            this.everythingTaken &&= order.taken;
         }
     }
 
@@ -53,6 +61,12 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
         }
     }
 
+    public pickEverything() {
+        this.nav.push(NavService.PICK_EVERYTHING, {
+            deliveryRound: this.deliveryRound
+        });
+    }
+
     public startDeposit(order: Order) {
         const loading = `Démarrage de la livraison`;
 
@@ -69,12 +83,6 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
         } else {
             window.location.href = `maps://maps.apple.com/?q=${order.client.address}`;
         }
-    }
-
-    public pickEverything() {
-        this.nav.push(NavService.PICK_EVERYTHING, {
-            deliveryRound: this.deliveryRound
-        });
     }
 
 }

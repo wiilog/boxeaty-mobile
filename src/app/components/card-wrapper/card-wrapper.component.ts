@@ -1,4 +1,4 @@
-import {Component, Input} from '@angular/core';
+import {Component, Output, EventEmitter, Input} from '@angular/core';
 
 @Component({
     selector: 'bx-card-wrapper',
@@ -18,4 +18,16 @@ export class CardWrapperComponent {
 
     @Input()
     public hideTitle: boolean;
+
+    @Output()
+    public click = new EventEmitter<void>();
+
+    public handleClick(event: Event) {
+        if(!this.disabled) {
+            this.click.emit();
+        } else {
+            event.stopPropagation();
+        }
+    }
+
 }

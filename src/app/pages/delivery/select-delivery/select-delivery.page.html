@@ -22,5 +22,5 @@
     </main>
 </ion-content>
 <ion-footer>
-    <bx-button label="Récupérer tout" (click)="pickEverything()"></bx-button>
+    <bx-button label="Récupérer tout" [hidden]="everythingTaken" (click)="pickEverything()"></bx-button>
 </ion-footer>

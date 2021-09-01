@@ -1,3 +1,7 @@
+<ion-refresher slot="fixed" (ionRefresh)="ionViewWillEnter($event)">
+    <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+
 <ion-content>
     <div class="content">
         <div class="crates" *ngIf="pendingCollects.length; else noPendingCollects">
@@ -16,7 +20,7 @@
 </ion-content>
 
 <ng-template #noPendingCollects>
-    <bx-empty label="Aucune collecte à traiter" icon="loading.svg" class="h-100"></bx-empty>
+    <bx-empty label="Aucune collecte à traiter" icon="loading.svg"></bx-empty>
 </ng-template>
 
 <ion-footer class="no-border">

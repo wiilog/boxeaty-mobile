@@ -1,4 +1,8 @@
-<bx-header [options]="depositories" (change)="getPreparations($event)" shadow></bx-header>
+<ion-refresher slot="fixed" (ionRefresh)="ionViewWillEnter($event)">
+    <ion-refresher-content></ion-refresher-content>
+</ion-refresher>
+
+<bx-header #depositorySelector [options]="depositories" (change)="getPreparations()" shadow></bx-header>
 <div class="preparations-container">
     <div *ngIf="toPrepare.length > 0; else toPreparePreparations">
         <bx-section>à préparer <span
@@ -14,7 +18,7 @@
     </div>
     <ng-template #toPreparePreparations>
         <bx-section>à préparer</bx-section>
-        <bx-empty label="Aucune préparation" icon="loading.svg" class="h-100"></bx-empty>
+        <bx-empty label="Aucune préparation" icon="loading.svg"></bx-empty>
     </ng-template>
     <div *ngIf="preparing.length > 0; else noPreparingPreparations">
         <bx-section>en cours de préparation <span class="counter">
@@ -31,6 +35,6 @@
     </div>
     <ng-template #noPreparingPreparations>
         <bx-section>en cours de préparation</bx-section>
-        <bx-empty label="Aucune préparation" icon="loading.svg" class="h-100"></bx-empty>
+        <bx-empty label="Aucune préparation" icon="loading.svg"></bx-empty>
     </ng-template>
 </div>

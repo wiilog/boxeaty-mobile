@@ -84,7 +84,8 @@ export class CollectNewDetailsPage implements ViewWillEnter, ViewWillLeave {
             this.navService.push(NavService.COLLECT_NEW_VALIDATE, {
                 location: this.location,
                 crates: this.crates,
-                token_amount: data.collectedTokens
+                token_amount: data.collectedTokens,
+                order: this.order,
             });
         }
     }
