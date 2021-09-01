@@ -31,7 +31,7 @@ export class CardOrderDetailComponent {
     @Output()
     public click = new EventEmitter<void>();
 
-    public handleClick(event: Event) {
+    public handleClick(event) {
         if(!this.disabled) {
             this.click.emit();
         } else {

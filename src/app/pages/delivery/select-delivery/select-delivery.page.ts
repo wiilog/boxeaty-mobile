@@ -51,7 +51,7 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
 
             for (const order of this.deliveryRound.orders) {
                 this.map.addMarker({
-                    title: order.client.name,
+                    title: `${order.order}. ${order.client.name}`,
                     latitude: Number(order.client.latitude),
                     longitude: Number(order.client.longitude),
                 });

@@ -1,6 +1,6 @@
 import Leaflet from 'leaflet';
 
-Leaflet.Icon.Default.imagePath = `/assets/leaflet/`
+Leaflet.Icon.Default.imagePath = `/assets/leaflet/`;
 
 export class Map {
 
@@ -30,8 +30,12 @@ export class Map {
         }
 
         const marker = Leaflet.marker([location.latitude, location.longitude]);
-
         this.map.addLayer(marker);
+
+        if(location.title) {
+            marker.bindPopup(location.title, {autoClose: false}).openPopup();
+        }
+
         location.marker = marker;
         this.locations.push(location);
     }
@@ -68,6 +72,6 @@ export class Map {
     }
 
     public reinitialize() {
-        document.getElementById(this.id).innerHTML = `<div id="map"></div>`
+        document.getElementById(this.id).innerHTML = `<div id="map"></div>`;
     }
 }
