@@ -48,7 +48,7 @@ export class CollectNewValidatePage implements ViewWillEnter {
                 apiParams.clientOrder = this.order;
             }
 
-            this.api.request(ApiService.POST_COLLECT, apiParams, `Validation de la collecte`).subscribe(() => {
+            this.api.request(ApiService.CREATE_COLLECT, apiParams, `Validation de la collecte`).subscribe(() => {
                 if (this.order) {
                     this.nav.pop(NavService.SELECT_DELIVERY);
                 } else {

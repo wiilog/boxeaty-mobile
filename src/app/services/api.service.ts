@@ -21,11 +21,6 @@ export class ApiService {
     public static readonly LOADING_PREPARATIONS = `Chargement des préparations`;
     public static readonly LOADING_DELIVERIES = `Chargement des livraisons`;
 
-    public static readonly PING: Route = {
-        method: `GET`,
-        endpoint: `/ping`,
-    };
-
     public static readonly LOGIN: Route = {
         method: `POST`,
         endpoint: `/login`,
@@ -131,7 +126,12 @@ export class ApiService {
         endpoint: '/collect-crates/{collect}',
     };
 
-    public static readonly PATCH_COLLECT: Route = {
+    public static readonly CREATE_COLLECT: Route = {
+        method: 'POST',
+        endpoint: '/collects'
+    };
+
+    public static readonly VALIDATE_COLLECT: Route = {
         method: 'PATCH',
         endpoint: '/collects/{collect}',
     };
@@ -141,12 +141,7 @@ export class ApiService {
         endpoint: '/location',
     };
 
-    public static readonly POST_COLLECT: Route = {
-        method: 'POST',
-        endpoint: '/collects'
-    };
-
-    private static readonly TIMEOUT: number = 15000;
+    private static readonly TIMEOUT: number = 30000;
 
     public constructor(private storage: StorageService,
                        private nav: NavService,

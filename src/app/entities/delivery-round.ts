@@ -1,5 +1,5 @@
-import {Entity} from "@app/entities/entity";
-import {Order} from "@app/entities/order";
+import {Entity} from '@app/entities/entity';
+import {Order} from '@app/entities/order';
 
 export interface DeliveryRound extends Entity {
     id: number;

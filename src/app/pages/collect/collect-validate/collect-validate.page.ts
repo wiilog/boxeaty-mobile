@@ -37,11 +37,10 @@ export class CollectValidatePage implements ViewWillEnter {
         const data = this.form.process() as any;
         if (this.selectedLocation) {
             if (data) {
-                this.api.request(ApiService.PATCH_COLLECT, {
-                    validate: true,
+                this.api.request(ApiService.VALIDATE_COLLECT, {
+                    collect: this.collect.id,
                     data,
                     drop_location: this.selectedLocation.id,
-                    collect: this.collect.id,
                     token_amount: this.collect.token_amount
                 }, `Validation de la collecte`).subscribe(() => {
                     this.nav.pop(NavService.COLLECT_LIST);

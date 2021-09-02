@@ -8,7 +8,7 @@ export class PhotoService {
 
     public async take(): Promise<string> {
         const image = await Camera.getPhoto({
-            quality: 90,
+            quality: 60,
             allowEditing: false,
             resultType: CameraResultType.DataUrl,
             saveToGallery: false,
