@@ -6,15 +6,19 @@ import {Camera, CameraResultType} from '@capacitor/camera';
 })
 export class PhotoService {
 
+    private static readonly TRANSLATIONS = {
+        promptLabelCancel: `Annuler`,
+        promptLabelPhoto: `Depuis la galerie`,
+        promptLabelPicture: `Prendre une photo`,
+    };
+
     public async take(): Promise<string> {
         const image = await Camera.getPhoto({
             quality: 60,
             allowEditing: false,
             resultType: CameraResultType.DataUrl,
             saveToGallery: false,
-            promptLabelCancel: `Annuler`,
-            promptLabelPhoto: `Depuis la galerie`,
-            promptLabelPicture: `Prendre une photo`
+            ...PhotoService.TRANSLATIONS,
         });
 
         return image.dataUrl;
