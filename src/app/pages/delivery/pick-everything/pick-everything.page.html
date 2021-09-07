@@ -10,8 +10,13 @@
     </main>
 </ion-content>
 <ion-footer>
-    <bx-button [type]="finished ? 'outline' : 'primary'" label="Flasher caisse" icon="scan.svg" [scanner]="true"></bx-button>
-    <bx-button label="Terminer" icon="checked-orange.svg"
+    <bx-button [type]="finished ? 'outline' : 'primary'"
+               label="Flasher caisse"
+               [icon]="finished ? 'scan-orange.svg' : 'scan.svg'"
+               [scanner]="true"
+               [disabled]="finished"></bx-button>
+    <bx-button label="Terminer"
+               [icon]="finished ? 'checked.svg' : 'checked-orange.svg'"
                [type]="finished ? 'primary' : 'outline'"
                [disabled]="!finished"
                (click)="finish()"></bx-button>
