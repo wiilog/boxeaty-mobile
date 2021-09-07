@@ -7,16 +7,15 @@
 </ion-header>
 
 <ion-content>
-    <div class="content">
-        <bx-section>{{crate}}</bx-section>
-        <div class="boxes" *ngIf="boxes">
-            <bx-item *ngFor="let box of boxes" [leftLabel]="box.boxNumber + ' - ' + box.boxType" [border]="true" [icon]="'reception/trash-cercle.svg'"
-                     (action)="deleteBox(box)"></bx-item>
-        </div>
-    </div>
+    <bx-section>{{ crate }}</bx-section>
+    <bx-card-wrapper *ngFor="let box of boxes" [hideTitle]="true">
+        <bx-item [leftLabel]="box.boxNumber + ' - ' + box.boxType" icon="trash.svg"
+                 (action)="deleteBox(box)">
+        </bx-item>
+    </bx-card-wrapper>
 </ion-content>
 
 <ion-footer>
-    <bx-button [label]="'Flasher box'" [icon]="'scan.svg'" [scanner]="true"></bx-button>
-    <bx-button [label]="'Suivant'" [icon]="'next.svg'" (click)="next()"></bx-button>
+    <bx-button label="Flasher Box" icon="scan.svg" [scanner]="true"></bx-button>
+    <bx-button label="Suivant" icon="next.svg" (click)="next()" iconWidth="15px"></bx-button>
 </ion-footer>
