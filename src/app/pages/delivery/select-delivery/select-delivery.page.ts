@@ -36,7 +36,7 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
         }
 
         const ord = this.deliveryRound.order;
-        this.deliveryRound.orders.sort((a, b) => ord[b.id] - ord[a.id]);
+        this.deliveryRound.orders.sort((a, b) => ord[a.id] - ord[b.id]);
 
         this.everythingTaken = true;
         for (const order of this.deliveryRound.orders) {
