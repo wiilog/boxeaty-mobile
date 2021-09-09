@@ -40,13 +40,13 @@
 <ion-footer>
     <bx-button [type]="selectedPreparationBoxes === preparationBoxesAmount ? 'outline': 'primary'"
                 label="Flasher Box"
-               icon="scan.svg"
+               [icon]="selectedPreparationBoxes === preparationBoxesAmount ? 'scan-orange.svg' : 'scan.svg'"
                [scanner]="true"
                [disabled]="selectedPreparationBoxes === preparationBoxesAmount">
     </bx-button>
     <bx-button [type]="selectedPreparationBoxes === preparationBoxesAmount ? 'primary': 'outline'"
                label="Terminer"
-               icon="checked-orange.svg"
+               [icon]="selectedPreparationBoxes === preparationBoxesAmount ? 'checked.svg' : 'checked-orange.svg'"
                (click)="endPicking()"
                [disabled]="selectedPreparationBoxes < preparationBoxesAmount">
     </bx-button>
