@@ -28,10 +28,13 @@ export class ItemComponent {
     @Input()
     public subtitle: boolean;
 
+    @Input()
+    public liteItem: boolean;
+
     @Output()
     public action = new EventEmitter<void>();
 
-    onImageClick() {
+    public onImageClick() {
         if (this.action) {
             this.action.emit();
         }

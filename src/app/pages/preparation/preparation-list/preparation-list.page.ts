@@ -70,7 +70,6 @@ export class PreparationListPage implements ViewWillEnter {
     }
 
     public onPreparationClicked(preparation: any): void {
-        console.log(preparation);
         if(!preparation.editable) {
             this.toastService.show(`Cette préparation est déjà en cours de traitement par un autre opérateur.`);
         } else {

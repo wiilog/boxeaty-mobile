@@ -23,6 +23,7 @@
             <bx-card-wrapper *ngFor="let crate of crateData.crates" [hideTitle]="true" class="wrapped">
                 <bx-item [leftLabel]="crate.number"
                          icon="checked-grey.svg"
+                         [liteItem]="true"
                          (action)="treatCrate(crate)">
                 </bx-item>
             </bx-card-wrapper>

@@ -13,6 +13,7 @@
         <div class="wrapped-cards">
             <bx-card-wrapper *ngFor="let box of containedBoxes" [hideTitle]="true" class="wrapped">
                 <bx-item [leftLabel]="box" icon="trash.svg"
+                         [liteItem]="true"
                          (action)="delete(box)">
                 </bx-item>
             </bx-card-wrapper>
