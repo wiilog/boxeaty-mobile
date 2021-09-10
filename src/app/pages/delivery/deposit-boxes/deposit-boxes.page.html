@@ -8,7 +8,7 @@
                          [tokenAmount]="order.token_amount"></bx-card-content>
     </bx-card-client>
 
-    <bx-section *ngIf="toDeposit.length">Caisses à déposer</bx-section>
+    <bx-section *ngIf="toDeposit.length > 0">Caisses à déposer</bx-section>
     <bx-card-wrapper *ngFor="let crate of toDeposit" [leftTitle]="crate.crate">
         <bx-item [leftLabel]="'Type ' + crate.type" icon="checked-grey.svg"></bx-item>
     </bx-card-wrapper>
@@ -19,7 +19,13 @@
     </bx-card-wrapper>
 </ion-content>
 <ion-footer>
-    <bx-button label="Flasher caisse" icon="scan.svg" [scanner]="true"></bx-button>
-    <bx-button label="Terminer" type="outline" icon="checked-orange.svg" [disabled]="!!toDeposit.length"
+    <bx-button label="Flasher caisse"
+               icon="scan.svg"
+               [scanner]="true"
+               [disabled]="toDeposit.length === 0"></bx-button>
+    <bx-button label="Terminer"
+               type="primary"
+               icon="checked.svg"
+               [disabled]="toDeposit.length > 0"
                (click)="finish()"></bx-button>
 </ion-footer>
