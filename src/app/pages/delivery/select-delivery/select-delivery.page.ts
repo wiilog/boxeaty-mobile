@@ -35,14 +35,11 @@ export class SelectDeliveryPage implements ViewWillEnter, ViewDidEnter {
             }
         }
 
-        const ord = this.deliveryRound.order;
-        this.deliveryRound.orders.sort((a, b) => ord[a.id] - ord[b.id]);
-
-        this.everythingTaken = true;
-        for (const order of this.deliveryRound.orders) {
-            order.order = ord[order.id] + 1;
-            this.everythingTaken &&= order.taken;
-        }
+        this.deliveryRound.orders = this.deliveryRound.orders.map((clientOrder, index) => ({
+            ...clientOrder,
+            order: (index + 1)
+        }));
+        this.everythingTaken = this.deliveryRound.orders.every(({taken}) => taken);
     }
 
     public ionViewDidEnter() {
