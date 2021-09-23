@@ -4,8 +4,9 @@ import {ApiService} from '@app/services/api.service';
 import {Depository} from '@app/entities/depository';
 import {StorageService} from '@app/services/storage.service';
 import {Platform, ViewWillEnter} from '@ionic/angular';
-import {Entity} from '@app/entities/entity';
 import {AppComponent} from '@app/app.component';
+import {Location} from '@app/entities/location';
+import {Quality} from '@app/entities/quality';
 
 @Component({
     selector: 'bx-loading',
@@ -28,20 +29,28 @@ export class LoadingPage implements ViewWillEnter {
             await this.storage.initialize(true);
         });
 
-        await this.load(`Chargement des dépôts`, async () => {
+        const depository = async () => {
             const depositories = await this.api.request(ApiService.DEPOSITORIES).toPromise();
-            await this.storage.insert<Depository>('depository', depositories, true);
-        });
+            await this.storage.insert<Depository>(`depository`, depositories, true);
 
-        await this.load(`Chargement des emplacements`, async () => {
+            console.log(`Chargement des dépôts terminé`);
+        };
+
+        const location = async () => {
             const locations = await this.api.request(ApiService.LOCATIONS).toPromise();
-            await this.storage.insert<Entity>('location', locations, true);
-        });
+            await this.storage.insert<Location>(`location`, locations, true);
 
-        await this.load(`Chargement des qualités`, async () => {
+            console.log(`Chargement des emplacements terminé`);
+        };
+
+        const quality = async () => {
             const qualities = await this.api.request(ApiService.QUALITIES).toPromise();
-            await this.storage.insert<Entity>('quality', qualities, true);
-        });
+            await this.storage.insert<Quality>(`quality`, qualities, true);
+
+            console.log(`Chargement des qualités terminé`);
+        };
+
+        await this.load(`Chargement des données`, depository, location, quality);
 
         this.storage.getUser().subscribe(user => {
             if(user.rights.preparations) {
@@ -60,11 +69,11 @@ export class LoadingPage implements ViewWillEnter {
         });
     }
 
-    private async load(text: string, callback: () => void) {
+    private async load(text: string, ...loaders: Array<() => void>) {
         this.content = text;
         console.log(text);
 
-        await callback();
+        await Promise.all(loaders);
     }
 
 }

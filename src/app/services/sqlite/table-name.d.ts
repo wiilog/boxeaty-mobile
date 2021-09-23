@@ -6,6 +6,4 @@ export interface TableDefinition {
     };
 }
 
-export type TableName = 'depository'
-    | 'location'
-    | 'quality';
+export type TableName = `depository` | `location` | `quality`;

@@ -9,7 +9,11 @@ import {LoadingController} from '@ionic/angular';
 import API_HOST from '@config/api-host';
 import {StorageService} from '@app/services/storage.service';
 import {User} from '@app/entities/user';
-import Route from '@app/entities/route';
+
+export class Route {
+    public method: string;
+    public endpoint: string;
+}
 
 @Injectable({
     providedIn: 'root'

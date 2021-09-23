@@ -14,7 +14,7 @@ export class ScannerService {
     private static readonly ZEBRA_FILTER_ACTION: string = 'fr.wiilog.boxeatymobile.ACTION';
     private static readonly ZEBRA_FILTER_CATEGORY: string = 'android.intent.category.DEFAULT';
 
-    public readonly scan$: Subject<{ mode: 'zebra'|'photo'; barCode: string; }>;
+    public readonly scan$: Subject<{ mode: 'zebra' | 'photo'; barCode: string; }>;
 
     private zebraBroadcastReceiverAlreadyReceived: boolean;
 
@@ -29,8 +29,9 @@ export class ScannerService {
                        private webIntent: WebIntent) {
         this.scan$ = new Subject();
 
-        this.scan$.subscribe(() => {}, ({mode}) => {
-            if (mode === 'photo') {
+        this.scan$.subscribe(() => {
+        }, ({mode}) => {
+            if(mode === 'photo') {
                 this.toastService.show('Une erreur est survenue lors du scan.');
             }
         });
@@ -45,21 +46,19 @@ export class ScannerService {
         BarcodeScanner
             .checkPermission({force: true})
             .then((status) => {
-                if (status.granted) {
+                if(status.granted) {
                     this.show();
 
                     BarcodeScanner.startScan().then(result => {
                         this.hide();
 
-                        if (result.hasContent) {
+                        if(result.hasContent) {
                             this.scan$.next({mode: 'photo', barCode: result.content});
-                        }
-                        else {
+                        } else {
                             this.scan$.error({mode: 'photo'});
                         }
                     });
-                }
-                else {
+                } else {
                     this.scan$.error({mode: 'photo'});
                 }
             });
@@ -84,7 +83,7 @@ export class ScannerService {
     }
 
     public setOpacity(value: number): void {
-        if (!this.body) {
+        if(!this.body) {
             this.body = document.getElementsByTagName(`html`)[0];
         }
 
@@ -93,27 +92,27 @@ export class ScannerService {
     }
 
     private registerZebraBroadcastReceiver(): void {
-        if (!this.zebraBroadcastReceiverAlreadyReceived) {
+        if(!this.zebraBroadcastReceiverAlreadyReceived) {
             this.zebraBroadcastReceiverAlreadyReceived = true;
 
-            this.webIntent
-                .registerBroadcastReceiver({
-                    filterActions: [ScannerService.ZEBRA_FILTER_ACTION],
-                    filterCategories: [ScannerService.ZEBRA_FILTER_CATEGORY]
-                })
-                .subscribe((intent) => {
-                    this.ngZone.run(() => {
-                        this.scan$.next({
-                            mode: 'zebra',
-                            barCode: intent.extras[ScannerService.ZEBRA_VALUE_ATTRIBUTE]
-                        });
+            const config = {
+                filterActions: [ScannerService.ZEBRA_FILTER_ACTION],
+                filterCategories: [ScannerService.ZEBRA_FILTER_CATEGORY]
+            };
+
+            this.webIntent.registerBroadcastReceiver(config).subscribe(intent => {
+                this.ngZone.run(() => {
+                    this.scan$.next({
+                        mode: 'zebra',
+                        barCode: intent.extras[ScannerService.ZEBRA_VALUE_ATTRIBUTE]
                     });
                 });
+            });
         }
     }
 
     private unsubscribeBackButton(): void {
-        if (this.backButtonSubscription && !this.backButtonSubscription.closed) {
+        if(this.backButtonSubscription && !this.backButtonSubscription.closed) {
             this.backButtonSubscription.unsubscribe();
             this.backButtonSubscription = undefined;
         }

@@ -36,7 +36,7 @@ export class ButtonComponent {
 
     public constructor(private scannerService: ScannerService) {}
 
-    public startScan(): void {
+    public scan(): void {
         if (this.scanner) {
             this.scanning = true;
             this.scannerService.launchScan();
@@ -50,7 +50,7 @@ export class ButtonComponent {
         }
 
         if (this.scanner && !this.disabled) {
-            this.startScan();
+            this.scan();
         }
     }
 
