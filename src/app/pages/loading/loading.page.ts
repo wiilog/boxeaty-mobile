@@ -53,18 +53,20 @@ export class LoadingPage implements ViewWillEnter {
         await this.load(`Chargement des données`, depository, location, quality);
 
         this.storage.getUser().subscribe(user => {
-            if(user.rights.preparations) {
-                this.navService.setRoot(NavService.PREPARATION_LIST);
-                this.navService.menu = AppComponent.PREPARATIONS;
-            } else if(user.rights.deliveries) {
-                this.navService.setRoot(NavService.DELIVERY_ROUNDS);
-                this.navService.menu = AppComponent.DELIVERIES;
-            } else if(user.rights.receptions) {
-                this.navService.setRoot(NavService.RECEPTION_MENU);
-                this.navService.menu = AppComponent.RECEPTIONS;
-            } else {
-                this.navService.setRoot(NavService.COLLECT_LIST);
-                this.navService.menu = AppComponent.COLLECTS;
+            if(user) {
+                if (user.rights.preparations) {
+                    this.navService.setRoot(NavService.PREPARATION_LIST);
+                    this.navService.menu = AppComponent.PREPARATIONS;
+                } else if (user.rights.deliveries) {
+                    this.navService.setRoot(NavService.DELIVERY_ROUNDS);
+                    this.navService.menu = AppComponent.DELIVERIES;
+                } else if (user.rights.receptions) {
+                    this.navService.setRoot(NavService.RECEPTION_MENU);
+                    this.navService.menu = AppComponent.RECEPTIONS;
+                } else {
+                    this.navService.setRoot(NavService.COLLECT_LIST);
+                    this.navService.menu = AppComponent.COLLECTS;
+                }
             }
         });
     }
@@ -73,7 +75,7 @@ export class LoadingPage implements ViewWillEnter {
         this.content = text;
         console.log(text);
 
-        await Promise.all(loaders);
+        await Promise.all(loaders.map(f => f()));
     }
 
 }
