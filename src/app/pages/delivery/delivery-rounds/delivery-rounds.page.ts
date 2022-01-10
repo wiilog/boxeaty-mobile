@@ -45,12 +45,12 @@ export class DeliveryRoundsPage implements ViewWillEnter {
 
         const today = new Date();
         if(date.getDate() === today.getDate() && date.getMonth() === today.getMonth() && date.getFullYear() === today.getFullYear()) {
-            return `Aujourd'hui <span class="silent">${formatDate(date, `d MMMM`, `fr`)}</span>`;
+            return `Aujourd'hui ${formatDate(date, `d MMMM`, `fr`)}`;
         }
 
         const tomorrow = new Date(today.getTime() + day);
         if(date.getDate() === tomorrow.getDate() && date.getMonth() === tomorrow.getMonth() && date.getFullYear() === tomorrow.getFullYear()) {
-            return `Demain <span class="silent">${formatDate(date, `d MMMM`, `fr`)}</span>`;
+            return `Demain ${formatDate(date, `d MMMM`, `fr`)}`;
         }
 
         return formatDate(date, `EEEE d MMMM`, `fr`);
