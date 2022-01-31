@@ -53,7 +53,8 @@ export class ScannerService {
                         this.hide();
 
                         if(result.hasContent) {
-                            this.scan$.next({mode: 'photo', barCode: result.content});
+                            const sanitized = result.content.replace(/http[s]?:\/\/box\.boxeaty\.fr\/(.*)/i, `$1`);
+                            this.scan$.next({mode: 'photo', barCode: sanitized});
                         } else {
                             this.scan$.error({mode: 'photo'});
                         }
