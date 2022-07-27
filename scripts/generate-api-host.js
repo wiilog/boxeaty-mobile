@@ -28,7 +28,7 @@ if(process.argv[2] === `prod`) {
   if(availableIPv4Addresses.length === 0) {
     throw new Error(`IP of the local server not found`);
   } else {
-    writeConfig(`http://${availableIPv4Addresses[0]}:8000`);
+    writeConfig(`http://${availableIPv4Addresses[0]}:21524`);
   }
 }
 

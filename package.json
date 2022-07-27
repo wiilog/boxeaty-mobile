@@ -10,7 +10,7 @@
         "lint": "ng lint",
         "prod": "ng build --configuration production",
         "sync": "yarn cordova-res android --skip-config --copy && yarn capacitor sync",
-        "run-android": "node scripts/initialize.js && ng build && yarn sync && yarn ionic capacitor run android --livereload --external",
+        "watch": "node scripts/initialize.js && ng build && yarn sync && yarn ionic capacitor run android --livereload --external",
         "build-apk-test": "node scripts/initialize.js test && yarn prod && yarn sync && yarn capacitor copy && yarn capacitor copy android && yarn capacitor open android",
         "build-apk-rec": "node scripts/initialize.js rec && yarn prod && yarn sync && yarn capacitor copy && yarn capacitor copy android && yarn capacitor open android",
         "build-apk-prod": "node scripts/initialize.js prod && yarn prod && yarn sync && yarn capacitor copy && yarn capacitor copy android && yarn capacitor open android"
